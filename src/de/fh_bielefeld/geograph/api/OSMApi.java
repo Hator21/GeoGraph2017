@@ -13,9 +13,6 @@ public class OSMApi {
 		
 		private final String call_uri;
 
-	    /**
-	     * @param text 
-	     */
 	    private CALLS(final String call_uri) {
 	        this.call_uri = call_uri;
 	    }
@@ -30,5 +27,12 @@ public class OSMApi {
 	
 	public OSMApi(){
 		
+	}
+	
+	//For testing purposes only! Remove when merged into Master!
+	public static void main(String[] args){
+		//For testing purposes only! Remove when merged into Master!
+		
+		OSMApi oapi = new OSMApi();
 	}
 }
