@@ -12,7 +12,7 @@
          <children>
             <AnchorPane fx:id="leftAnchor" prefHeight="900.0" prefWidth="276.0">
                <children>
-                  <Label fx:id="dgLabel" layoutX="14.0" layoutY="14.0" prefHeight="41.0" prefWidth="210.0" text="DG (Gezimalgrad)*">
+                  <Label fx:id="dgLabel" layoutX="14.0" layoutY="14.0" prefHeight="41.0" prefWidth="210.0" text="DG (Dezimalgrad)*">
                      <font>
                         <Font size="24.0" />
                      </font>
@@ -27,7 +27,7 @@
                         <Font size="18.0" />
                      </font>
                   </Label>
-                  <Label fx:id="wgs84Label" layoutX="13.0" layoutY="172.0" text="*kartenbezugssystem WGS 84" />
+                  <Label fx:id="wgs84Label" layoutX="13.0" layoutY="172.0" text="*Kartenbezugssystem WGS 84" />
                   <Button fx:id="searchButton" alignment="CENTER" layoutX="14.0" layoutY="130.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="254.0" text="Nach Koordinaten suchen">
                      <font>
                         <Font size="14.0" />
