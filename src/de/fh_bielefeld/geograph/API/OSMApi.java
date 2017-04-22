@@ -1,4 +1,4 @@
-package de.fh_bielefeld.geograph.API.src;
+package de.fh_bielefeld.geograph.API;
 
 public class OSMApi {
 
