@@ -6,15 +6,15 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-public class OSMStreetGUI extends Application {
+public class Main extends Application {
 
 	public static void main(String[] args) {
-		Application.launch(OSMStreetGUI.class, args);
+		Application.launch(Main.class, args);
 	}
 
 	@Override
 	public void start(Stage stage) throws Exception {
-		Parent root = FXMLLoader.load(getClass().getResource("fxml_OSMStreetGUI.fxml"));
+		Parent root = FXMLLoader.load(getClass().getResource("OSMStreetGUI.fxml"));
 
 		stage.setTitle("OSMStreetGUI");
 		stage.setScene(new Scene(root, 1600, 900));
