@@ -1,4 +1,4 @@
-package de.fh_bielefeld.geograph.api;
+package de.fh_bielefeld.geograph.API;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
