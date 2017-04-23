@@ -25,5 +25,9 @@ public class OSMStreetGUIController {
 			System.out.println(latitude + ", " + longitude);
 		});
 
+		zoomSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
+			System.out.println("Slider Value Changed (newValue: " + newValue.intValue() + ")\n");
+		});
+
 	}
 }
