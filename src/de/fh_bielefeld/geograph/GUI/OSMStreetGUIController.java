@@ -26,7 +26,7 @@ public class OSMStreetGUIController {
 		});
 
 		zoomSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
-			System.out.println("Slider Value Changed (newValue: " + newValue.intValue() + ")\n");
+			System.out.println("Slider Value Changed (newValue: " + newValue.doubleValue() + ")\n");
 		});
 
 	}
