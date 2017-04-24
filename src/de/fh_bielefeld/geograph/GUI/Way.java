@@ -12,4 +12,10 @@ public class Way {
 		this.refList = refList;
 		this.tagList = tagList;
 	}
+
+	public Way(String id, ArrayList<Node> refList) {
+		this.id = id;
+		this.refList = refList;
+		this.tagList = null;
+	}
 }
