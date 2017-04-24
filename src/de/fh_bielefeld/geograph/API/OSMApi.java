@@ -25,12 +25,13 @@ public class OSMApi {
 
     public static final String api_uri = "http://www.openstreetmap.org/";
     public static final String api_test_uri = "http://www.openstreetmap.org";
-
+    //0.0000000,10.0000000,0.1000000,10.1000000
     public static enum CALLS {
         Capabilities("/api/capabilities"),
         BoundingBoxMap("/api/0.6/map?bbox="), //GET /api/0.6/map?bbox=left,down,right,up
         Permissions("/api/0.6/permissions"),
-        Node("/api/0.6/node/") //GET /api/0.6/node/nodeid
+        Node("/api/0.6/node/"), //GET /api/0.6/node/nodeid  //Ways von Node Ways for node: GET /api/0.6/node/#id/ways
+        Way("/api/0.6/way/") //Way durch id /api/0.6/[way|relation]/#id/full
         ;
 
         private final String call_uri;
@@ -51,6 +52,7 @@ public class OSMApi {
         
         return requestXML(connectionString);
     }
+    
 
     public static Document getBoundingBoxOfRange(double latitude, double longitude, double range) throws IOException, ParserConfigurationException, SAXException{
         return getBoundingBoxLatLong(latitude-range, longitude-range, latitude+range, latitude+range);
@@ -81,20 +83,6 @@ public class OSMApi {
         DocumentBuilder docBuilder = dbfac.newDocumentBuilder();
 
         return docBuilder.parse(connection.getInputStream());
-    }
-
-    //For testing purposes only! Remove when merged into Master!
-    public static void main(String[] args){
-        //For testing purposes only! Remove when merged into Master!
-        Document d = null;
-        try {
-            //d = OSMApi.getBoundingBoxLatLong(0.0000000,10.0000000,0.1000000,10.1000000);
-            d = OSMApi.getNodeWithID(3785338095L);
-            System.out.println(getStringFromDocument(d));
-           
-        } catch (IOException | ParserConfigurationException | SAXException e) {
-            e.printStackTrace();
-        }
     }
     
     public static String getStringFromDocument(Document doc)
