@@ -1,29 +1,107 @@
 package de.fh_bielefeld.geograph.API;
 
+import java.io.IOException;
+import java.io.StringWriter;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.util.Locale;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+
+import org.w3c.dom.Document;
+import org.xml.sax.SAXException;
+
 public class OSMApi {
 
-	public static final String	api_uri			= "http://api.openstreetmap.org/";
-	public static final String	api_test_uri	= "http://api06.dev.openstreetmap.org/";
+    public static final String api_uri = "http://www.openstreetmap.org/";
+    public static final String api_test_uri = "http://www.openstreetmap.org";
+    //0.0000000,10.0000000,0.1000000,10.1000000
+    public static enum CALLS {
+        Capabilities("/api/capabilities"),
+        BoundingBoxMap("/api/0.6/map?bbox="), //GET /api/0.6/map?bbox=left,down,right,up
+        Permissions("/api/0.6/permissions"),
+        Node("/api/0.6/node/"), //GET /api/0.6/node/nodeid  //Ways von Node Ways for node: GET /api/0.6/node/#id/ways
+        Way("/api/0.6/way/") //Way durch id /api/0.6/[way|relation]/#id/full
+        ;
 
-	public static enum CALLS {
-		Capabilities("/api/capabilities"), BoundingBoxMap("/api/0.6/map"), // GET /api/0.6/map?bbox=left,bottom,right,top
-		Permissions("/api/0.6/permissions");
+        private final String call_uri;
 
-		private final String	call_uri;
+        private CALLS(final String call_uri) {
+            this.call_uri = call_uri;
+        }
 
-		private CALLS(final String call_uri) {
-			this.call_uri = call_uri;
-		}
+        @Override
+        public String toString() {
+            return call_uri;
+        }
+    }
+    
+    public static Document getNodeWithID(long nodeId) throws ParserConfigurationException, IOException, SAXException{
+        
+        String connectionString = api_uri + CALLS.Node + nodeId;
+        
+        return requestXML(connectionString);
+    }
+    
 
-		@Override
-		public String toString() {
-			return call_uri;
-		}
-	}
+    public static Document getBoundingBoxOfRange(double latitude, double longitude, double range) throws IOException, ParserConfigurationException, SAXException{
+        return getBoundingBoxLatLong(latitude-range, longitude-range, latitude+range, latitude+range);
+    }
 
-	// TODO: HTTP Basic Authentication
+    public static Document getBoundingBoxLatLong(double minLatitude, double minLongitude, double maxLatitude, double maxLongitude) throws IOException, ParserConfigurationException, SAXException{
 
-	public OSMApi() {
+        DecimalFormat format = new DecimalFormat("##0.0000000", DecimalFormatSymbols.getInstance(Locale.ENGLISH));
 
-	}
+        String left = format.format(minLongitude);
+        String down = format.format(minLatitude);
+        String right = format.format(maxLongitude);
+        String up = format.format(maxLatitude);
+
+        String connectionString = api_uri + CALLS.BoundingBoxMap +
+                left  + "," +
+                down  + "," +
+                right + "," +
+                up;
+        return requestXML(connectionString);
+    }
+
+    private static Document requestXML(final String url) throws ParserConfigurationException, IOException, SAXException{
+        URL apiURL = new URL(url);
+        HttpURLConnection connection = (HttpURLConnection) apiURL.openConnection();
+
+        DocumentBuilderFactory dbfac = DocumentBuilderFactory.newInstance();
+        DocumentBuilder docBuilder = dbfac.newDocumentBuilder();
+
+        return docBuilder.parse(connection.getInputStream());
+    }
+    
+    public static String getStringFromDocument(Document doc)
+    {
+        try
+        {
+           DOMSource domSource = new DOMSource(doc);
+           StringWriter writer = new StringWriter();
+           StreamResult result = new StreamResult(writer);
+           TransformerFactory tf = TransformerFactory.newInstance();
+           Transformer transformer = tf.newTransformer();
+           transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+           transformer.transform(domSource, result);
+           return writer.toString();
+        }
+        catch(TransformerException ex)
+        {
+           ex.printStackTrace();
+           return null;
+        }
+    } 
 }
