@@ -17,8 +17,8 @@ Parser:
 -Stefan
 
 Programmierer:
--Denis
--Denis
+-Dennis
+-Dennis
 -Typ aus 6 Semester
 
 Teamleiter:
