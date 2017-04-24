@@ -18,4 +18,50 @@ public class Way {
 		this.refList = refList;
 		this.tagList = null;
 	}
+
+	/**
+	 * @return the id
+	 */
+	public String getId() {
+		return id;
+	}
+
+	/**
+	 * @param id
+	 *            the id to set
+	 */
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	/**
+	 * @return the refList
+	 */
+	public ArrayList<Node> getRefList() {
+		return refList;
+	}
+
+	/**
+	 * @param refList
+	 *            the refList to set
+	 */
+	public void setRefList(ArrayList<Node> refList) {
+		this.refList = refList;
+	}
+
+	/**
+	 * @return the tagList
+	 */
+	public ArrayList<Tag> getTagList() {
+		return tagList;
+	}
+
+	/**
+	 * @param tagList
+	 *            the tagList to set
+	 */
+	public void setTagList(ArrayList<Tag> tagList) {
+		this.tagList = tagList;
+	}
+
 }
