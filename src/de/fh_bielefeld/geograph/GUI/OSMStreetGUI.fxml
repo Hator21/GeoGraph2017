@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.canvas.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
-
 
 <AnchorPane fx:id="anchor" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.fh_bielefeld.geograph.GUI.OSMStreetGUIController">
    <children>
@@ -36,7 +36,7 @@
                   <TextField fx:id="latitudeTextField" layoutX="119.0" layoutY="56.0" />
                   <TextField fx:id="longitudeTextField" layoutX="119.0" layoutY="92.0" />
                   <Separator fx:id="upperSeparator" layoutX="19.0" layoutY="206.0" prefHeight="0.0" prefWidth="244.0" />
-                  <Slider fx:id="zoomSlider" layoutX="13.0" layoutY="872.0" prefHeight="14.0" prefWidth="254.0" min="0" max="0.25" value="0.25"/>
+                  <Slider fx:id="zoomSlider" layoutX="13.0" layoutY="872.0" max="0.25" min="0" prefHeight="14.0" prefWidth="254.0" value="0.25" />
                   <Label fx:id="smallZoomLabel" layoutX="13.0" layoutY="838.0" text="Klein">
                      <font>
                         <Font size="18.0" />
@@ -57,7 +57,10 @@
             </AnchorPane>
             <AnchorPane fx:id="rightAnchor" prefHeight="900.0" prefWidth="1325.0">
                <children>
-                  <Pane fx:id="mapPane" layoutX="14.0" layoutY="14.0" prefHeight="873.0" prefWidth="1296.0" style="-fx-border-color: grey; -fx-border-width: 2; -fx-border-style: solid;" />
+                  <Pane fx:id="mapPane" layoutX="14.0" layoutY="14.0" prefHeight="873.0" prefWidth="1296.0" style="-fx-border-color: grey; -fx-border-width: 2; -fx-border-style: solid;">
+                     <children>
+                        <Canvas fx:id="paintingCanvas" height="873.0" width="1296.0" />
+                     </children></Pane>
                </children>
             </AnchorPane>
          </children>
