@@ -1,10 +1,10 @@
 package de.fh_bielefeld.geograph.GUI;
 
-public class Tag {
+public class MapTag {
 	String	key;
 	String	value;
 
-	public Tag(String key, String value) {
+	public MapTag(String key, String value) {
 		this.key = key;
 		this.value = value;
 	}

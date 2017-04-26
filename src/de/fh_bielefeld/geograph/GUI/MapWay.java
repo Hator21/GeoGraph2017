@@ -2,18 +2,18 @@ package de.fh_bielefeld.geograph.GUI;
 
 import java.util.ArrayList;
 
-public class Way {
-	String			id;
-	ArrayList<Node>	refList;
-	ArrayList<Tag>	tagList;
+public class MapWay implements Comparable<MapWay> {
+	String				id;
+	ArrayList<MapNode>	refList;
+	ArrayList<MapTag>	tagList;
 
-	public Way(String id, ArrayList<Node> refList, ArrayList<Tag> tagList) {
+	public MapWay(String id, ArrayList<MapNode> refList, ArrayList<MapTag> tagList) {
 		this.id = id;
 		this.refList = refList;
 		this.tagList = tagList;
 	}
 
-	public Way(String id, ArrayList<Node> refList) {
+	public MapWay(String id, ArrayList<MapNode> refList) {
 		this.id = id;
 		this.refList = refList;
 		this.tagList = null;
@@ -37,7 +37,7 @@ public class Way {
 	/**
 	 * @return the refList
 	 */
-	public ArrayList<Node> getRefList() {
+	public ArrayList<MapNode> getRefList() {
 		return refList;
 	}
 
@@ -45,14 +45,14 @@ public class Way {
 	 * @param refList
 	 *            the refList to set
 	 */
-	public void setRefList(ArrayList<Node> refList) {
+	public void setRefList(ArrayList<MapNode> refList) {
 		this.refList = refList;
 	}
 
 	/**
 	 * @return the tagList
 	 */
-	public ArrayList<Tag> getTagList() {
+	public ArrayList<MapTag> getTagList() {
 		return tagList;
 	}
 
@@ -60,8 +60,13 @@ public class Way {
 	 * @param tagList
 	 *            the tagList to set
 	 */
-	public void setTagList(ArrayList<Tag> tagList) {
+	public void setTagList(ArrayList<MapTag> tagList) {
 		this.tagList = tagList;
+	}
+
+	@Override
+	public int compareTo(MapWay o) {
+		return o.id.compareTo(this.id);
 	}
 
 }
