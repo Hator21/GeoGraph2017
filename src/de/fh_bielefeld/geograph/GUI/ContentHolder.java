@@ -1,20 +1,24 @@
 package de.fh_bielefeld.geograph.GUI;
 
-public class ContentHolder {
-	private AVLTree<MapNode>	nodes;
-	private AVLTree<MapWay>		ways;
-	private double				latitude, minLatitude, maxLatitude;
-	private double				longitude, minLongitude, maxLongitude;
+import de.fh_bielefeld.geograph.GUI.AVLTree.AVLNode;
 
-	public ContentHolder() {
-		nodes = new AVLTree<MapNode>();
-		ways = new AVLTree<MapWay>();
+public class ContentHolder {
+	private AVLTree<MapNode>		nodes;
+	private AVLTree<MapWay>			ways;
+	private double					latitude, minLatitude, maxLatitude;
+	private double					longitude, minLongitude, maxLongitude;
+	private OSMStreetGUIController	controller;
+
+	public ContentHolder(OSMStreetGUIController controller) {
+		nodes = new AVLTree<MapNode>(this);
+		ways = new AVLTree<MapWay>(this);
 		latitude = 0;
 		longitude = 0;
 		minLatitude = 0;
 		maxLatitude = 0;
 		minLongitude = 0;
 		maxLongitude = 0;
+		this.controller = controller;
 	}
 
 	/**
@@ -135,6 +139,35 @@ public class ContentHolder {
 	 */
 	public void setMaxLongitude(double maxLongitude) {
 		this.maxLongitude = maxLongitude;
+	}
+
+	/**
+	 * @return the controller
+	 */
+	public OSMStreetGUIController getController() {
+		return controller;
+	}
+
+	/**
+	 * @param controller
+	 *            the controller to set
+	 */
+	public void setController(OSMStreetGUIController controller) {
+		this.controller = controller;
+	}
+
+	public void sendData(AVLNode t) {
+		try {
+			MapNode node = ((MapNode) (t.element));
+			controller.drawNode(node);
+		} catch (ClassCastException cceN) {
+			try {
+				MapWay way = ((MapWay) (t.element));
+				controller.drawWay(way);
+			} catch (ClassCastException cceW) {
+				System.out.println("Something wrong with casting");
+			}
+		}
 	}
 
 }

@@ -8,6 +8,9 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
+import javafx.scene.paint.Color;
+import javafx.scene.transform.Affine;
+import javafx.scene.transform.Transform;
 
 public class OSMStreetGUIController {
 
@@ -23,11 +26,15 @@ public class OSMStreetGUIController {
 
 	private double			minLatitude, maxLatitude, minLongitude, maxLongitude;
 
-	private ContentHolder	content	= new ContentHolder();
+	private ContentHolder	content		= new ContentHolder(this);
+
+	private final int		NODERADIUS	= 3;
+	private final int		ARR_SIZE	= 5;
 
 	@FXML
 	public void initialize() {
 		gc = paintingCanvas.getGraphicsContext2D();
+		createExampleData();
 
 		searchButton.setOnAction((event) -> {
 			double latitude;
@@ -51,18 +58,39 @@ public class OSMStreetGUIController {
 		zoomSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
 			System.out.println("Slider Value Changed (newValue: " + newValue.doubleValue() + ")\n");
 		});
+
+		getNodes();
+
+		drawArrow(gc, 50, 50, 200, 200);
+
 	}
 
-	private void drawShapes(GraphicsContext gc, AVLTree<MapNode> t) {
-
+	private void getNodes() {
+		content.getNodes().sendContent();
 	}
 
-	public int mapLatitude(double latitude) {
-		return (int) ((paintingCanvas.getWidth() * latitude - (minLatitude * paintingCanvas.getWidth())) / (maxLatitude - minLatitude));
+	public void drawNode(MapNode node) {
+		gc.setStroke(Color.BLACK);
+		gc.strokeOval(mapLatitude(node.getLatitude()) - NODERADIUS, mapLongitude(node.getLongitude()) - NODERADIUS, NODERADIUS * 2, NODERADIUS * 2);
+		gc.setFill(Color.RED);
+		gc.fillOval(mapLatitude(node.getLatitude()) - NODERADIUS + 1, mapLongitude(node.getLongitude()) - NODERADIUS + 1, NODERADIUS * 2 - 2, NODERADIUS * 2 - 2);
 	}
 
-	public int mapLongitude(double longitude) {
-		return (int) ((paintingCanvas.getHeight() * longitude - (minLongitude * paintingCanvas.getHeight())) / (maxLongitude - minLongitude));
+	private void getWay() {
+		content.getWays().sendContent();
+	}
+
+	public boolean drawWay(MapWay way) {
+		// gc.strokeOval(mapLatitude(way.getLatitude()), mapLongitude(way.getLongitude()), 3, 3);
+		return true;
+	}
+
+	public double mapLatitude(double latitude) {
+		return (paintingCanvas.getWidth() * latitude - (content.getMinLatitude() * paintingCanvas.getWidth())) / (content.getMaxLatitude() - content.getMinLatitude());
+	}
+
+	public double mapLongitude(double longitude) {
+		return (paintingCanvas.getHeight() * longitude - (content.getMinLongitude() * paintingCanvas.getHeight())) / (content.getMaxLongitude() - content.getMinLongitude());
 	}
 
 	private void popUp(String grad) {
@@ -71,6 +99,25 @@ public class OSMStreetGUIController {
 		alert.setHeaderText(null);
 		alert.setContentText("Der " + grad + " ist keine Zahl");
 		alert.showAndWait();
+	}
+
+	public void drawArrow(GraphicsContext gc, int x1, int y1, int x2, int y2) {
+		gc.setFill(Color.BLACK);
+
+		double dx = x2 - x1, dy = y2 - y1;
+		double angle = Math.atan2(dy, dx);
+		int len = (int) Math.sqrt(dx * dx + dy * dy);
+
+		Transform transform = Transform.translate(x1, y1);
+		transform = transform.createConcatenation(Transform.rotate(Math.toDegrees(angle), 0, 0));
+		gc.setTransform(new Affine(transform));
+
+		gc.strokeLine(0, 0, len, 0);
+		gc.fillPolygon(new double[] {
+				len, len - ARR_SIZE, len - ARR_SIZE, len
+		}, new double[] {
+				0, -ARR_SIZE, ARR_SIZE, 0
+		}, 4);
 	}
 
 	private void createExampleData() {
@@ -86,6 +133,8 @@ public class OSMStreetGUIController {
 		content.getNodes().insert(new MapNode("3", 8.1, 50.1));
 		content.getNodes().insert(new MapNode("4", 7.9, 49.9));
 		content.getNodes().insert(new MapNode("5", 8.1, 49.9));
+
+		content.getNodes().serializePrefix();
 	}
 
 }

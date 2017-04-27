@@ -2,14 +2,15 @@ package de.fh_bielefeld.geograph.GUI;
 
 class AVLTree<T extends Comparable<? super T>> {
 
-	public AVLNode<T>	root;
-	public int			countInsertions;
-	public int			countSingleRotations;
-	public int			countDoubleRotations;
+	public AVLNode<T>		root;
+	public int				countInsertions;
+	public int				countSingleRotations;
+	public int				countDoubleRotations;
+	private ContentHolder	content;
 
-	public AVLTree() {
+	public AVLTree(ContentHolder content) {
 		root = null;
-
+		this.content = content;
 		countInsertions = 0;
 		countSingleRotations = 0;
 		countDoubleRotations = 0;
@@ -131,6 +132,18 @@ class AVLTree<T extends Comparable<? super T>> {
 			str.append(sep);
 			serializePrefix(t.left, str, sep);
 			serializePrefix(t.right, str, sep);
+		}
+	}
+
+	public void sendContent() {
+		sendContent(root);
+	}
+
+	public void sendContent(AVLNode<T> t) {
+		if (t != null) {
+			content.sendData(t);
+			sendContent(t.left);
+			sendContent(t.right);
 		}
 	}
 

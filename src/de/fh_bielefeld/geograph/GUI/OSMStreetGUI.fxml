@@ -57,7 +57,7 @@
             </AnchorPane>
             <AnchorPane fx:id="rightAnchor" prefHeight="900.0" prefWidth="1325.0">
                <children>
-                  <Pane fx:id="mapPane" layoutX="14.0" layoutY="14.0" prefHeight="873.0" prefWidth="1296.0" style="-fx-border-color: grey; -fx-border-width: 2; -fx-border-style: solid;">
+                  <Pane fx:id="mapPane" layoutX="14.0" layoutY="14.0" prefHeight="873.0" prefWidth="1296.0" style="-fx-border-color: grey; -fx-border-width: 2; -fx-border-style: solid; -fx-background-color: #F7F7F7;">
                      <children>
                         <Canvas fx:id="paintingCanvas" height="873.0" width="1296.0" />
                      </children></Pane>
