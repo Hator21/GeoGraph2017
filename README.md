@@ -2,24 +2,25 @@
 
 Rollenverteilung
 API:
--Philipp
+- Philipp C.
 
 JUnit / QS:
--Christopher
--Dennis
+- Christopher C.
+- Dennis S.
 
 GUI:
--EDDY
--Jonas
+- Eddy L.
+- Jonas L.
+- Dennis L.
 
 Parser:
--Christopher
--Stefan C.
+- Christopher C.
+- Stefan C.
 
 Programmierer:
--Dennis L.
--Dennis S.
--Alexander S.
+- Dennis L.
+- Dennis S.
+- Alexander S.
 
 Teamleiter:
--Alexander
+- Alexander S.
