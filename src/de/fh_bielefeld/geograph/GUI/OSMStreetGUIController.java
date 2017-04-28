@@ -61,7 +61,7 @@ public class OSMStreetGUIController {
 
 		getNodes();
 
-		drawArrow(gc, 50, 50, 200, 200);
+		drawArrow(gc, 83, 903, 103, 923);
 
 	}
 
@@ -71,9 +71,9 @@ public class OSMStreetGUIController {
 
 	public void drawNode(MapNode node) {
 		gc.setStroke(Color.BLACK);
-		gc.strokeOval(mapLatitude(node.getLatitude()) - NODERADIUS, mapLongitude(node.getLongitude()) - NODERADIUS, NODERADIUS * 2, NODERADIUS * 2);
+		gc.strokeOval(mapLongitude(node.getLongitude()) - NODERADIUS, mapLatitude(node.getLatitude()) - NODERADIUS, NODERADIUS * 2, NODERADIUS * 2);
 		gc.setFill(Color.RED);
-		gc.fillOval(mapLatitude(node.getLatitude()) - NODERADIUS + 1, mapLongitude(node.getLongitude()) - NODERADIUS + 1, NODERADIUS * 2 - 2, NODERADIUS * 2 - 2);
+		gc.fillOval(mapLongitude(node.getLongitude()) - NODERADIUS + 1, mapLatitude(node.getLatitude()) - NODERADIUS + 1, NODERADIUS * 2 - 2, NODERADIUS * 2 - 2);
 	}
 
 	private void getWay() {
@@ -86,11 +86,13 @@ public class OSMStreetGUIController {
 	}
 
 	public double mapLatitude(double latitude) {
-		return (paintingCanvas.getWidth() * latitude - (content.getMinLatitude() * paintingCanvas.getWidth())) / (content.getMaxLatitude() - content.getMinLatitude());
+		double y = paintingCanvas.getHeight() - ((paintingCanvas.getHeight() - 0) / (content.getMaxLatitude() - content.getMinLatitude()) * (latitude - content.getMinLatitude()));
+		return y;
 	}
 
 	public double mapLongitude(double longitude) {
-		return (paintingCanvas.getHeight() * longitude - (content.getMinLongitude() * paintingCanvas.getHeight())) / (content.getMaxLongitude() - content.getMinLongitude());
+		double y = (paintingCanvas.getWidth() - 0) / (content.getMaxLongitude() - content.getMinLongitude()) * (longitude - content.getMinLongitude());
+		return y;
 	}
 
 	private void popUp(String grad) {
@@ -121,18 +123,20 @@ public class OSMStreetGUIController {
 	}
 
 	private void createExampleData() {
-		content.setLatitude(8.0);
-		content.setMinLatitude(7.0);
-		content.setMaxLatitude(9.0);
-		content.setLongitude(50.0);
-		content.setMinLongitude(49.0);
-		content.setMaxLongitude(51.0);
+		content.setLatitude(52.1174047);
+		content.setMinLatitude(52.1164047);
+		content.setMaxLatitude(52.1184047);
+		content.setLongitude(8.6764046);
+		content.setMinLongitude(8.6740046);
+		content.setMaxLongitude(8.6788046);
 
-		content.getNodes().insert(new MapNode("1", 8.0, 50.0));
-		content.getNodes().insert(new MapNode("2", 7.9, 50.1));
-		content.getNodes().insert(new MapNode("3", 8.1, 50.1));
-		content.getNodes().insert(new MapNode("4", 7.9, 49.9));
-		content.getNodes().insert(new MapNode("5", 8.1, 49.9));
+		content.getNodes().insert(new MapNode("1", 52.1172509, 8.6764067));
+		content.getNodes().insert(new MapNode("2", 52.1172090, 8.6764746));
+		content.getNodes().insert(new MapNode("3", 52.1170113, 8.6768153));
+		content.getNodes().insert(new MapNode("4", 52.1166197, 8.6773873));
+		content.getNodes().insert(new MapNode("5", 52.1162315, 8.6778956));
+		content.getNodes().insert(new MapNode("6", 52.1160254, 8.6781414));
+		content.getNodes().insert(new MapNode("7", 52.1158071, 8.6784022));
 
 		content.getNodes().serializePrefix();
 	}
