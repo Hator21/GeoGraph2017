@@ -21,84 +21,94 @@ public class OmlParser {
     private AVLTree<MapNode> parsedNodeTree;
     private AVLTree<MapWay> parsedWayTree;
     private ArrayList<MapNode> nodesToTransfer;
+    private ArrayList<MapWay> waysToTransfer;
     private ContentHolder usedHolder;
     private Map<String,String> changedIDS;
     private Map<String,String> includeConditions;
+    private Document givenDocument;
     
-    OmlParser(ContentHolder givenHolder){
+    OmlParser(ContentHolder givenHolder,Document givenDocument){
+        givenDocument = givenDocument;
         usedHolder = givenHolder;
         positiveDifference = 0.0000005;
         negativeDifference = positiveDifference*(-1);
         parsedNodeTree = new AVLTree<MapNode>(usedHolder);
         parsedWayTree = new AVLTree<MapWay>(usedHolder);
         nodesToTransfer = new ArrayList<MapNode>();
+        waysToTransfer = new ArrayList<MapWay>();
         changedIDS = new HashMap<String,String>();
         includeConditions = new HashMap<String,String>();
         
     }
     
     private void setIncludeConditions(){
-        includeConditions.put("highway", "tertiary");
-        includeConditions.put("highway", "primary");
-        includeConditions.put("highway", "residential");
+        includeConditions.put("route", "road");
     }
     private void clearEverythingUnimportant(){
-        nodesToTransfer.clear();
+        waysToTransfer.clear();
         nodesToTransfer.clear();
         changedIDS.clear();
         includeConditions.clear();
         
     }
-    private void parse(Document givenDocument) throws NullPointerException{
+    private void parse() throws NullPointerException{
         setIncludeConditions();
-        NodeList waysFromGivenDocument = givenDocument.getElementsByTagName("ways");
+        NodeList relationsFromGivenDocument = givenDocument.getElementsByTagName("relation");
         
-        for(int i = 0;i<waysFromGivenDocument.getLength();i++){
+        for(int i=0;i<relationsFromGivenDocument.getLength();i++){
             boolean isImportant = false;
-            String parsedWayID = waysFromGivenDocument.item(i).getAttributes().getNamedItem("id").toString();
-            ArrayList<String> refsFromGivenWay= new ArrayList<String>();
-            ArrayList<MapTag> tagsFromGivenWay= new ArrayList<MapTag>();
-            if(waysFromGivenDocument.item(i).hasChildNodes()){
-                NodeList childsFromGivenWays = waysFromGivenDocument.item(i).getChildNodes();
-                
-                for(int j=0;j<childsFromGivenWays.getLength();j++){
-                    if (childsFromGivenWays.item(j).getNodeName()=="tag"){
-                        String kString = childsFromGivenWays.item(j).getAttributes().getNamedItem("k").getNodeValue();
-                        String vString = childsFromGivenWays.item(j).getAttributes().getNamedItem("v").getNodeValue();
-                        tagsFromGivenWay.add(new MapTag(kString,vString));
-                        if(includeConditions.containsKey(kString)){
-                            if(vString.equals(includeConditions.get(j))){
-                                isImportant=true;
-                                break;
-                            }
-                        } 
-                    }
-                }
-                if(isImportant){
-                    for(int j=0;j<childsFromGivenWays.getLength();j++){
-                        if(childsFromGivenWays.item(j).getNodeName()=="nd"){
-                            parseNode(givenDocument.getElementById(childsFromGivenWays.item(j).getAttributes().getNamedItem("ref").getNodeValue));
-                            if(changedIDS.containsKey(childsFromGivenWays.item(j).getAttributes().getNamedItem("ref").getNodeValue())){
-                                refsFromGivenWay.add(changedIDS.get(childsFromGivenWays.item(j).getAttributes().getNamedItem("ref").getNodeValue()));
-                            }else{
-                                refsFromGivenWay.add(childsFromGivenWays.item(j).getAttributes().getNamedItem("ref").getNodeValue());
-                            }
+            if(relationsFromGivenDocument.item(i).hasChildNodes()){
+                NodeList childsOfRelation = relationsFromGivenDocument.item(i).getChildNodes();
+                for(int x=0;x<childsOfRelation.getLength();i++){
+                    if(includeConditions.containsKey(childsOfRelation.item(x).getAttributes().getNamedItem("k").getNodeValue())){
+                        if((childsOfRelation.item(x).getAttributes().getNamedItem("v").getNodeValue()).equals(includeConditions.get(childsOfRelation.item(x).getAttributes().getNamedItem("k")))){
+                            isImportant=true;
                         }
                     }
                 }
-            }
-            if(isImportant){
-                MapWay parsedWay=new MapWay(parsedWayID,refsFromGivenWay,tagsFromGivenWay);
-                parsedWayTree.insert(parsedWay);
+                if(isImportant){
+                    for(int x=0;x<childsOfRelation.getLength();x++){
+                       if((childsOfRelation.item(x).getAttributes().getNamedItem("type").getNodeValue()).equals("way")){
+                           try{
+                               parseWay(givenDocument.getElementById(childsOfRelation.item(x).getAttributes().getNamedItem("ref").getNodeValue()));
+                           }catch(NullPointerException e){
+                               //do Nothing, because there is no way!
+                           }
+                       }
+                    }
+                }
             }
         }
-        for(int i = 0;i<nodesToTransfer.size();i++){
-        parsedNodeTree.insert(nodesToTransfer.get(i));
-    }
         usedHolder.setNodes(parsedNodeTree);
         usedHolder.setWays(parsedWayTree);
         clearEverythingUnimportant();
     }
+    private void parseWay(Element givenWay)throws NullPointerException{
+        String parsedWayID = givenWay.getAttributes().getNamedItem("id").toString();
+        ArrayList<String> refsFromGivenWay= new ArrayList<String>();
+        ArrayList<MapTag> tagsFromGivenWay= new ArrayList<MapTag>();
+        if(givenWay.hasChildNodes()){
+            NodeList childsFromGivenWays = givenWay.getChildNodes();
+            
+            for(int j=0;j<childsFromGivenWays.getLength();j++){
+                if(childsFromGivenWays.item(j).getNodeName()=="nd"){
+                    parseNode(givenDocument.getElementById(childsFromGivenWays.item(j).getAttributes().getNamedItem("ref").getNodeValue()));
+                    if(changedIDS.containsKey(childsFromGivenWays.item(j).getAttributes().getNamedItem("ref").getNodeValue())){
+                        refsFromGivenWay.add(changedIDS.get(childsFromGivenWays.item(j).getAttributes().getNamedItem("ref").getNodeValue()));
+                    }else{
+                        refsFromGivenWay.add(childsFromGivenWays.item(j).getAttributes().getNamedItem("ref").getNodeValue());
+                    }
+                }
+            }
+        }
+        MapWay parsedWay=new MapWay(parsedWayID,refsFromGivenWay,tagsFromGivenWay);
+        parsedWayTree.insert(parsedWay);
+        for(int i = 0;i<nodesToTransfer.size();i++){
+        parsedNodeTree.insert(nodesToTransfer.get(i));
+    }
+        
+    }
+    
     private void parseNode(Element givenNode){
         String parsedNodeID = givenNode.getAttributes().getNamedItem("id").toString();
         Double parsedNodeLongitude = Double.parseDouble(givenNode.getAttributes().getNamedItem("lon").getNodeValue());
