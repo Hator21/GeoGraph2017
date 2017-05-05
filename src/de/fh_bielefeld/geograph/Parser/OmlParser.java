@@ -19,7 +19,7 @@ public class OmlParser {
     private double positiveDifference, negativeDifference;
     
     OmlParser(){
-        positiveDifference = 0.000000005;
+        positiveDifference = 0.0000005;
         negativeDifference = positiveDifference*(-1);
     }
     
