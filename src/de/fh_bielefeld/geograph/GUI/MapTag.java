@@ -1,6 +1,9 @@
 package de.fh_bielefeld.geograph.GUI;
 
-public class MapTag {
+import de.fh_bielefeld.geograph.GUI_INTERFACE.MapTagInterface;
+
+public class MapTag implements MapTagInterface {
+	
 	String	key;
 	String	value;
 
@@ -9,34 +12,19 @@ public class MapTag {
 		this.value = value;
 	}
 
-	/**
-	 * @return the key
-	 */
 	public String getKey() {
 		return key;
 	}
 
-	/**
-	 * @param key
-	 *            the key to set
-	 */
 	public void setKey(String key) {
 		this.key = key;
 	}
 
-	/**
-	 * @return the value
-	 */
 	public String getValue() {
 		return value;
 	}
 
-	/**
-	 * @param value
-	 *            the value to set
-	 */
 	public void setValue(String value) {
 		this.value = value;
 	}
-
 }

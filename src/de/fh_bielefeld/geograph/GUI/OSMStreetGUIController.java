@@ -1,5 +1,8 @@
 package de.fh_bielefeld.geograph.GUI;
 
+import de.fh_bielefeld.geograph.GUI_INTERFACE.ContentHolderInterface;
+import de.fh_bielefeld.geograph.GUI_INTERFACE.MapNodeInterface;
+import de.fh_bielefeld.geograph.GUI_INTERFACE.MapWayInterface;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -24,9 +27,7 @@ public class OSMStreetGUIController {
 
 	private GraphicsContext	gc;
 
-	private double			minLatitude, maxLatitude, minLongitude, maxLongitude;
-
-	private ContentHolder	content		= new ContentHolder(this);
+	private ContentHolderInterface	content		= new ContentHolder(this);
 
 	private final int		NODERADIUS	= 3;
 	private final int		ARR_SIZE	= 5;
@@ -50,7 +51,7 @@ public class OSMStreetGUIController {
 				longitude = Double.parseDouble(longitudeTextField.getText());
 				content.setLongitude(longitude);
 			} catch (NumberFormatException nbe) {
-				popUp("Längengrad");
+				popUp("Lï¿½ngengrad");
 				longitudeTextField.setText("");
 			}
 		});
@@ -69,7 +70,7 @@ public class OSMStreetGUIController {
 		content.getNodes().sendContent();
 	}
 
-	public void drawNode(MapNode node) {
+	public void drawNode(MapNodeInterface node) {
 		gc.setStroke(Color.BLACK);
 		gc.strokeOval(mapLongitude(node.getLongitude()) - NODERADIUS, mapLatitude(node.getLatitude()) - NODERADIUS, NODERADIUS * 2, NODERADIUS * 2);
 		gc.setFill(Color.RED);
@@ -80,7 +81,7 @@ public class OSMStreetGUIController {
 		content.getWays().sendContent();
 	}
 
-	public boolean drawWay(MapWay way) {
+	public boolean drawWay(MapWayInterface way) {
 		// gc.strokeOval(mapLatitude(way.getLatitude()), mapLongitude(way.getLongitude()), 3, 3);
 		return true;
 	}
@@ -138,7 +139,7 @@ public class OSMStreetGUIController {
 		content.getNodes().insert(new MapNode("6", 52.1160254, 8.6781414));
 		content.getNodes().insert(new MapNode("7", 52.1158071, 8.6784022));
 
-		content.getNodes().serializePrefix();
+//		content.getNodes().serializePrefix();
 	}
 
 }
