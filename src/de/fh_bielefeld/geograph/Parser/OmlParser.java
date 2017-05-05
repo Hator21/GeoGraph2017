@@ -23,7 +23,7 @@ public class OmlParser {
     private ArrayList<MapNode> nodesToTransfer;
     private ContentHolder usedHolder;
     private Map<String,String> changedIDS;
-    private Map<String,String> deleteConditions;
+    private Map<String,String> includeConditions;
     
     OmlParser(ContentHolder givenHolder){
         usedHolder = givenHolder;
@@ -33,26 +33,28 @@ public class OmlParser {
         parsedWayTree = new AVLTree<MapWay>(usedHolder);
         nodesToTransfer = new ArrayList<MapNode>();
         changedIDS = new HashMap<String,String>();
-        deleteConditions = new HashMap<String,String>();
+        includeConditions = new HashMap<String,String>();
         
     }
     
-    private void setDeleteConditions(){
-        deleteConditions.put("building", "yes");
+    private void setIncludeConditions(){
+        includeConditions.put("highway", "tertiary");
+        includeConditions.put("highway", "primary");
+        includeConditions.put("highway", "residential");
     }
     private void clearEverythingUnimportant(){
         nodesToTransfer.clear();
         nodesToTransfer.clear();
         changedIDS.clear();
-        deleteConditions.clear();
+        includeConditions.clear();
         
     }
     private void parse(Document givenDocument) throws NullPointerException{
-        setDeleteConditions();
+        setIncludeConditions();
         NodeList waysFromGivenDocument = givenDocument.getElementsByTagName("ways");
         
         for(int i = 0;i<waysFromGivenDocument.getLength();i++){
-            boolean isImportant = true;
+            boolean isImportant = false;
             String parsedWayID = waysFromGivenDocument.item(i).getAttributes().getNamedItem("id").toString();
             ArrayList<String> refsFromGivenWay= new ArrayList<String>();
             ArrayList<MapTag> tagsFromGivenWay= new ArrayList<MapTag>();
@@ -64,9 +66,9 @@ public class OmlParser {
                         String kString = childsFromGivenWays.item(j).getAttributes().getNamedItem("k").getNodeValue();
                         String vString = childsFromGivenWays.item(j).getAttributes().getNamedItem("v").getNodeValue();
                         tagsFromGivenWay.add(new MapTag(kString,vString));
-                        if(deleteConditions.containsKey(kString)){
-                            if(vString.equals(deleteConditions.get(j))){
-                                isImportant=false;
+                        if(includeConditions.containsKey(kString)){
+                            if(vString.equals(includeConditions.get(j))){
+                                isImportant=true;
                                 break;
                             }
                         } 
