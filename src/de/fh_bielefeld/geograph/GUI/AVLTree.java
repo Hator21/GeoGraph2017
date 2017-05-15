@@ -1,14 +1,19 @@
 package de.fh_bielefeld.geograph.GUI;
 
-public class AVLTree<T extends Comparable<? super T>> {
+import de.fh_bielefeld.geograph.GUI_INTERFACE.AVLTreeInterface;
+import de.fh_bielefeld.geograph.GUI_INTERFACE.ContentHolderInterface;
+
+public class AVLTree<T extends Comparable<? super T>> implements AVLTreeInterface<T> {
 
 	public AVLNode<T>		root;
 	public int				countInsertions;
 	public int				countSingleRotations;
 	public int				countDoubleRotations;
-	private ContentHolder	content;
 
-	public AVLTree(ContentHolder content) {
+	private ContentHolderInterface	content;
+
+	public AVLTree(ContentHolderInterface content) {
+
 		root = null;
 		this.content = content;
 		countInsertions = 0;
@@ -293,7 +298,8 @@ public class AVLTree<T extends Comparable<? super T>> {
 		return true;
 	}
 
-	protected static class AVLNode<T> {
+	public static class AVLNode<T> {
+
 
 		protected T				element;
 		protected AVLNode<T>	left;
