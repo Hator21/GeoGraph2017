@@ -9,9 +9,11 @@ public class AVLTree<T extends Comparable<? super T>> implements AVLTreeInterfac
 	public int				countInsertions;
 	public int				countSingleRotations;
 	public int				countDoubleRotations;
+
 	private ContentHolderInterface	content;
 
 	public AVLTree(ContentHolderInterface content) {
+
 		root = null;
 		this.content = content;
 		countInsertions = 0;
@@ -85,7 +87,7 @@ public class AVLTree<T extends Comparable<? super T>> implements AVLTreeInterfac
 
 		return (k1);
 	}
-	
+
 	protected AVLNode<T> doubleWithLeftChild(AVLNode<T> k3) {
 		k3.left = rotateWithRightChild(k3.left);
 		return rotateWithLeftChild(k3);
@@ -297,6 +299,7 @@ public class AVLTree<T extends Comparable<? super T>> implements AVLTreeInterfac
 	}
 
 	public static class AVLNode<T> {
+
 
 		protected T				element;
 		protected AVLNode<T>	left;

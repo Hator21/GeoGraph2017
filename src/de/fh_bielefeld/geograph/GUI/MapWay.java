@@ -2,6 +2,7 @@ package de.fh_bielefeld.geograph.GUI;
 
 import java.util.ArrayList;
 
+
 import de.fh_bielefeld.geograph.GUI_INTERFACE.MapWayInterface;
 
 public class MapWay implements Comparable<MapWay>, MapWayInterface {
@@ -10,28 +11,34 @@ public class MapWay implements Comparable<MapWay>, MapWayInterface {
 	ArrayList<MapTag>	tagList;
 
 	public MapWay(String id, ArrayList<MapNode> refList, ArrayList<MapTag> tagList) {
+
 		this.id = id;
 		this.refList = refList;
 		this.tagList = tagList;
 	}
 
+
 	public MapWay(String id, ArrayList<MapNode> refList) {
+
 		this.id = id;
 		this.refList = refList;
 		this.tagList = null;
 	}
 
+
 	public String getId() {
 		return id;
 	}
 
+
 	public void setId(String id) {
 		this.id = id;
 	}
-	
+
 	public ArrayList<MapNode> getRefList() {
 		return refList;
 	}
+
 
 	public void setRefList(ArrayList<MapNode> refList) {
 		this.refList = refList;
