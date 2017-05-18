@@ -7,8 +7,10 @@
 	\end{itemize}
 	\subsection{Musskriterien}
 	\begin{itemize}
-		\item Das System muss ...
-		\item Das System muss ...
+		\item Das System muss auf dem Kartenbezugssystem WGS 84 laufen
+		\item Das System muss nach Eingabe von Breiten- \& Längengrad eine Teilkarte ausgeben. Auf dieser Karte sind die Bundesautobahnen und Bundesstraßen sowie Richtungspfeile in die, die Autobahn/Straße verläuft, eingezeichnet. Dabei zeigen die Pfeile in die jeweilige Richtung der nächsten Node.
+		\item Das System muss die Pfeil-Nodes, so anpassen das z.b. Geschwindigkeitsbeschränkungen gespeichert werden können. 
+		\item Das System muss skalierbar sein.
 	\end{itemize}
 	\subsection{Wunschkriterien}
 	\begin{itemize}
@@ -16,7 +18,7 @@
 	\end{itemize}
 	\subsection{Abgrenzungskriterien}
 	\begin{itemize}
-		\item Was das System nicht ist
+		\item Das System ist keine Navigations Software
 	\end{itemize}
 	
 	\section{\Large PRODUKTEINSATZ}
@@ -27,15 +29,20 @@
 	\end{itemize}
 	\subsection{Zielgruppen}
 	\begin{itemize}
-		\item Zielgruppe für das GeoGraph Projekt sind Leute die ....
+		\item Die Zielgruppe sind Leute, 
+		\begin{itemize}
+			\item die Wert auf \textbf{"Wege zur Gewinnung und Korrektur von Kartendaten"} legen.
+			\item die Initiativen für \textbf{"GeoInformation und Navigation"} unterstützen.
+		\end{itemize}
 	\end{itemize}
 	\subsection{Betriebsbedingungen}
 	\begin{itemize}
-		\item Das Produkt ...
+		\item Das Produkt benötigt eine stetige Internetverbindung und den Dienst der die *.OSM Dateien zur Verfügung stellt. Unser Service wird angeboten solange wir zugriff auf die *.OSM Dateien haben.
 	\end{itemize}
 	
 	
 	\section{\Large PRODUKTÜBERSICHT}
+	Gibt eine Übersicht über das Produkt, z.B. über alle wichtigen Geschäftsprozesse in Form eines Übersichtsdiagramms.
 	\subsection{Usecase: GeoGraph 2017}
 	\subsection{Usecases 1 2 3}
 	\subsection{Aktivitätsdiagramme}
@@ -92,22 +99,18 @@
 	
 	
 	\section{\Large PRODUKTDATEN}
-		Langfristig sollen folgende Daten im System  gespeichert sein:
+		Langfristig sollen folgende Daten im System gespeichert | ausgelesen werden:
 	\begin{itemize}
-		\item Nodes
-		\item ...
-		\item ...
+		\item Speicherung der Straßenpunkte als OSM-Datei
+		\item Laden der Daten via Overpass API
 	\end{itemize}
-		Das Datenaufkommen nimmt im Zeitverlauf zu .... 
 	\subsection{Analyseklassendiagramm}
 	\subsection{Klassendiagramm GeoGraph 2017}
-	
-	
-	\section{\Large ProduktLeistungen}
+	\section{\Large PRODUKTLEISTUNGEN}
 	\begin{itemize}
-		\item BLABLA
-	\end{itemize}	
-	
+		\item Nicht genauer spezifiziert.
+	\end{itemize} 
+		
 	
 	\section{\Large QUALITÄTSANFORDERUNGEN}
 	\begin{itemize}
@@ -115,22 +118,30 @@
 	\end{itemize}
 	
 	\section{\Large BENUTZEROBERFLÄCHE}
-	Nur eine Rolle verfügbar ADMIN
+	Es gibt nur eine Rolle und das ist die des Admins, der das Prgoramm ausführt (GUI).
+	\begin{figure}
+	\centering
+	\includegraphics[width=0.7\linewidth]{images/GUI}
+	\caption{}
+	\label{fig:GUI}
+	\end{figure}
 	\subsection{Ansicht: verschiedene Ansichten 1 2 3 4 5}
 	\subsection{Zusatandsdiagramme}
+	\subsection{Ansicht: verschiedene Zustandsdiagramme 1 2 3 4 5}
 	
 	
 	\section{\Large NICHTFUNKTIONALE ANFORDERUNGEN}
 	Es werden alle Anforderungen aufgeführt, die sich nicht auf die Funktionalität, \textbf{ die Leistung} und \textbf{ die Benutzungsoberfläche} beziehen, z.B. :
 	\begin{itemize}
-		\item Einzuhaltende Gesetze
-		\item Einzuhaltende Normen
+		\item Einzuhaltende \textbf{Gesetze}
+		\item Einzuhaltende \textbf{Normen}
 		\item Testat durch externe Prüfungsgesellschaft
 		Revisionsfähigkeit 
 		\item Ordnungsmäßigkeit der Buchführung
 		\item \textbf{ Sicherheitsanforderungen, z.B. :}
 		\begin{itemize}
-			\item Passwortschutz
+			\item Richtigkeit der Nodes
+			\item Richtigkeite der Pfeil-Nodes
 			\item Mitlaufen von Protokollen
 			\item Sichere Übertragung
 		\end{itemize}  
@@ -138,59 +149,48 @@
 		\item Sehr performant
 		\item Aktuelle Betriebssysteme abdecken
 		\item Datenkommunikation über einen verschlüsselten Weg
-		\item Daten müssen gespeichert werden
-		 
+		\item Daten müssen gespeichert werden	 
 	\end{itemize} 
 
 	
 	\section{\Large TECHNISCHE PRODUKTUMGEBUNG}
    	In diesem Kapitel wird die technische Umgebung des Produkts beschrieben.\\
-   	Bei Client/ Server-Anwendungen ist die Umgebung jeweils für Clients und Server getrennt anzugeben.
+   	Bei Client / Server-Anwendungen ist die Umgebung jeweils für Clients und Server getrennt anzugeben.
 	\subsection{Software}
 	\begin{itemize}
-		\item - Erfordert Web-Browser auf dem Client
-		
-		getestet und entworfen wird für:
-		
-		- Desktop:
-		Mozilla Firefox 35-42, Google Chrome 40-47, Internet Explorer 11
-		
-		- Android:
-		Chrome 40-47, Samsung Browser
-		
-		- iOS:
-		Safari der iOS Versionen 8.x und 9.x (Tablet und iPhone Version)
+		\item - Erfordert Java auf dem Client
+		\begin{itemize}
+			\item getestet und entworfen wird für :
+			\begin{itemize}
+				\item PC | Laptop
+				\begin{itemize}
+					\item Windows ab Version 7
+					\item Linux
+				\end{itemize}
+			\end{itemize}
+		\end{itemize}
 	\end{itemize}
 	\subsection{Hardware}
 	\begin{itemize}
 		\item \textbf{Internetfähiges Gerät :}
 		\begin{itemize}
-			\item Desktop PC,  
-			\item Tablet,
-			\item Sonstige,
-		\end{itemize}
-		auf dem Java-Code ausführbar ist. 
-		\begin{itemize}
+			\item PC | Laptop
 			\item \textbf{Minimale Bildschirmauflösung :}
-			\begin{itemize}
-				\item 1024 x 768 Pixel Hochformat / Querformat
-			\end{itemize}
-			\item \textbf{Maximale Bildschirmauflösung :}
-			\begin{itemize}
+				\begin{itemize}
+					\item 1024 x 768 Pixel Hochformat / Querformat
+				\end{itemize}
+					\item \textbf{Maximale Bildschirmauflösung :}
+				\begin{itemize}
 				\item 4096 × 2160 Pixel Hochformat / Querformat
-			\end{itemize}
-				
+				\end{itemize}		
 		\end{itemize}
-		
-		
-	
 	\end{itemize}
 	\subsection{Orgware}
 	\begin{itemize}
 		\item Der Client benötigt eine Internetverbindung.
 		\item Um eine befriedigende Nutzererfahrung zu gewährleisten, werden folgende Bandbreiten-Untergrenzen definiert:
 		\begin{itemize}
-			\item \textbf{ Desktop PC :}
+			\item \textbf{ PC | Laptop :}
 			\begin{itemize}
 				\item DSL Verbindung mit min. 2 Mbit/s Download-Bandbreite
 			\end{itemize}
@@ -215,17 +215,24 @@
 	
 	
 	\section{\Large GLOSSAR}
-	
 	In diesem Kapitel wird die spezifische Sprache des Auftraggebers wie \textbf{ Kürzel } und \textbf{ Fachbegriffe } beschrieben, z.B. :
-	\begin{itemize}
-		\item \textbf{ Benutzer }
-		\begin{itemize}
-			\item Eine eindeutig (über Email und Passwort) identifizierbare Einheit, die sich mit dem System verbindet und ein Profil erstellt und selbständig verwaltet.
-		\end{itemize}
-	\end{itemize}
 	\begin{itemize}
 		\item \textbf{ Administrator }
 		\begin{itemize}
-			\item Bearbeitet Meldungen, die von einem Profil erzeugt wurden und handelt entsprechend der Richtlinien. Der Administrator hat je nach Sachlage der Meldung die Möglichkeit, Den Benutzer zu sperren oder zu ahnden.
+			\item Bearbeitet das Programm
 		\end{itemize}
-	\end{itemize}	
+	\end{itemize}
+	\begin{itemize}
+		\item \textbf{ Node }
+		\begin{itemize}
+			\item Eine Node ist eine Kombination aus Punktdaten
+		\end{itemize}
+	\end{itemize}
+	\begin{itemize}
+		\item \textbf{ etc. }
+		\begin{itemize}
+			\item mehr kommt noch ...
+		\end{itemize}
+	\end{itemize}
+
+		
