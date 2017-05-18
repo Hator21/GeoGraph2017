@@ -12,10 +12,6 @@
 		\item Das System muss die Pfeil-Nodes, so anpassen das z.b. Geschwindigkeitsbeschränkungen gespeichert werden können. 
 		\item Das System muss skalierbar sein.
 	\end{itemize}
-	\subsection{Wunschkriterien}
-	\begin{itemize}
-		\item Das System sollte
-	\end{itemize}
 	\subsection{Abgrenzungskriterien}
 	\begin{itemize}
 		\item Das System ist keine Navigations Software
@@ -43,59 +39,68 @@
 	
 	\section{\Large PRODUKTÜBERSICHT}
 	Gibt eine Übersicht über das Produkt, z.B. über alle wichtigen Geschäftsprozesse in Form eines Übersichtsdiagramms.
-	\subsection{Usecase: GeoGraph 2017}
-	\subsection{Usecases 1 2 3}
-	\subsection{Aktivitätsdiagramme}
-	\subsection{diagramme 1 2 3}
-
-
+%	\subsection{Usecase Anzeige der Karten Informationen über die OSM API}
+%	\subsection{Usecase Anzeige der Karten Informationen über die OSM Datei}
+	\subsection{Usecase Diagramm}
+	\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\linewidth]{images/Usecases}
+	\caption{}
+	\label{fig:GUI}
+	\end{figure}
 	\section{\Large PRODUKTFUNKTIONEN}
 	\subsection{Usecase-Beschreibungen}
 
-	\begin{table}
+	\begin{table}[H]
 		\begin{tabular}{|p{8cm}|p{8cm}|}
 			\hline
-			\textbf{ODP-01 ...} \\ 
+			\textbf{GEO-01 } \\ 
 			\hline
-			\textbf{ID :}\centering & ODP-01 ... \\ \hline 
-			\textbf{Title :}\centering & bla \\ \hline 
-			\textbf{Description :}\centering & bla \\ \hline 
-			\textbf{Trigger :}\centering & bla \\ \hline 
-			\textbf{Primary Actor :} \centering & bla \\ \hline 
-			\textbf{Preconditions :}\centering & bla \\ \hline 
-			\textbf{Postconditions :}\centering & bla \\ \hline
-			\textbf{Other Use Cases :}\centering & bla \\ \hline  
-			\textbf{Main Success Scenario :}\centering & bla \\ \hline  
-			\textbf{Extensions :}\centering & bla \\ \hline  
-			\textbf{Owner :}\centering & bla \\ \hline  
-			\textbf{Priority :}\centering & bla \\ \hline  
+			\textbf{ID :}\centering & GEO-01  \\ \hline 
+			\textbf{Title :}\centering & Abruf der Daten über API \\ \hline 
+			\textbf{Description :}\centering & Daten für die Karte werden per API abgerufen \\ \hline 
+			\textbf{Trigger :}\centering & Klick auf den Knopf '"Nach Koordinaten suchen'" \\ \hline 
+			\textbf{Primary Actor :} \centering & User \\ \hline 
+			\textbf{Preconditions :}\centering & Internetverbindung\\ \hline 
+			\textbf{Postconditions :}\centering & - \\ \hline
+			\textbf{Other Use Cases :}\centering & - \\ \hline  
+			\textbf{Main Success Scenario :}\centering & Karte wird angezeigt \\ \hline  
+			\textbf{Extensions :}\centering & - \\ \hline  
+			\textbf{Priority :}\centering & High \\ \hline  
 		\end{tabular}
 	\end{table}
-	
-	\begin{table}
+	\begin{table}[H]
 		\begin{tabular}{|p{8cm}|p{8cm}|}
 			\hline
-			\textbf{ODP-02 ...} \\ 				\hline
-			\textbf{ID :}\centering & ODP-02 ... \\ \hline 
-			\textbf{Title :}\centering & bla \\ \hline 
-			\textbf{Description :}\centering & bla \\ \hline 
-			\textbf{Trigger :}\centering & bla \\ \hline 
-			\textbf{Primary Actor :} \centering & bla \\ \hline 
-			\textbf{Preconditions :}\centering & bla \\ \hline 
-			\textbf{Postconditions :}\centering & bla \\ \hline
-			\textbf{Other Use Cases :}\centering & bla \\ \hline  
-			\textbf{Main Success Scenario :}\centering & bla \\ \hline  
-			\textbf{Extensions :}\centering & bla \\ \hline  
-			\textbf{Owner :}\centering & bla \\ \hline  
-			\textbf{Priority :}\centering & bla \\ \hline  
+			\textbf{GEO-02 } \\ 
+			\hline
+			\textbf{ID :}\centering & GEO-02  \\ \hline 
+			\textbf{Title :}\centering & Abruf der Daten aus einer OSM-Datei \\ \hline 
+			\textbf{Description :}\centering & Daten für die Karte werden aus der hinterlegten OSM-Datei abgerufen \\ \hline 
+			\textbf{Trigger :}\centering & Klick auf den Knopf '"Nach Koordinaten suchen'" \\ \hline 
+			\textbf{Primary Actor :} \centering & User \\ \hline 
+			\textbf{Preconditions :}\centering & Bei Maximalen angaben\\ \hline 
+			\textbf{Postconditions :}\centering & - \\ \hline
+			\textbf{Other Use Cases :}\centering & - \\ \hline  
+			\textbf{Main Success Scenario :}\centering & Karte wird angezeigt \\ \hline  
+			\textbf{Extensions :}\centering & - \\ \hline  
+			\textbf{Priority :}\centering & High \\ \hline  
 		\end{tabular}
 	\end{table}
-	
-	\subsection{Sequenzdiagramme}
-	\begin{itemize}
-		\item blabla
-	\end{itemize}
-	\subsection{Sequenzdiagramme 1 2 3}
+	\subsection{Aktivitätsdiagramm}
+	\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\linewidth]{images/Ablauf}
+	\caption{}
+	\label{fig:Akitiviti}
+	\end{figure}
+	\subsection{Sequenzdiagramm}
+	\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\linewidth]{images/Squenz}
+	\caption{}
+	\label{fig:Seq}
+	\end{figure}
 	
 	
 	\section{\Large PRODUKTDATEN}
@@ -104,8 +109,8 @@
 		\item Speicherung der Straßenpunkte als OSM-Datei
 		\item Laden der Daten via Overpass API
 	\end{itemize}
-	\subsection{Analyseklassendiagramm}
-	\subsection{Klassendiagramm GeoGraph 2017}
+%	\subsection{Analyseklassendiagramm}
+%	\subsection{Klassendiagramm GeoGraph 2017}
 	\section{\Large PRODUKTLEISTUNGEN}
 	\begin{itemize}
 		\item Nicht genauer spezifiziert.
@@ -119,15 +124,15 @@
 	
 	\section{\Large BENUTZEROBERFLÄCHE}
 	Es gibt nur eine Rolle und das ist die des Admins, der das Prgoramm ausführt (GUI).
-	\begin{figure}
+	\begin{figure}[H]
 	\centering
 	\includegraphics[width=0.7\linewidth]{images/GUI}
 	\caption{}
 	\label{fig:GUI}
 	\end{figure}
-	\subsection{Ansicht: verschiedene Ansichten 1 2 3 4 5}
-	\subsection{Zusatandsdiagramme}
-	\subsection{Ansicht: verschiedene Zustandsdiagramme 1 2 3 4 5}
+%	\subsection{Ansicht: verschiedene Ansichten 1 2 3 4 5}
+%	\subsection{Zusatandsdiagramme}
+%	\subsection{Ansicht: verschiedene Zustandsdiagramme 1 2 3 4 5}
 	
 	
 	\section{\Large NICHTFUNKTIONALE ANFORDERUNGEN}
@@ -196,18 +201,18 @@
 			\end{itemize}
 		\end{itemize}
 	\end{itemize}
-	\subsection{Produkt-Schnittstellen}
+%	\subsection{Produkt-Schnittstellen}
 	
 	
-	\section{\Large SPEZIELLE ANFORDERUNGEN AN DIE ENTWICKLUNGS-UMGEBUNG}
-	Entwicklung- und Testumgebung des Frontends: Siehe 10 Technische Produktentwicklung 
-	\subsection{Software}
-	\subsection{Hardware}
-	\subsection{Orgware}
-	\subsection{Entwicklungsschnittstellen}
+%	\section{\Large SPEZIELLE ANFORDERUNGEN AN DIE ENTWICKLUNGS-UMGEBUNG}
+%	Entwicklung- und Testumgebung des Frontends: Siehe 10 Technische Produktentwicklung 
+%	\subsection{Software}
+%	\subsection{Hardware}
+%	\subsection{Orgware}
+%	\subsection{Entwicklungsschnittstellen}
 	
 	
-	\section{\Large GLIEDERUNG IN TEILPRODUKTE}
+%	\section{\Large GLIEDERUNG IN TEILPRODUKTE}
 	
 	
 	\section{\Large ERGÄNZUNGEN}
