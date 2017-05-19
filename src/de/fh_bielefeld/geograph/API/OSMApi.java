@@ -61,6 +61,7 @@ public class OSMApi {
          * Constructor of the Call-URL-Enum
          * @param call_uri String representation of the Call URL
          */
+
         private CALLS(final String call_uri) {
             this.call_uri = call_uri;
         }
@@ -82,6 +83,7 @@ public class OSMApi {
      */
     public static Document getNodeWithID(long nodeId) 
             throws ParserConfigurationException, IOException, SAXException{
+
         
         String connectionString = api_uri + CALLS.Node + nodeId;
         
@@ -120,6 +122,7 @@ public class OSMApi {
      */
     public static Document getBoundingBoxLatLong(double minLatitude, double minLongitude, double maxLatitude, double maxLongitude) 
             throws IOException, ParserConfigurationException, SAXException{
+
 
         DecimalFormat format = new DecimalFormat("##0.0000000", DecimalFormatSymbols.getInstance(Locale.ENGLISH));
 

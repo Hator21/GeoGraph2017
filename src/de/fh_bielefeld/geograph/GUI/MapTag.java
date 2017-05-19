@@ -3,7 +3,7 @@ package de.fh_bielefeld.geograph.GUI;
 import de.fh_bielefeld.geograph.GUI_INTERFACE.MapTagInterface;
 
 public class MapTag implements MapTagInterface {
-	
+
 	String	key;
 	String	value;
 
@@ -12,6 +12,7 @@ public class MapTag implements MapTagInterface {
 		this.value = value;
 	}
 
+
 	public String getKey() {
 		return key;
 	}
@@ -19,6 +20,7 @@ public class MapTag implements MapTagInterface {
 	public void setKey(String key) {
 		this.key = key;
 	}
+
 
 	public String getValue() {
 		return value;

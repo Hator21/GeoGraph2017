@@ -2,9 +2,11 @@ package de.fh_bielefeld.geograph.GUI;
 
 import java.util.ArrayList;
 
+
 import de.fh_bielefeld.geograph.GUI_INTERFACE.MapNodeInterface;
 
 public class MapNode implements Comparable<MapNode>, MapNodeInterface {
+
 
 	String			id;
 	double			latitude;
@@ -25,6 +27,7 @@ public class MapNode implements Comparable<MapNode>, MapNodeInterface {
 		this.tagList = tagList;
 	}
 
+
 	public String getId() {
 		return id;
 	}
@@ -33,21 +36,26 @@ public class MapNode implements Comparable<MapNode>, MapNodeInterface {
 		this.id = id;
 	}
 
+
 	public double getLatitude() {
 		return latitude;
 	}
+
 
 	public void setLatitude(double latitude) {
 		this.latitude = latitude;
 	}
 
+
 	public double getLongitude() {
 		return longitude;
 	}
 
+
 	public void setLongitude(double longitude) {
 		this.longitude = longitude;
 	}
+
 
 	public ArrayList<MapTag> getTagList() {
 		return tagList;
