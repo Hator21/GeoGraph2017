@@ -27,8 +27,7 @@ public class OmlParser {
     private Map<String,String> includeConditions;
     private Document givenDocument;
     
-    OmlParser(ContentHolder givenHolder,Document givenDocument){
-        givenDocument = givenDocument;
+    OmlParser(ContentHolder givenHolder){
         usedHolder = givenHolder;
         positiveDifference = 0.0000005;
         negativeDifference = positiveDifference*(-1);
@@ -51,7 +50,8 @@ public class OmlParser {
         includeConditions.clear();
         
     }
-    private void parse() throws NullPointerException{
+    private void parse(Document documentToParse) throws NullPointerException{
+        givenDocument=documentToParse;
         setIncludeConditions();
         NodeList relationsFromGivenDocument = givenDocument.getElementsByTagName("relation");
         
