@@ -29,7 +29,7 @@ public class OmlParser {
     
     OmlParser(ContentHolder givenHolder){
         usedHolder = givenHolder;
-        positiveDifference = 0.0000005;
+        positiveDifference = 0.0000005;//magicNumber how close the Nodes must be to be considered as one
         negativeDifference = positiveDifference*(-1);
         parsedNodeTree = new AVLTree<MapNode>(usedHolder);
         parsedWayTree = new AVLTree<MapWay>(usedHolder);
@@ -50,7 +50,7 @@ public class OmlParser {
         includeConditions.clear();
         
     }
-    private void parse(Document documentToParse) throws NullPointerException{
+    public void parse(Document documentToParse) throws NullPointerException{
         givenDocument=documentToParse;
         setIncludeConditions();
         NodeList relationsFromGivenDocument = givenDocument.getElementsByTagName("relation");
