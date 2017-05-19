@@ -15,6 +15,13 @@ import javafx.scene.paint.Color;
 import javafx.scene.transform.Affine;
 import javafx.scene.transform.Transform;
 
+/**
+ * 
+ * 
+ * @param 
+ * 
+ * @return 
+ */
 public class OSMStreetGUIController {
 
 	@FXML private Button	searchButton;
@@ -32,6 +39,13 @@ public class OSMStreetGUIController {
 	private final int		NODERADIUS	= 3;
 	private final int		ARR_SIZE	= 5;
 
+	/**
+	 * 
+	 * 
+	 * @param 
+	 * 
+	 * @return 
+	 */
 	@FXML
 	public void initialize() {
 		gc = paintingCanvas.getGraphicsContext2D();
@@ -51,7 +65,7 @@ public class OSMStreetGUIController {
 				longitude = Double.parseDouble(longitudeTextField.getText());
 				content.setLongitude(longitude);
 			} catch (NumberFormatException nbe) {
-				popUp("L�ngengrad");
+				popUp("Laengengrad");
 				longitudeTextField.setText("");
 			}
 		});
@@ -66,10 +80,24 @@ public class OSMStreetGUIController {
 
 	}
 
+	/**
+	 * 
+	 * 
+	 * @param 
+	 * 
+	 * @return 
+	 */
 	private void getNodes() {
 		content.getNodes().sendContent();
 	}
 
+	/**
+	 * 
+	 * 
+	 * @param 
+	 * 
+	 * @return 
+	 */
 	public void drawNode(MapNodeInterface node) {
 		gc.setStroke(Color.BLACK);
 		gc.strokeOval(mapLongitude(node.getLongitude()) - NODERADIUS, mapLatitude(node.getLatitude()) - NODERADIUS, NODERADIUS * 2, NODERADIUS * 2);
@@ -77,25 +105,60 @@ public class OSMStreetGUIController {
 		gc.fillOval(mapLongitude(node.getLongitude()) - NODERADIUS + 1, mapLatitude(node.getLatitude()) - NODERADIUS + 1, NODERADIUS * 2 - 2, NODERADIUS * 2 - 2);
 	}
 
+	/**
+	 * 
+	 * 
+	 * @param 
+	 * 
+	 * @return 
+	 */
 	private void getWay() {
 		content.getWays().sendContent();
 	}
 
+	/**
+	 * 
+	 * 
+	 * @param 
+	 * 
+	 * @return 
+	 */
 	public boolean drawWay(MapWayInterface way) {
 		// gc.strokeOval(mapLatitude(way.getLatitude()), mapLongitude(way.getLongitude()), 3, 3);
 		return true;
 	}
 
+	/**
+	 * 
+	 * 
+	 * @param 
+	 * 
+	 * @return 
+	 */
 	public double mapLatitude(double latitude) {
 		double y = paintingCanvas.getHeight() - ((paintingCanvas.getHeight() - 0) / (content.getMaxLatitude() - content.getMinLatitude()) * (latitude - content.getMinLatitude()));
 		return y;
 	}
 
+	/**
+	 * 
+	 * 
+	 * @param 
+	 * 
+	 * @return 
+	 */
 	public double mapLongitude(double longitude) {
 		double y = (paintingCanvas.getWidth() - 0) / (content.getMaxLongitude() - content.getMinLongitude()) * (longitude - content.getMinLongitude());
 		return y;
 	}
 
+	/**
+	 * 
+	 * 
+	 * @param 
+	 * 
+	 * @return 
+	 */
 	private void popUp(String grad) {
 		Alert alert = new Alert(AlertType.INFORMATION);
 		alert.setTitle("Falsche Eingabe");
@@ -104,6 +167,13 @@ public class OSMStreetGUIController {
 		alert.showAndWait();
 	}
 
+	/**
+	 * 
+	 * 
+	 * @param 
+	 * 
+	 * @return 
+	 */
 	public void drawArrow(GraphicsContext gc, int x1, int y1, int x2, int y2) {
 		gc.setFill(Color.BLACK);
 
@@ -123,6 +193,13 @@ public class OSMStreetGUIController {
 		}, 4);
 	}
 
+	/**
+	 * 
+	 * 
+	 * @param 
+	 * 
+	 * @return 
+	 */
 	private void createExampleData() {
 		content.setLatitude(52.1174047);
 		content.setMinLatitude(52.1164047);
