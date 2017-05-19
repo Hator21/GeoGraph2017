@@ -2,25 +2,19 @@
 
 Rollenverteilung
 API:
-- Philipp C.
+- Philipp Clausing
 
 JUnit / QS:
-- Christopher C.
-- Dennis S.
+- Christopher Kluck
+- Dennis Starke
 
 GUI:
-- Eddy L.
-- Jonas L.
-- Dennis L.
+- Eduard Ljaschenke
+- Jonas Lampe
+- Dennis Lüdeke
 
 Parser:
-- Christopher C.
-- Stefan C.
-
-Programmierer:
-- Dennis L.
-- Dennis S.
-- Alexander S.
+- Stefan Schuck
 
 Teamleiter:
-- Alexander S.
+- Alexander Sochart
