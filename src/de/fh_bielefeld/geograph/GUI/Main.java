@@ -7,11 +7,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 /**
- * 
- * 
- * @param 
- * 
- * @return 
+ * Main Class which starts the Program and starts the gui.
  */
 public class Main extends Application {
 
