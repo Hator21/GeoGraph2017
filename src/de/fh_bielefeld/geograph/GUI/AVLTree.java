@@ -4,9 +4,6 @@ import de.fh_bielefeld.geograph.GUI_INTERFACE.AVLTreeInterface;
 import de.fh_bielefeld.geograph.GUI_INTERFACE.ContentHolderInterface;
 
 
-/**
- * This class offers an AVLTree to save data in an tree.
- */
 public class AVLTree<T extends Comparable<? super T>> implements AVLTreeInterface<T> {
 
 	public AVLNode<T>		root;
@@ -15,11 +12,6 @@ public class AVLTree<T extends Comparable<? super T>> implements AVLTreeInterfac
 	public int				countDoubleRotations;
 	private ContentHolderInterface	content;
 
-	/**
-	 * Constructer of AVLTree.
-	 * 
-	 * @param ContentHolderInterface
-	 */
 	public AVLTree(ContentHolderInterface content) {
 		root = null;
 		this.content = content;
@@ -28,37 +20,16 @@ public class AVLTree<T extends Comparable<? super T>> implements AVLTreeInterfac
 		countDoubleRotations = 0;
 	}
 
-	/**
-	 * Getter for the height of the tree.
-	 * 
-	 * @param t - AVLNode
-	 * 
-	 * @return height of the AVLNode
-	 */
 	public int height(AVLNode<T> t) {
 		return t == null ? -1 : t.height;
 	}
 
-	/**
-	 * 
-	 * 
-	 * @param 
-	 * 
-	 * @return 
-	 */
 	public int max(int a, int b) {
 		if (a > b)
 			return a;
 		return b;
 	}
 
-	/**
-	 * 
-	 * 
-	 * @param 
-	 * 
-	 * @return 
-	 */
 	public boolean insert(T x) {
 		try {
 			root = insert(x, root);
@@ -70,13 +41,6 @@ public class AVLTree<T extends Comparable<? super T>> implements AVLTreeInterfac
 		}
 	}
 
-	/**
-	 * 
-	 * 
-	 * @param 
-	 * 
-	 * @return 
-	 */
 	protected AVLNode<T> insert(T x, AVLNode<T> t) throws Exception {
 		if (t == null)
 			t = new AVLNode<T>(x);
@@ -111,13 +75,6 @@ public class AVLTree<T extends Comparable<? super T>> implements AVLTreeInterfac
 		return t;
 	}
 
-	/**
-	 * 
-	 * 
-	 * @param 
-	 * 
-	 * @return 
-	 */
 	protected AVLNode<T> rotateWithLeftChild(AVLNode<T> k2) {
 		AVLNode<T> k1 = k2.left;
 
@@ -130,25 +87,11 @@ public class AVLTree<T extends Comparable<? super T>> implements AVLTreeInterfac
 		return (k1);
 	}
 	
-	/**
-	 * 
-	 * 
-	 * @param 
-	 * 
-	 * @return 
-	 */
 	protected AVLNode<T> doubleWithLeftChild(AVLNode<T> k3) {
 		k3.left = rotateWithRightChild(k3.left);
 		return rotateWithLeftChild(k3);
 	}
 
-	/**
-	 * 
-	 * 
-	 * @param 
-	 * 
-	 * @return 
-	 */
 	protected AVLNode<T> rotateWithRightChild(AVLNode<T> k1) {
 		AVLNode<T> k2 = k1.right;
 
@@ -161,38 +104,17 @@ public class AVLTree<T extends Comparable<? super T>> implements AVLTreeInterfac
 		return (k2);
 	}
 
-	/**
-	 * 
-	 * 
-	 * @param 
-	 * 
-	 * @return 
-	 */
 	protected AVLNode<T> doubleWithRightChild(AVLNode<T> k1) {
 		k1.right = rotateWithLeftChild(k1.right);
 		return rotateWithRightChild(k1);
 	}
 
-	/**
-	 * 
-	 * 
-	 * @param 
-	 * 
-	 * @return 
-	 */
 	public String serializeInfix() {
 		StringBuilder str = new StringBuilder();
 		serializeInfix(root, str, " ");
 		return str.toString();
 	}
 
-	/**
-	 * 
-	 * 
-	 * @param 
-	 * 
-	 * @return 
-	 */
 	protected void serializeInfix(AVLNode<T> t, StringBuilder str, String sep) {
 		if (t != null) {
 			serializeInfix(t.left, str, sep);
@@ -202,26 +124,12 @@ public class AVLTree<T extends Comparable<? super T>> implements AVLTreeInterfac
 		}
 	}
 
-	/**
-	 * 
-	 * 
-	 * @param 
-	 * 
-	 * @return 
-	 */
 	public String serializePrefix() {
 		StringBuilder str = new StringBuilder();
 		serializePrefix(root, str, " ");
 		return str.toString();
 	}
 
-	/**
-	 * 
-	 * 
-	 * @param 
-	 * 
-	 * @return 
-	 */
 	private void serializePrefix(AVLNode<T> t, StringBuilder str, String sep) {
 		if (t != null) {
 			str.append(t.element.toString());
@@ -231,24 +139,10 @@ public class AVLTree<T extends Comparable<? super T>> implements AVLTreeInterfac
 		}
 	}
 
-	/**
-	 * 
-	 * 
-	 * @param 
-	 * 
-	 * @return 
-	 */
 	public void sendContent() {
 		sendContent(root);
 	}
 
-	/**
-	 * 
-	 * 
-	 * @param 
-	 * 
-	 * @return 
-	 */
 	public void sendContent(AVLNode<T> t) {
 		if (t != null) {
 			content.sendData(t);
@@ -257,35 +151,14 @@ public class AVLTree<T extends Comparable<? super T>> implements AVLTreeInterfac
 		}
 	}
 
-	/**
-	 * 
-	 * 
-	 * @param 
-	 * 
-	 * @return 
-	 */
 	public void makeEmpty() {
 		root = null;
 	}
 
-	/**
-	 * 
-	 * 
-	 * @param 
-	 * 
-	 * @return 
-	 */
 	public boolean isEmpty() {
 		return (root == null);
 	}
 
-	/**
-	 * 
-	 * 
-	 * @param 
-	 * 
-	 * @return 
-	 */
 	public T findMin() {
 		if (isEmpty())
 			return null;
@@ -293,26 +166,12 @@ public class AVLTree<T extends Comparable<? super T>> implements AVLTreeInterfac
 		return findMin(root).element;
 	}
 
-	/**
-	 * 
-	 * 
-	 * @param 
-	 * 
-	 * @return 
-	 */
 	public T findMax() {
 		if (isEmpty())
 			return null;
 		return findMax(root).element;
 	}
 
-	/**
-	 * 
-	 * 
-	 * @param 
-	 * 
-	 * @return 
-	 */
 	private AVLNode<T> findMin(AVLNode<T> t) {
 		if (t == null)
 			return t;
@@ -322,13 +181,6 @@ public class AVLTree<T extends Comparable<? super T>> implements AVLTreeInterfac
 		return t;
 	}
 
-	/**
-	 * 
-	 * 
-	 * @param 
-	 * 
-	 * @return 
-	 */
 	private AVLNode<T> findMax(AVLNode<T> t) {
 		if (t == null)
 			return t;
@@ -337,24 +189,10 @@ public class AVLTree<T extends Comparable<? super T>> implements AVLTreeInterfac
 		return t;
 	}
 
-	/**
-	 * 
-	 * 
-	 * @param 
-	 * 
-	 * @return 
-	 */
 	public void remove(T x) {
 		root = remove(x, root);
 	}
 
-	/**
-	 * 
-	 * 
-	 * @param 
-	 * 
-	 * @return 
-	 */
 	public AVLNode<T> remove(T x, AVLNode<T> t) {
 		if (t == null) {
 			return null;
@@ -403,24 +241,10 @@ public class AVLTree<T extends Comparable<? super T>> implements AVLTreeInterfac
 		return t;
 	}
 
-	/**
-	 * 
-	 * 
-	 * @param 
-	 * 
-	 * @return 
-	 */
 	public boolean contains(T x) {
 		return contains(x, root);
 	}
 
-	/**
-	 * 
-	 * 
-	 * @param 
-	 * 
-	 * @return 
-	 */
 	protected boolean contains(T x, AVLNode<T> t) {
 		if (t == null) {
 			return false;
@@ -434,13 +258,6 @@ public class AVLTree<T extends Comparable<? super T>> implements AVLTreeInterfac
 		return true;
 	}
 
-	/**
-	 * 
-	 * 
-	 * @param 
-	 * 
-	 * @return 
-	 */
 	public boolean checkBalanceOfTree(AVLTree.AVLNode<Integer> current) {
 		boolean balancedRight = true, balancedLeft = true;
 		int leftHeight = 0, rightHeight = 0;
@@ -455,13 +272,6 @@ public class AVLTree<T extends Comparable<? super T>> implements AVLTreeInterfac
 		return balancedLeft && balancedRight && Math.abs(leftHeight - rightHeight) < 2;
 	}
 
-	/**
-	 * 
-	 * 
-	 * @param 
-	 * 
-	 * @return 
-	 */
 	public int getDepth(AVLTree.AVLNode<Integer> n) {
 		int leftHeight = 0, rightHeight = 0;
 		if (n.right != null)
@@ -471,13 +281,6 @@ public class AVLTree<T extends Comparable<? super T>> implements AVLTreeInterfac
 		return Math.max(rightHeight, leftHeight) + 1;
 	}
 
-	/**
-	 * 
-	 * 
-	 * @param 
-	 * 
-	 * @return 
-	 */
 	public boolean checkOrderingOfTree(AVLTree.AVLNode<Integer> current) {
 		if (current.left != null) {
 			if (current.left.element.compareTo(current.element) > 0)
@@ -494,13 +297,6 @@ public class AVLTree<T extends Comparable<? super T>> implements AVLTreeInterfac
 		return true;
 	}
 
-	/**
-	 * 
-	 * 
-	 * @param 
-	 * 
-	 * @return 
-	 */
 	public static class AVLNode<T> {
 
 		protected T				element;
