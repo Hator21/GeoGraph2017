@@ -1,5 +1,6 @@
 package de.fh_bielefeld.geograph.GUI;
 
+import de.fh_bielefeld.geograph.GUI_INTERFACE.AVLTreeInterface;
 import de.fh_bielefeld.geograph.GUI_INTERFACE.ContentHolderInterface;
 import de.fh_bielefeld.geograph.GUI_INTERFACE.MapNodeInterface;
 import de.fh_bielefeld.geograph.GUI_INTERFACE.MapWayInterface;
@@ -16,11 +17,8 @@ import javafx.scene.transform.Affine;
 import javafx.scene.transform.Transform;
 
 /**
- * 
- * 
- * @param 
- * 
- * @return 
+ * Controller class for the GUI.
+ * Controls the elements in the GUI.
  */
 public class OSMStreetGUIController {
 
@@ -40,11 +38,7 @@ public class OSMStreetGUIController {
 	private final int		ARR_SIZE	= 5;
 
 	/**
-	 * 
-	 * 
-	 * @param 
-	 * 
-	 * @return 
+	 * Initializes the elemts with standard values.
 	 */
 	@FXML
 	public void initialize() {
@@ -81,22 +75,18 @@ public class OSMStreetGUIController {
 	}
 
 	/**
+	 * Getter for the Nodes in the Map.
 	 * 
-	 * 
-	 * @param 
-	 * 
-	 * @return 
+	 * @return Nodes on the map.
 	 */
 	private void getNodes() {
 		content.getNodes().sendContent();
 	}
 
 	/**
+	 * Draws the Node in the map.
 	 * 
-	 * 
-	 * @param 
-	 * 
-	 * @return 
+	 * @param  Node to view on the map.
 	 */
 	public void drawNode(MapNodeInterface node) {
 		gc.setStroke(Color.BLACK);
@@ -106,22 +96,18 @@ public class OSMStreetGUIController {
 	}
 
 	/**
-	 * 
-	 * 
-	 * @param 
-	 * 
-	 * @return 
+	 * TODO
 	 */
 	private void getWay() {
 		content.getWays().sendContent();
 	}
 
 	/**
+	 * Draws the way on the map.
 	 * 
+	 * @param Way to draw.
 	 * 
-	 * @param 
-	 * 
-	 * @return 
+	 * @return True if the way has been drawn. False if the way has not been drawn.
 	 */
 	public boolean drawWay(MapWayInterface way) {
 		// gc.strokeOval(mapLatitude(way.getLatitude()), mapLongitude(way.getLongitude()), 3, 3);
@@ -129,11 +115,7 @@ public class OSMStreetGUIController {
 	}
 
 	/**
-	 * 
-	 * 
-	 * @param 
-	 * 
-	 * @return 
+	 * TODO
 	 */
 	public double mapLatitude(double latitude) {
 		double y = paintingCanvas.getHeight() - ((paintingCanvas.getHeight() - 0) / (content.getMaxLatitude() - content.getMinLatitude()) * (latitude - content.getMinLatitude()));
@@ -141,11 +123,7 @@ public class OSMStreetGUIController {
 	}
 
 	/**
-	 * 
-	 * 
-	 * @param 
-	 * 
-	 * @return 
+	 * TODO
 	 */
 	public double mapLongitude(double longitude) {
 		double y = (paintingCanvas.getWidth() - 0) / (content.getMaxLongitude() - content.getMinLongitude()) * (longitude - content.getMinLongitude());
@@ -153,11 +131,10 @@ public class OSMStreetGUIController {
 	}
 
 	/**
+	 * Gives an alert if the input string expects not a value.
 	 * 
+	 * @param String from input field.
 	 * 
-	 * @param 
-	 * 
-	 * @return 
 	 */
 	private void popUp(String grad) {
 		Alert alert = new Alert(AlertType.INFORMATION);
@@ -168,11 +145,9 @@ public class OSMStreetGUIController {
 	}
 
 	/**
+	 * Draws the arrow on the map.
 	 * 
-	 * 
-	 * @param 
-	 * 
-	 * @return 
+	 * @param TODO
 	 */
 	public void drawArrow(GraphicsContext gc, int x1, int y1, int x2, int y2) {
 		gc.setFill(Color.BLACK);
@@ -194,11 +169,8 @@ public class OSMStreetGUIController {
 	}
 
 	/**
-	 * 
-	 * 
-	 * @param 
-	 * 
-	 * @return 
+	 * Creates example data.
+	 * TODO remove
 	 */
 	private void createExampleData() {
 		content.setLatitude(52.1174047);
