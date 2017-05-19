@@ -14,12 +14,12 @@ GUI:
 
 Parser:
 -Christopher
--Stefan
+-Stefan C.
 
 Programmierer:
--Dennis
--Dennis
--Typ aus 6 Semester
+-Dennis L.
+-Dennis S.
+-Alexander S.
 
 Teamleiter:
 -Alexander
