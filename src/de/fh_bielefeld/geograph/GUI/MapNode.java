@@ -4,6 +4,10 @@ import java.util.ArrayList;
 
 import de.fh_bielefeld.geograph.GUI_INTERFACE.MapNodeInterface;
 
+/**
+ * TODO Kommt zum Parser (erst im Master Branch)
+ * Bei Fragen: Stefan fragen
+ */
 public class MapNode implements Comparable<MapNode>, MapNodeInterface {
 
 	String			id;

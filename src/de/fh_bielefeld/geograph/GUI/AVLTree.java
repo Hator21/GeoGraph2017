@@ -3,7 +3,10 @@ package de.fh_bielefeld.geograph.GUI;
 import de.fh_bielefeld.geograph.GUI_INTERFACE.AVLTreeInterface;
 import de.fh_bielefeld.geograph.GUI_INTERFACE.ContentHolderInterface;
 
-
+/**
+ * TODO Kommt zum Parser (erst im Master Branch)
+ * Bei Fragen: Stefan fragen
+ */
 public class AVLTree<T extends Comparable<? super T>> implements AVLTreeInterface<T> {
 
 	public AVLNode<T>		root;

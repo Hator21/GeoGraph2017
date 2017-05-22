@@ -2,6 +2,10 @@ package de.fh_bielefeld.geograph.GUI;
 
 import de.fh_bielefeld.geograph.GUI_INTERFACE.MapTagInterface;
 
+/**
+ * TODO Kommt zum Parser (erst im Master Branch)
+ * Bei Fragen: Stefan fragen
+ */
 public class MapTag implements MapTagInterface {
 	
 	String	key;

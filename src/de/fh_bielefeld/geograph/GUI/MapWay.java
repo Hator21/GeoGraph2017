@@ -4,6 +4,10 @@ import java.util.ArrayList;
 
 import de.fh_bielefeld.geograph.GUI_INTERFACE.MapWayInterface;
 
+/**
+ * TODO Kommt zum Parser (erst im Master Branch)
+ * Bei Fragen: Stefan fragen
+ */
 public class MapWay implements Comparable<MapWay>, MapWayInterface {
 	String				id;
 	ArrayList<MapNode>	refList;

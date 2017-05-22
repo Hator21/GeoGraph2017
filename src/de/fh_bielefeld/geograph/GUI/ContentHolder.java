@@ -3,11 +3,7 @@ import de.fh_bielefeld.geograph.GUI.AVLTree.AVLNode;
 import de.fh_bielefeld.geograph.GUI_INTERFACE.*;
 
 /**
- * TODO
- * 
- * @param 
- * 
- * @return 
+ * This class holds the complete data for the GUI.
  */
 public class ContentHolder implements ContentHolderInterface {
 	private AVLTreeInterface<MapNode>		nodes;
@@ -29,195 +25,172 @@ public class ContentHolder implements ContentHolderInterface {
 	}
 
 	/**
-	 * TODO
+	 * Getter for the Nodes on the map.
 	 * 
-	 * @param 
-	 * 
-	 * @return 
+	 * @return Nodes on the map.
 	 */
 	public AVLTreeInterface<MapNode> getNodes() {
 		return nodes;
 	}
 
 	/**
-	 * TODO
+	 * Setter for the Nodes on the map.
 	 * 
-	 * @param 
-	 * 
-	 * @return 
+	 * @param Nodes on the map.
 	 */
 	public void setNodes(AVLTreeInterface<MapNode> nodes) {
 		this.nodes = nodes;
 	}
 
 	/**
-	 * TODO
+	 * Getter for the ways on the map.
 	 * 
-	 * @param 
-	 * 
-	 * @return 
+	 * @return Ways on the map.
 	 */
 	public AVLTreeInterface<MapWay> getWays() {
 		return ways;
 	}
 
 	/**
-	 * TODO
+	 * Setter for the ways on the map.
 	 * 
-	 * @param 
-	 * 
-	 * @return 
+	 * @param Ways on the map.
 	 */
 	public void setWays(AVLTreeInterface<MapWay> ways) {
 		this.ways = ways;
 	}
 
 	/**
-	 * TODO
+	 * Getter for the Latitude value. TODO welcher Latitude Wert.
+	 * Hintergrund: Die Felder in der GUI werden noch angepasst, bzw. ein paar hinzugefügt.
 	 * 
-	 * @param 
-	 * 
-	 * @return 
+	 * @return Latitude value.
 	 */
 	public double getLatitude() {
 		return latitude;
 	}
 
 	/**
-	 * TODO
+	 * Setter for the Latitude value. TODO welcher Latitude Wert.
 	 * 
-	 * @param 
-	 * 
-	 * @return 
+	 * @return Latitude value.
 	 */
 	public void setLatitude(double latitude) {
 		this.latitude = latitude;
 	}
 
 	/**
-	 * TODO
+	 * Getter for the Longitude value. TODO welcher Longitude Wert.
 	 * 
-	 * @param 
-	 * 
-	 * @return 
+	 * @return Longitude value.
 	 */
 	public double getLongitude() {
 		return longitude;
 	}
 
 	/**
-	 * TODO
+	 * Setter for the Longitude value. TODO welcher Longitude Wert.
 	 * 
-	 * @param 
-	 * 
-	 * @return 
+	 * @param Longitude value.
 	 */
 	public void setLongitude(double longitude) {
 		this.longitude = longitude;
 	}
 
 	/**
-	 * TODO
+	 * Getter for the minimal Latitude value. TODO welcher Latitude Wert.
 	 * 
-	 * @param 
-	 * 
-	 * @return 
+	 * @return Latitude value.
 	 */
 	public double getMinLatitude() {
 		return minLatitude;
 	}
 
 	/**
-	 * TODO
+	 * Setter for the minimal Latitude value. TODO welcher Latitude Wert.
 	 * 
-	 * @param 
-	 * 
-	 * @return 
+	 * @param Latitude value.
 	 */
 	public void setMinLatitude(double minLatitude) {
 		this.minLatitude = minLatitude;
 	}
 
+	/**
+	 * Getter for the maximum Latitude value. TODO welcher Latitude Wert.
+	 * 
+	 * @return Latitude value.
+	 */
 	public double getMaxLatitude() {
 		return maxLatitude;
 	}
 
 	/**
-	 * TODO
+	 * Getter for the maximum Latitude value. TODO welcher Latitude Wert.
 	 * 
-	 * @param 
-	 * 
-	 * @return 
+	 * @param Latitude value.
 	 */
 	public void setMaxLatitude(double maxLatitude) {
 		this.maxLatitude = maxLatitude;
 	}
 
 	/**
-	 * TODO
+	 * Getter for the minimal Longitude value. TODO welcher Longitude Wert.
 	 * 
-	 * @param 
-	 * 
-	 * @return 
+	 * @return Longitude value.
 	 */
 	public double getMinLongitude() {
 		return minLongitude;
 	}
 
 	/**
-	 * TODO
+	 * Setter for the minimal Longitude value. TODO welcher Longitude Wert.
 	 * 
-	 * @param 
-	 * 
-	 * @return 
+	 * @param Longitude value.
 	 */
 	public void setMinLongitude(double minLongitude) {
 		this.minLongitude = minLongitude;
 	}
 
 	/**
-	 * TODO
+	 * Getter for the maximum Longitude value. TODO welcher Longitude Wert.
 	 * 
-	 * @param 
-	 * 
-	 * @return 
+	 * @return Longitude value.
 	 */
 	public double getMaxLongitude() {
 		return maxLongitude;
 	}
 
 	/**
-	 * TODO
+	 * Setter for the maximum Longitude value. TODO welcher Longitude Wert.
 	 * 
-	 * @param 
-	 * 
-	 * @return 
+	 * @param Longitude value.
 	 */
 	public void setMaxLongitude(double maxLongitude) {
 		this.maxLongitude = maxLongitude;
 	}
 
+	/**
+	 * Getter for the OSMStreetGUI-Controller.
+	 * 
+	 * @return Controller from the OSMStreetGUI.
+	 */
 	public OSMStreetGUIController getController() {
 		return controller;
 	}
 
 	/**
-	 * TODO
+	 * Setter for the OSMStreetGUI-Controller.
 	 * 
-	 * @param 
-	 * 
-	 * @return 
+	 * @param Controller from the OSMStreetGUI.
 	 */
 	public void setController(OSMStreetGUIController controller) {
 		this.controller = controller;
 	}
 
 	/**
-	 * TODO
+	 * Creates the Nodes on the gui. For that it calls the function drawNode().
 	 * 
-	 * @param 
-	 * 
-	 * @return 
+	 * @param Node to draw on the gui.
 	 */
 	public void sendData(AVLNode t) {
 		try {
