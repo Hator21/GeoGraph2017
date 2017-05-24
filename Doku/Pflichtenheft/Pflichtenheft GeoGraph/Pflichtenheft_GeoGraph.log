@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2017.2.7)  24 MAY 2017 18:52
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2017.2.7)  24 MAY 2017 19:52
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -2191,7 +2191,7 @@ Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 66.
 Here is how much of TeX's memory you used:
  28731 strings out of 494901
  507322 string characters out of 6178618
- 618375 words of memory out of 5000000
+ 618420 words of memory out of 5000000
  31509 multiletter control sequences out of 15000+600000
  68752 words of font info for 84 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
@@ -2204,7 +2204,7 @@ m/lmr10.pfb></usr/share/texmf/fonts/type1/public/lm/lmr12.pfb></usr/share/texmf
 .pfb></usr/share/texmf/fonts/type1/public/lm/lmss12.pfb></usr/share/texmf/fonts
 /type1/public/lm/lmss17.pfb></usr/share/texmf/fonts/type1/public/lm/lmssbx10.pf
 b>
-Output written on Pflichtenheft_GeoGraph.pdf (10 pages, 582943 bytes).
+Output written on Pflichtenheft_GeoGraph.pdf (10 pages, 582970 bytes).
 PDF statistics:
  260 PDF objects out of 1000 (max. 8388607)
  226 compressed objects within 3 object streams
