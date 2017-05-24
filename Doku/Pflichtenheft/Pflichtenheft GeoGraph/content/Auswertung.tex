@@ -116,14 +116,22 @@
 			\textbf{GEO-03 } \\ 
 			\hline
 			\textbf{ID :}\centering & GEO-03  \\ \hline 
-			\textbf{Title :}\centering & -  \\ \hline 
-			\textbf{Description :}\centering & -  \\ \hline 
-			\textbf{Trigger :}\centering & -  \\ \hline 
-			\textbf{Primary Actor :} \centering & - User \\ \hline 
-			\textbf{Preconditions :}\centering & - \\ \hline 
-			\textbf{Postconditions :}\centering & - \\ \hline
+			\textbf{Title :}\centering & Skalierung des Kartenbereichs  \\ \hline 
+			\textbf{Description :}\centering & Skaliert den Kartenbereich via Regler  \\ \hline 
+			\textbf{Trigger :}\centering & User bewegt den Slider in den positiven/negativen Bereich  \\ \hline 
+			\textbf{Primary Actor :} \centering & User \\ \hline 
+			\textbf{Preconditions :}\centering & 
+			1. User hat GEO-01 oder GEO-02 ausgeführt \\ \hline 
+			\textbf{Postconditions :}\centering & 
+			1. User bewegt Slider in den positiven/negativen Bereich \newline
+			2. Kartenausschnitt vergrößert/verkleinert sich \newline
+			3. Karte wird angezeigt \\ \hline
 			\textbf{Other Use Cases :}\centering & - \\ \hline  
-			\textbf{Main Success Scenario :}\centering & -\\ \hline  
+			\textbf{Main Success Scenario :}\centering & 
+			1. GEO-01 oder GEO-02 \newline
+			2. User bewegt Slider in Positiven/Negativen Bereich \newline
+			3. Karte wird vergrößert/verkleinert \newline
+			4. Karte wird angezeigt \\ \hline  
 			\textbf{Extensions :}\centering & - \\ \hline  
 			\textbf{Priority :}\centering & High \\ \hline  
 		\end{tabular}
@@ -135,18 +143,54 @@
 			\textbf{GEO-04 } \\ 
 			\hline
 			\textbf{ID :}\centering & GEO-04  \\ \hline 
-			\textbf{Title :}\centering & \\ \hline 
-			\textbf{Description :}\centering & \\ \hline 
-			\textbf{Trigger :}\centering & \\ \hline 
+			\textbf{Title :}\centering & Verschiebung des Kartenbereichs \\ \hline 
+			\textbf{Description :}\centering & Verschiebt den Kartenbereich via Maus \\ \hline 
+			\textbf{Trigger :}\centering & User bewegt die Maus in den Kartenausschnitt und hält die linke Maustaste gedrückt und schiebt dann in x/y Richtung  \\ \hline 
 			\textbf{Primary Actor :} \centering & User \\ \hline 
-			\textbf{Preconditions :}\centering & \\ \hline 
-			\textbf{Postconditions :}\centering & - \\ \hline
+			\textbf{Preconditions :}\centering & 
+			1. GEO-01 oder GEO-02 \\ \hline 
+			\textbf{Postconditions :}\centering & 
+			1. User bewegt die Maus in x/y Richtung \newline
+			2. Der Kartenausschnitt bewegt sich in x/y Richtung \newline
+			3. Der Kartenausschnitt wird angezeigt \\ \hline
 			\textbf{Other Use Cases :}\centering & - \\ \hline  
-			\textbf{Main Success Scenario :}\centering & \\ \hline  
-			\textbf{Extensions :}\centering & - \\ \hline  
+			\textbf{Main Success Scenario :}\centering & 
+			1. GEO-01 oder GEO-02 \newline
+			2. User hält Maus gedrückt und schiebt den Kartenausschnitt \newline
+			3. Kartenausschnitt wird angezeigt \\ \hline  
+			\textbf{Extensions :}\centering & 
+			1. Nur zuvor geladener Kartenausschnitt wird angezeigt \\ \hline  
 			\textbf{Priority :}\centering & High \\ \hline  
 		\end{tabular}
 	\end{table}
+	
+	\begin{table}[H]
+		\begin{tabular}{|p{8cm}|p{8cm}|}
+			\hline
+			\textbf{GEO-05 } \\ 
+			\hline
+			\textbf{ID :}\centering & GEO-05  \\ \hline 
+			\textbf{Title :}\centering & Zentrierung auf einer Node \\ \hline 
+			\textbf{Description :}\centering & Zentrierung auf einer Node nach eingabe von Langen-und Breitengrad \\ \hline 
+			\textbf{Trigger :}\centering & User gibt Breiten-und Längengrad ein und die nächstgelegende Node wird zentriert \\ \hline 
+			\textbf{Primary Actor :} \centering & User \\ \hline 
+			\textbf{Preconditions :}\centering & 
+			1. GEO-01 oder GEO-02 \\ \hline 
+			\textbf{Postconditions :}\centering &
+			1. GEO-01 oder GEO-02 \newline
+			2. Kartenausschnitt wird auf die nächstgelgende Node verschoben \newline
+			3. Karte wird auf die Node zentriert \newline
+			4. Karte wird angezeigt \\ \hline
+			\textbf{Other Use Cases :}\centering & - \\ \hline  
+			\textbf{Main Success Scenario :}\centering &
+			1. GEO-01 oder GEO-02 \newline
+			2. Kartenausschnitt wird verschoben \newline
+			3. Karte wird auf Node zentriert \newline
+			4. Karte wird angezeigt \\ \hline  
+			\textbf{Extensions :}\centering & - \\ \hline  
+			\textbf{Priority :}\centering & High \\ \hline  
+		\end{tabular}
+	\end{table}	
 	
 	\subsection{Aktivitätsdiagramm}
 		\begin{figure}[H]
