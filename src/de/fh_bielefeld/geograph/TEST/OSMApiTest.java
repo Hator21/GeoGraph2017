@@ -248,6 +248,7 @@ public class OSMApiTest{
 		}
 		assertNotNull(this.testDocument);
 	}
+	
 	/**
 	 * This test will invoke the getBoundingBoxLatLong method with two same coordinates.
 	 */
@@ -269,23 +270,83 @@ public class OSMApiTest{
 		assertNotNull(this.testDocument);
 	}
 	
+	/**
+	 * This test will invoke the getBoundingBoxLatLong method with a wrong minLatitude.
+	 */
 	@Test
 	public void getBoundinBoxLatLongGivenWrongMinLatitude(){
-		
+		try{
+			this.testDocument = OSMApi.getBoundingBoxLatLong(91, 13.204953999999975,
+					52.720007, 13.204953999999975);
+		}
+		catch(IOException e){
+			assertTrue("The Exception we expected to get.", true);
+		}
+		catch(ParserConfigurationException e){
+			fail("There shouldn't be a ParserConfigurationException!");
+		}
+		catch(SAXException e){
+			fail("There shouldn't be a SAXException!");
+		}
 	}
 	
+	/**
+	 * This test will invoke the getBoundingBoxLatLong method with a wrong maxLatitude.
+	 */
 	@Test
 	public void getBoundinBoxLatLongGivenWrongMaxLatitude(){
-		
+		try{
+			this.testDocument = OSMApi.getBoundingBoxLatLong(52.520007, 13.204953999999975,
+					91, 13.204953999999975);
+		}
+		catch(IOException e){
+			assertTrue("The Exception we expected to get.", true);
+		}
+		catch(ParserConfigurationException e){
+			fail("There shouldn't be a ParserConfigurationException!");
+		}
+		catch(SAXException e){
+			fail("There shouldn't be a SAXException!");
+		}
 	}
 	
+	/**
+	 * This test will invoke the getBoundingBoxLatLong method with a wrong minLongitude.
+	 */
 	@Test
 	public void getBoundinBoxLatLongGivenWrongMinLongitude(){
-		
+		try{
+			this.testDocument = OSMApi.getBoundingBoxLatLong(52.520007, 181,
+					52.520007, 13.204953999999975);
+		}
+		catch(IOException e){
+			assertTrue("The Exception we expected to get.", true);
+		}
+		catch(ParserConfigurationException e){
+			fail("There shouldn't be a ParserConfigurationException!");
+		}
+		catch(SAXException e){
+			fail("There shouldn't be a SAXException!");
+		}
 	}
 	
+	/**
+	 * This test will invoke the getBoundingBoxLatLong method with a wrong maxLongitude.
+	 */
 	@Test
 	public void getBoundinBoxLatLongGivenWrongMaxLongitude(){
-		
+		try{
+			this.testDocument = OSMApi.getBoundingBoxLatLong(52.520007, 13.204953999999975,
+					52.520007, 181);
+		}
+		catch(IOException e){
+			assertTrue("The Exception we expected to get.", true);
+		}
+		catch(ParserConfigurationException e){
+			fail("There shouldn't be a ParserConfigurationException!");
+		}
+		catch(SAXException e){
+			fail("There shouldn't be a SAXException!");
+		}
 	}
 }
