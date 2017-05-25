@@ -17,7 +17,9 @@
 	\subsection{Abgrenzungskriterien}
 	\begin{itemize}
 		\item Das System ist keine Navigations Software
+		\item Das System zeigt keine genauen Karten Informationen an
 	\end{itemize}
+	
 	
 	\section{\Large PRODUKTEINSATZ}
 	\subsection{Anwendungsbereiche}
@@ -42,13 +44,14 @@
 	\section{\Large PRODUKTÜBERSICHT}
 	Gibt eine Übersicht über das Produkt, z.B. über alle wichtigen Geschäftsprozesse in Form eines Übersichtsdiagramms.
 	\subsection{Usecase Diagramm}
-	\begin{figure}[H]
-	\centering
-	\includegraphics[width=0.7\linewidth]{images/Usecases}
-	\caption{}
-	\label{fig:GUI}
-	mehr Use-Case Diagramme
-	\end{figure}
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=0.7\linewidth]{images/Usecases}
+			\caption{}
+			\label{fig:GUI}
+		\end{figure}
+		
+		
 	\section{\Large PRODUKTFUNKTIONEN}
 	\subsection{Usecase-Beschreibungen}
 
@@ -60,41 +63,137 @@
 			\textbf{ID :}\centering & GEO-01  \\ \hline 
 			\textbf{Title :}\centering & Abruf der Daten über API \\ \hline 
 			\textbf{Description :}\centering & Daten für die Karte werden per API abgerufen \\ \hline 
-			\textbf{Trigger :}\centering & Klick auf den Knopf '"Nach Koordinaten suchen'" \\ \hline 
+			\textbf{Trigger :}\centering & User klickt auf den Button "Nach Koordinaten suchen" \\ \hline 
 			\textbf{Primary Actor :} \centering & User \\ \hline 
-			\textbf{Preconditions :}\centering & Internetverbindung\\ \hline 
-			\textbf{Postconditions :}\centering & - \\ \hline
+			\textbf{Preconditions :}\centering & 
+			1. Programm ist gestartet \newline 
+			2. User hat Längen und Breitengrad eingegeben	\\ \hline 
+			\textbf{Postconditions :}\centering &  
+			1. User hat den Kartenbereich erfolgreich geladen \newline 
+			2. Karte wird angezeigt \\ \hline
 			\textbf{Other Use Cases :}\centering & - \\ \hline  
-			\textbf{Main Success Scenario :}\centering & Karte wird angezeigt \\ \hline  
+			\textbf{Main Success Scenario :}\centering & 
+			1. User gibt Längen und Breitengrad ein \newline
+			2. User klickt auf "Nach Kordinaten suchen" \newline
+			3. Karte wird angezeigt \\ \hline  
 			\textbf{Extensions :}\centering & - \\ \hline  
 			\textbf{Priority :}\centering & High \\ \hline  
 		\end{tabular}
 	\end{table}
+	
 	\begin{table}[H]
 		\begin{tabular}{|p{8cm}|p{8cm}|}
 			\hline
 			\textbf{GEO-02 } \\ 
 			\hline
 			\textbf{ID :}\centering & GEO-02  \\ \hline 
-			\textbf{Title :}\centering & Abruf der Daten aus einer OSM-Datei \\ \hline 
-			\textbf{Description :}\centering & Daten für die Karte werden aus der hinterlegten OSM-Datei abgerufen \\ \hline 
-			\textbf{Trigger :}\centering & Klick auf den Knopf '"Nach Koordinaten suchen'" \\ \hline 
+			\textbf{Title :}\centering & Laden der Daten aus einer OSM-Datei \\ \hline 
+			\textbf{Description :}\centering & Daten für die Karte werden aus der hinterlegten OSM-Datei geladen \\ \hline 
+			\textbf{Trigger :}\centering & User klickt auf den Button "Nach Koordinaten suchen" \\ \hline 
 			\textbf{Primary Actor :} \centering & User \\ \hline 
-			\textbf{Preconditions :}\centering & Bei Maximalen angaben\\ \hline 
-			\textbf{Postconditions :}\centering & - \\ \hline
+			\textbf{Preconditions :}\centering & 
+			1. GEO-01\\ \hline 
+			\textbf{Postconditions :}\centering & 
+			1. User hat Kartenbereich aus OSM-Datei geladen \newline
+			2. Karte wird angezeigt \\ \hline
 			\textbf{Other Use Cases :}\centering & - \\ \hline  
-			\textbf{Main Success Scenario :}\centering & Karte wird angezeigt \\ \hline  
+			\textbf{Main Success Scenario :}\centering & 
+			1. GEO-01 \newline
+			2. User klickt auf " Nach Kordinaten suchen" \newline
+			3. Karte wird angezeigt \\ \hline  
 			\textbf{Extensions :}\centering & - \\ \hline  
 			\textbf{Priority :}\centering & High \\ \hline  
 		\end{tabular}
 	\end{table}
+	
+	\begin{table}[H]
+		\begin{tabular}{|p{8cm}|p{8cm}|}
+			\hline
+			\textbf{GEO-03 } \\ 
+			\hline
+			\textbf{ID :}\centering & GEO-03  \\ \hline 
+			\textbf{Title :}\centering & Skalierung des Kartenbereichs  \\ \hline 
+			\textbf{Description :}\centering & Skaliert den Kartenbereich via Regler  \\ \hline 
+			\textbf{Trigger :}\centering & User bewegt den Slider in den positiven/negativen Bereich  \\ \hline 
+			\textbf{Primary Actor :} \centering & User \\ \hline 
+			\textbf{Preconditions :}\centering & 
+			1. User hat GEO-01 oder GEO-02 ausgeführt \\ \hline 
+			\textbf{Postconditions :}\centering & 
+			1. User bewegt Slider in den positiven/negativen Bereich \newline
+			2. Kartenausschnitt vergrößert/verkleinert sich \newline
+			3. Karte wird angezeigt \\ \hline
+			\textbf{Other Use Cases :}\centering & - \\ \hline  
+			\textbf{Main Success Scenario :}\centering & 
+			1. GEO-01 oder GEO-02 \newline
+			2. User bewegt Slider in Positiven/Negativen Bereich \newline
+			3. Karte wird vergrößert/verkleinert \newline
+			4. Karte wird angezeigt \\ \hline  
+			\textbf{Extensions :}\centering & - \\ \hline  
+			\textbf{Priority :}\centering & High \\ \hline  
+		\end{tabular}
+	\end{table}
+	
+	\begin{table}[H]
+		\begin{tabular}{|p{8cm}|p{8cm}|}
+			\hline
+			\textbf{GEO-04 } \\ 
+			\hline
+			\textbf{ID :}\centering & GEO-04  \\ \hline 
+			\textbf{Title :}\centering & Verschiebung des Kartenbereichs \\ \hline 
+			\textbf{Description :}\centering & Verschiebt den Kartenbereich via Maus \\ \hline 
+			\textbf{Trigger :}\centering & User bewegt die Maus in den Kartenausschnitt und hält die linke Maustaste gedrückt und schiebt dann in x/y Richtung  \\ \hline 
+			\textbf{Primary Actor :} \centering & User \\ \hline 
+			\textbf{Preconditions :}\centering & 
+			1. GEO-01 oder GEO-02 \\ \hline 
+			\textbf{Postconditions :}\centering & 
+			1. User bewegt die Maus in x/y Richtung \newline
+			2. Der Kartenausschnitt bewegt sich in x/y Richtung \newline
+			3. Der Kartenausschnitt wird angezeigt \\ \hline
+			\textbf{Other Use Cases :}\centering & - \\ \hline  
+			\textbf{Main Success Scenario :}\centering & 
+			1. GEO-01 oder GEO-02 \newline
+			2. User hält Maus gedrückt und schiebt den Kartenausschnitt \newline
+			3. Kartenausschnitt wird angezeigt \\ \hline  
+			\textbf{Extensions :}\centering & 
+			1. Nur zuvor geladener Kartenausschnitt wird angezeigt \\ \hline  
+			\textbf{Priority :}\centering & High \\ \hline  
+		\end{tabular}
+	\end{table}
+	
+	\begin{table}[H]
+		\begin{tabular}{|p{8cm}|p{8cm}|}
+			\hline
+			\textbf{GEO-05 } \\ 
+			\hline
+			\textbf{ID :}\centering & GEO-05  \\ \hline 
+			\textbf{Title :}\centering & Zentrierung auf einer Node \\ \hline 
+			\textbf{Description :}\centering & Zentrierung auf einer Node nach eingabe von Langen-und Breitengrad \\ \hline 
+			\textbf{Trigger :}\centering & User gibt Breiten-und Längengrad ein und die nächstgelegende Node wird zentriert \\ \hline 
+			\textbf{Primary Actor :} \centering & User \\ \hline 
+			\textbf{Preconditions :}\centering & 
+			1. GEO-01 oder GEO-02 \\ \hline 
+			\textbf{Postconditions :}\centering &
+			1. Kartenausschnitt wird auf die nächstgelgende Node verschoben \newline
+			2. Karte wird auf die Node zentriert \newline
+			3. Karte wird angezeigt \\ \hline
+			\textbf{Other Use Cases :}\centering & - \\ \hline  
+			\textbf{Main Success Scenario :}\centering &
+			1. GEO-01 oder GEO-02 \newline
+			2. Kartenausschnitt wird verschoben \newline
+			3. Karte wird auf Node zentriert \newline
+			4. Karte wird angezeigt \\ \hline  
+			\textbf{Extensions :}\centering & - \\ \hline  
+			\textbf{Priority :}\centering & High \\ \hline  
+		\end{tabular}
+	\end{table}	
+	
 	\subsection{Aktivitätsdiagramm}
-	\begin{figure}[H]
-	\centering
-	\includegraphics[width=0.7\linewidth]{images/Ablauf}
-	\caption{}
-	\label{fig:Akitiviti}
-	\end{figure}
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=0.7\linewidth]{images/Ablauf}
+			\caption{}
+			\label{fig:Akitiviti}
+		\end{figure}
 	\subsection{Sequenzdiagramm}
 	\begin{figure}[H]
 	\centering
@@ -111,13 +210,19 @@
 		\item Laden der Daten via Overpass API
 	\end{itemize}
 	\subsection{Analyseklassendiagramm}	
-	\begin{figure}[H]
-	\centering
-	\includegraphics[width=0.7\linewidth]{images/Klassendiagramm}
-	\caption{Klassendiagramm}
-	\label{fig:Klassendiagramm}
+		\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.7\linewidth]{images/Klassendiagramm}
+		\caption{Klassendiagramm}
+		\label{fig:Klassendiagramm}
 	\end{figure}
 	\subsection{Paketdiagramm}
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=0.7\linewidth]{images/Paketdiagramm}
+			\caption{Paketdiagramm}
+			\label{fig:Paketdiagramm}
+		\end{figure}
 	\subsection{Domänenklassendiagramm}
 	\section{\Large PRODUKTLEISTUNGEN}
 	\begin{itemize}
@@ -131,17 +236,17 @@
 	\end{itemize}
 	
 	\section{\Large BENUTZEROBERFLÄCHE}
-	Es gibt nur eine Rolle und das ist die des Admins, der das Prgoramm ausführt (GUI).
+	Es gibt eine Rolle und das ist die des Users der das Prgoramm ausführt (GUI).
 	\begin{figure}[H]
 	\centering
 	\includegraphics[width=0.7\linewidth]{images/GUI}
 	\caption{}
 	\label{fig:GUI}
 	\end{figure}
-	Aktivitätsdiagramme über Slider aktivität/Buttons aktivität, über jegliche aktivität
-%	\subsection{Ansicht: verschiedene Ansichten 1 2 3 4 5}
-%	\subsection{Zusatandsdiagramme}
-%	\subsection{Ansicht: verschiedene Zustandsdiagramme 1 2 3 4 5}
+	
+	\subsection{Ansicht: verschiedene Ansichten 1 2 3 4 5}
+	\subsection{Zusatandsdiagramme}
+	\subsection{Ansicht: verschiedene Zustandsdiagramme 1 2 3 4 5}
 	
 	
 	\section{\Large NICHTFUNKTIONALE ANFORDERUNGEN}
@@ -155,14 +260,14 @@
 		\item \textbf{ Sicherheitsanforderungen, z.B. :}
 		\begin{itemize}
 			\item Richtigkeit der Nodes
-			\item Richtigkeite der Pfeil-Nodes
-			\item Mitlaufen von Protokollen
-			\item Sichere Übertragung
+			\item Richtigkeit der Pfeile
+			\item Genauigkeit der Nodes
+			\item Genauigkeit der BoundingBox
+			\item Genauigkeit beim Skalieren
 		\end{itemize}  
 		\item Plattformabhängigkeiten
-		\item Sehr performant
-		\item Aktuelle Betriebssysteme abdecken
-		\item Datenkommunikation über einen verschlüsselten Weg
+		\item Sehr performant in Abhängigkeit zur Downloadgeschwindigkeit
+		\item Aktuelle Betriebssysteme abdecken(Windows, Linux)
 		\item Daten müssen gespeichert werden	 
 	\end{itemize} 
 
@@ -210,18 +315,18 @@
 			\end{itemize}
 		\end{itemize}
 	\end{itemize}
-%	\subsection{Produkt-Schnittstellen}
+	\subsection{Produkt-Schnittstellen}
 	
 	
-%	\section{\Large SPEZIELLE ANFORDERUNGEN AN DIE ENTWICKLUNGS-UMGEBUNG}
-%	Entwicklung- und Testumgebung des Frontends: Siehe 10 Technische Produktentwicklung 
-%	\subsection{Software}
-%	\subsection{Hardware}
-%	\subsection{Orgware}
-%	\subsection{Entwicklungsschnittstellen}
+	\section{\Large SPEZIELLE ANFORDERUNGEN AN DIE ENTWICKLUNGS-UMGEBUNG}
+	Entwicklung- und Testumgebung des Frontends: Siehe 10 Technische Produktentwicklung 
+	\subsection{Software}
+	\subsection{Hardware}
+	\subsection{Orgware}
+	\subsection{Entwicklungsschnittstellen}
 	
 	
-%	\section{\Large GLIEDERUNG IN TEILPRODUKTE}
+	\section{\Large GLIEDERUNG IN TEILPRODUKTE}
 	
 	
 	\section{\Large ERGÄNZUNGEN}
@@ -231,9 +336,21 @@
 	\section{\Large GLOSSAR}
 	In diesem Kapitel wird die spezifische Sprache des Auftraggebers wie \textbf{ Kürzel } und \textbf{ Fachbegriffe } beschrieben, z.B. :
 	\begin{itemize}
-		\item \textbf{ Administrator }
+		\item \textbf{ User }
 		\begin{itemize}
 			\item Bearbeitet das Programm
+		\end{itemize}
+	\end{itemize}
+	\begin{itemize}
+		\item \textbf{ Pfeile }
+		\begin{itemize}
+			\item 
+		\end{itemize}
+	\end{itemize}
+	\begin{itemize}
+		\item \textbf{ BoundingBox }
+		\begin{itemize}
+			\item 
 		\end{itemize}
 	\end{itemize}
 	\begin{itemize}
