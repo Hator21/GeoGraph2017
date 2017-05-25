@@ -1,4 +1,4 @@
-package de.fh_bielefeld.geograph.Parser;
+package de.fh_bielefeld.geograph.PARSER;
 
 
 import de.fh_bielefeld.geograph.GUI.MapNode;
