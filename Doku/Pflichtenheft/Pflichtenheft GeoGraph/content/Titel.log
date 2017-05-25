@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016/W32TeX) (preloaded format=pdflatex 2017.4.30)  18 MAY 2017 22:39
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016/W32TeX) (preloaded format=pdflatex 2017.4.30)  25 MAY 2017 14:04
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -296,6 +296,8 @@ misspelled it (e.g., `\hobx'), type `I' and the correct
 spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
+Missing character: There is no Ã in font cmr10!
+Missing character: There is no ¼ in font cmr10!
 
 ! LaTeX Error: \begin{document} ended by \end{table}.
 
@@ -360,7 +362,7 @@ Overfull \hbox (41.66676pt too wide) in paragraph at lines 24--47
  []
 
 
-Overfull \hbox (323.50037pt too wide) in paragraph at lines 24--47
+Overfull \hbox (201.16682pt too wide) in paragraph at lines 24--47
  [] 
  []
 
@@ -370,8 +372,6 @@ Overfull \hbox (426.79134pt too wide) in paragraph at lines 24--47
  []
 
 ! Undefined control sequence.
-<recently read> \today 
-                       
 l.48    \today
               
 The control sequence at the end of the top line
@@ -407,5 +407,5 @@ Here is how much of TeX's memory you used:
  3659 multiletter control sequences out of 15000+600000
  4253 words of font info for 16 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 19i,6n,16p,92b,195s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 19i,6n,16p,71b,195s stack positions out of 5000i,500n,10000p,200000b,80000s
 !  ==> Fatal error occurred, no output PDF file produced!

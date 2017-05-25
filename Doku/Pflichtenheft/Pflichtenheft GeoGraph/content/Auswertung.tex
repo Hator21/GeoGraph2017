@@ -9,15 +9,14 @@
 	\begin{itemize}
 		\item Das System muss auf dem Kartenbezugssystem WGS 84 laufen
 		\item Das System muss nach Eingabe von Breiten- \& Längengrad eine Teilkarte ausgeben. Auf dieser Karte sind die Bundesautobahnen und Bundesstraßen sowie Richtungspfeile in die, die Autobahn/Straße verläuft, eingezeichnet. Dabei zeigen die Pfeile in die jeweilige Richtung der nächsten Node.
-		\item Das System muss die Pfeil-Nodes, so anpassen das z.b. Geschwindigkeitsbeschränkungen gespeichert werden können.
+		\item Das System muss die Pfeile, so anpassen das die Länge der Pfeile in proportionaler abhängig zur Geschwindigkeitsbeschränkung stehen. 
 		\item Das System muss nach Eingabe einer minimalen und maximalen-Eingabe eines Punktes. Den Ausschnitt der Karte darstellen.
 		\item Das System muss nachdem eine Karte dargestellt wurde, den ausgewählten Kartenbereich verschieben können.
 		\item Das System muss skalierbar sein.
 	\end{itemize}
 	\subsection{Abgrenzungskriterien}
 	\begin{itemize}
-		\item Das System ist keine Navigations Software
-		\item Das System zeigt keine genauen Karten Informationen an
+		\item Das System ist keine Navigations Software.
 	\end{itemize}
 	
 	
@@ -47,8 +46,8 @@
 		\begin{figure}[H]
 			\centering
 			\includegraphics[width=0.7\linewidth]{images/Usecases}
-			\caption{}
-			\label{fig:GUI}
+			\caption{UseCase Diagramm}
+			\label{fig:Usecase Diagramm}
 		\end{figure}
 		
 		
@@ -191,15 +190,15 @@
 		\begin{figure}[H]
 			\centering
 			\includegraphics[width=0.7\linewidth]{images/Ablauf}
-			\caption{}
-			\label{fig:Akitiviti}
+			\caption{Aktivitäts Diagramm}
+			\label{fig:Aktivitäts Diagramm}
 		\end{figure}
 	\subsection{Sequenzdiagramm}
 	\begin{figure}[H]
 	\centering
 	\includegraphics[width=0.7\linewidth]{images/Squenz}
-	\caption{}
-	\label{fig:Seq}
+	\caption{Sequenz Diagramm}
+	\label{fig:Sequenz Diagramm}
 	\end{figure}
 	
 	
@@ -239,14 +238,18 @@
 	Es gibt eine Rolle und das ist die des Users der das Prgoramm ausführt (GUI).
 	\begin{figure}[H]
 	\centering
-	\includegraphics[width=0.7\linewidth]{images/GUI}
-	\caption{}
+	\includegraphics[width=0.7\linewidth]{images/OSMStreetView}
+	\caption{Benutzeroberfläche bsp.}
 	\label{fig:GUI}
 	\end{figure}
 	
-	\subsection{Ansicht: verschiedene Ansichten 1 2 3 4 5}
 	\subsection{Zusatandsdiagramme}
-	\subsection{Ansicht: verschiedene Zustandsdiagramme 1 2 3 4 5}
+	\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\linewidth]{images/Zustandsdiagramm}
+	\caption{Zustands Diagramm}
+	\label{fig:Zustands Diagramm}
+	\end{figure}
 	
 	
 	\section{\Large NICHTFUNKTIONALE ANFORDERUNGEN}
@@ -266,7 +269,8 @@
 			\item Genauigkeit beim Skalieren
 		\end{itemize}  
 		\item Plattformabhängigkeiten
-		\item Sehr performant in Abhängigkeit zur Downloadgeschwindigkeit
+		\item Performant in Abhängigkeit zur Downloadgeschwindigkeit und API
+		\item Wenn der markierte Bereich der Boundingbox zu groß ist, dann kann das laden der Nodes sehr lange dauern
 		\item Aktuelle Betriebssysteme abdecken(Windows, Linux)
 		\item Daten müssen gespeichert werden	 
 	\end{itemize} 
@@ -277,7 +281,7 @@
    	Bei Client / Server-Anwendungen ist die Umgebung jeweils für Clients und Server getrennt anzugeben.
 	\subsection{Software}
 	\begin{itemize}
-		\item Erfordert \textbf{Java} auf dem Client
+		\item Erfordert \textbf{Java 8.x} auf dem Client
 		\begin{itemize}
 			\item getestet und entworfen wird für :
 			\begin{itemize}
@@ -330,7 +334,7 @@
 	
 	
 	\section{\Large ERGÄNZUNGEN}
-	Ein erster Testbetrieb wird in einer virtuellen Umgebung stattfinden. Dort wird dann zunächst ausgiebig die Stabilität und Sicherheit des Systems getestet.
+	Ein erster Testbetrieb wird in der Arbeitsumgebung des Kunden stattfinden. Dort wird dann zunächst ausgiebig die Stabilität und Sicherheit des Systems getestet.
 	
 	
 	\section{\Large GLOSSAR}
@@ -340,29 +344,32 @@
 		\begin{itemize}
 			\item Bearbeitet das Programm
 		\end{itemize}
-	\end{itemize}
-	\begin{itemize}
 		\item \textbf{ Pfeile }
 		\begin{itemize}
-			\item 
+			\item zeigen auf den nächsten Node der Straße
+			\item länge abhängig zur Skalierung und der Geschwindigkeitsbeschränkung
 		\end{itemize}
-	\end{itemize}
-	\begin{itemize}
 		\item \textbf{ BoundingBox }
 		\begin{itemize}
-			\item 
+			\item Auschnitt des Kartenbereichs
+			\item Besteht aus Min- und Max-Wert
 		\end{itemize}
-	\end{itemize}
-	\begin{itemize}
 		\item \textbf{ Node }
 		\begin{itemize}
-			\item Eine Node ist eine Kombination aus Punktdaten
+			\item Ein Node stellt einen Punkt auf der Karte dar
+			\item Mehrere Nodes können z.b. einer Straße zusammen gefasst werden
 		\end{itemize}
-	\end{itemize}
-	\begin{itemize}
-		\item \textbf{ etc. }
+		\item \textbf{ OSM-Datei }
 		\begin{itemize}
-			\item mehr kommt noch ...
+			\item Beinhaltet die Karteninformationen in Form von Nodes 
+		\end{itemize}
+		\item \textbf{ Java }
+		\begin{itemize}
+			\item Eine Platform unabhängige Programmiersprache 
+		\end{itemize}
+		\item \textbf{ API }
+		\begin{itemize}
+			\item Eine Schnittstelle die über das HTTP-Protokoll angesprochen werden kann 
 		\end{itemize}
 	\end{itemize}
 
