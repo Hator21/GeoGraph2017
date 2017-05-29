@@ -26,11 +26,10 @@ public class OmlParser {
     private Map<String,String> changedIDS;
     private Map<String,String> includeConditions;
     private Document givenDocument;
-    
-    OmlParser(ContentHolder givenHolder,Document givenDocument){
-        givenDocument = givenDocument;
+
+    public OmlParser(ContentHolder givenHolder){
         usedHolder = givenHolder;
-        positiveDifference = 0.0000005;
+        positiveDifference = 0.0000005;//magicNumber how close the Nodes must be to be considered as one
         negativeDifference = positiveDifference*(-1);
         parsedNodeTree = new AVLTree<MapNode>(usedHolder);
         parsedWayTree = new AVLTree<MapWay>(usedHolder);
@@ -51,7 +50,8 @@ public class OmlParser {
         includeConditions.clear();
         
     }
-    private void parse() throws NullPointerException{
+    public void parse(Document documentToParse) throws NullPointerException{
+        givenDocument=documentToParse;
         setIncludeConditions();
         NodeList relationsFromGivenDocument = givenDocument.getElementsByTagName("relation");
         
