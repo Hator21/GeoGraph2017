@@ -26,7 +26,7 @@ public class OmlParser {
     private Map<String,String> changedIDS;
     private Map<String,String> includeConditions;
     private Document givenDocument;
-    
+
     public OmlParser(ContentHolder givenHolder){
         usedHolder = givenHolder;
         positiveDifference = 0.0000005;//magicNumber how close the Nodes must be to be considered as one
