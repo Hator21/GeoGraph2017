@@ -6,69 +6,98 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane fx:id="anchor" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.fh_bielefeld.geograph.GUI.OSMStreetGUIController">
+<AnchorPane fx:id="anchor" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="700.0" minWidth="1300.0" prefHeight="700.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.fh_bielefeld.geograph.GUI.OSMStreetGUIController">
    <children>
-      <VBox prefHeight="700.0" prefWidth="1300.0">
+      <VBox prefHeight="700.0" prefWidth="1300.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <AnchorPane fx:id="rightAnchor" prefHeight="470.0" prefWidth="1300.0">
+            <AnchorPane fx:id="rightAnchor" prefHeight="470.0" prefWidth="1300.0" VBox.vgrow="ALWAYS">
                <children>
-                  <Pane fx:id="mapPane" layoutX="15.0" layoutY="45.0" prefHeight="440.0" prefWidth="1270.0" style="-fx-border-color: grey; -fx-border-width: 2; -fx-border-style: solid; -fx-background-color: #F7F7F7;">
+                  <Pane fx:id="mapPane" layoutX="15.0" layoutY="45.0" prefHeight="440.0" prefWidth="1270.0" style="-fx-border-color: grey; -fx-border-width: 2; -fx-border-style: solid; -fx-background-color: #F7F7F7;" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="45.0">
                      <children>
                         <Canvas fx:id="paintingCanvas" height="440.0" width="1270.0" />
                      </children>
                   </Pane>
                </children>
             </AnchorPane>
-            <AnchorPane fx:id="leftAnchor" prefHeight="200.0" prefWidth="1300.0">
+            <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="1300.0" VBox.vgrow="ALWAYS">
                <children>
-                  <Label fx:id="dgLabel" layoutX="14.0" layoutY="14.0" prefHeight="41.0" prefWidth="210.0" text="DG (Dezimalgrad)*">
-                     <font>
-                        <Font size="24.0" />
-                     </font>
-                  </Label>
-                  <Label fx:id="latitudeLabel" layoutX="14.0" layoutY="55.0" text="Breitengrad">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                  </Label>
-                  <Label fx:id="longitudeLabel" layoutX="13.0" layoutY="91.0" text="Längengrad">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                  </Label>
-                  <Label fx:id="wgs84Label" layoutX="13.0" layoutY="172.0" text="*Kartenbezugssystem WGS 84" />
-                  <Button fx:id="searchButton" alignment="CENTER" layoutX="14.0" layoutY="130.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="254.0" text="Nach Koordinaten suchen">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Button>
-                  <TextField fx:id="latitudeTextField" layoutX="119.0" layoutY="56.0" />
-                  <TextField fx:id="longitudeTextField" layoutX="119.0" layoutY="92.0" />
-                  <Slider fx:id="zoomSlider" layoutX="1035.0" layoutY="175.0" max="0.25" min="0" prefHeight="14.0" prefWidth="250.0" value="0.25" />
-                  <Label fx:id="smallZoomLabel" layoutX="1040.0" layoutY="145.0" text="Klein">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                  </Label>
-                  <Label fx:id="bigZoomLabel" layoutX="1245.0" layoutY="145.0" text="Groß">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                  </Label>
-                  <Label fx:id="descriptionLabel" alignment="TOP_LEFT" contentDisplay="TEXT_ONLY" layoutX="300.0" layoutY="15.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="175.0" prefWidth="1000.0" text="Mit dieser Applikation können Sie dies und jenes tun... " textOverrun="CLIP" wrapText="true">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                  </Label>
+                  <AnchorPane fx:id="leftAnchor" prefHeight="230.0" prefWidth="1000.0">
+                     <children>
+                        <Label fx:id="dgLabel" layoutX="14.0" layoutY="14.0" minHeight="41.0" minWidth="210.0" prefHeight="41.0" prefWidth="210.0" text="DG (Dezimalgrad)*" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="14.0">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="latitudeLabel" layoutX="14.0" layoutY="63.0" text="Breitengrad" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="63.0">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="longitudeLabel" layoutX="13.0" layoutY="98.0" text="Längengrad" AnchorPane.leftAnchor="13.0" AnchorPane.topAnchor="98.0">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="wgs84Label" layoutX="14.0" layoutY="162.0" text="*Kartenbezugssystem WGS 84" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="185.0" />
+                        <Button fx:id="searchButton" alignment="CENTER" layoutX="14.0" layoutY="139.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="267.0" text="Nach Koordinaten suchen" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="139.0">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Button>
+                        <TextField fx:id="latitudeTextField" layoutX="119.0" layoutY="64.0" AnchorPane.leftAnchor="119.0" AnchorPane.topAnchor="64.0" />
+                        <TextField fx:id="longitudeTextField" layoutX="119.0" layoutY="97.0" AnchorPane.leftAnchor="119.0" AnchorPane.topAnchor="97.0" />
+                        <Label fx:id="latitudeLabel1" layoutX="300.0" layoutY="63.0" text="min. Breitengrad" AnchorPane.leftAnchor="300.0" AnchorPane.topAnchor="63.0">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="longitudeLabel1" layoutX="299.0" layoutY="98.0" text="min. Längengrad" AnchorPane.leftAnchor="299.0" AnchorPane.topAnchor="98.0">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="latitudeLabel11" layoutX="298.0" layoutY="134.0" text="max. Breitengrad" AnchorPane.leftAnchor="298.0" AnchorPane.topAnchor="134.0">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="longitudeLabel11" layoutX="300.0" layoutY="168.0" text="max. Längengrad" AnchorPane.leftAnchor="300.0" AnchorPane.topAnchor="168.0">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="MinLatitudeTextField" layoutX="445.0" layoutY="64.0" AnchorPane.leftAnchor="445.0" AnchorPane.topAnchor="64.0" />
+                        <TextField fx:id="MinLongitudeTextField" layoutX="445.0" layoutY="97.0" AnchorPane.leftAnchor="445.0" AnchorPane.topAnchor="97.0" />
+                        <TextField fx:id="MaxLatitudeTextField" layoutX="445.0" layoutY="133.0" AnchorPane.leftAnchor="445.0" AnchorPane.topAnchor="133.0" />
+                        <TextField fx:id="MaxLongitudeTextField" layoutX="445.0" layoutY="167.0" AnchorPane.leftAnchor="445.0" AnchorPane.topAnchor="167.0" />
+                     </children>
+                  </AnchorPane>
+                  <Pane minHeight="230.0" minWidth="300.0" prefHeight="230.0" prefWidth="300.0">
+                     <children>
+                        <Label fx:id="smallZoomLabel" minHeight="24.0" minWidth="65.0" text="Klein" AnchorPane.bottomAnchor="60.0" AnchorPane.rightAnchor="200.0">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="bigZoomLabel" layoutX="210.0" layoutY="1.0" minHeight="23.0" minWidth="41.0" text="Groß" AnchorPane.bottomAnchor="60.0" AnchorPane.rightAnchor="14.0">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <Slider fx:id="zoomSlider" layoutY="32.0" max="0.25" min="0" prefHeight="14.0" prefWidth="250.0" value="0.25" AnchorPane.bottomAnchor="35.0" AnchorPane.leftAnchor="1035.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="177.0" />
+                     </children>
+                  </Pane>
                </children>
-            </AnchorPane>
+            </HBox>
          </children>
       </VBox>
-      <MenuBar>
+      <MenuBar minHeight="29.0" minWidth="144.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
         <menus>
           <Menu mnemonicParsing="false" text="File">
             <items>
-              <MenuItem mnemonicParsing="false" text="Close" />
+              <MenuItem mnemonicParsing="false" text="Load OSM" />
+                  <MenuItem mnemonicParsing="false" text="Save OSM" />
+                  <MenuItem mnemonicParsing="false" text="Close" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Edit">

@@ -20,6 +20,8 @@ public class Main extends Application {
 		Parent root = FXMLLoader.load(getClass().getResource("OSMStreetGUI2.fxml"));
 		stage.setTitle("OSMStreetGUI");
 		stage.setScene(new Scene(root, 1300, 700));
+		stage.setMinWidth(1000.0);
+		stage.setMinHeight(500.0);
 		stage.show();
 	}
 }
