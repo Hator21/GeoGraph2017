@@ -28,14 +28,14 @@ public interface MapWayInterface {
 	 * @return the refList
 	 */
 	
-	ArrayList<MapNode> getRefList();
+	ArrayList<String> getRefList();
 
 	/**
 	 * @param refList@Override
 	 *            the refList to set
 	 */
 	
-	void setRefList(ArrayList<MapNode> refList);
+	void setRefList(ArrayList<String> refList);
 
 	/**
 	 * @return the tagList

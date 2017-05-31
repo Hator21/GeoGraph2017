@@ -1,4 +1,5 @@
 package de.fh_bielefeld.geograph.GUI;
+
 import de.fh_bielefeld.geograph.GUI.AVLTree.AVLNode;
 import de.fh_bielefeld.geograph.GUI_INTERFACE.*;
 
@@ -69,7 +70,7 @@ public class ContentHolder implements ContentHolderInterface {
 	public double getLatitude() {
 		return latitude;
 	}
-
+	
 	/**
 	 * Setter for the Latitude value. TODO welcher Latitude Wert.
 	 * 
@@ -97,6 +98,7 @@ public class ContentHolder implements ContentHolderInterface {
 		this.longitude = longitude;
 	}
 
+
 	/**
 	 * Getter for the minimal Latitude value. TODO welcher Latitude Wert.
 	 * 
@@ -115,6 +117,7 @@ public class ContentHolder implements ContentHolderInterface {
 		this.minLatitude = minLatitude;
 	}
 
+
 	/**
 	 * Getter for the maximum Latitude value. TODO welcher Latitude Wert.
 	 * 
@@ -132,7 +135,7 @@ public class ContentHolder implements ContentHolderInterface {
 	public void setMaxLatitude(double maxLatitude) {
 		this.maxLatitude = maxLatitude;
 	}
-
+	
 	/**
 	 * Getter for the minimal Longitude value. TODO welcher Longitude Wert.
 	 * 
@@ -160,6 +163,7 @@ public class ContentHolder implements ContentHolderInterface {
 		return maxLongitude;
 	}
 
+
 	/**
 	 * Setter for the maximum Longitude value. TODO welcher Longitude Wert.
 	 * 
@@ -178,6 +182,7 @@ public class ContentHolder implements ContentHolderInterface {
 		return controller;
 	}
 
+
 	/**
 	 * Setter for the OSMStreetGUI-Controller.
 	 * 
@@ -194,11 +199,13 @@ public class ContentHolder implements ContentHolderInterface {
 	 */
 	public void sendData(AVLNode t) {
 		try {
+
 			MapNodeInterface node = ((MapNodeInterface) (t.element));
 			controller.drawNode(node);
 		} catch (ClassCastException cceN) {
 			try {
 				MapWayInterface way = ((MapWayInterface) (t.element));
+
 				controller.drawWay(way);
 			} catch (ClassCastException cceW) {
 				System.out.println("Something wrong with casting");
