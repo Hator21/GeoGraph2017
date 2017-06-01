@@ -54,7 +54,7 @@ public class OmlParser {
         includeConditions.clear();
         
     }
-    public void parse() throws NullPointerException{
+    public ContentHolder parse() throws NullPointerException{
         OSMApi ApiCaller = new OSMApi();
         try{
             givenDocument=ApiCaller.getBoundingBoxLatLong(usedHolder.getMinLatitude(),usedHolder.getMinLongitude(),usedHolder.getMaxLatitude(),usedHolder.getMaxLongitude());
@@ -95,6 +95,7 @@ public class OmlParser {
         usedHolder.setNodes(parsedNodeTree);
         usedHolder.setWays(parsedWayTree);
         clearEverythingUnimportant();
+        return usedHolder;
     }
     private void parseWay(Element givenWay)throws NullPointerException{
         String parsedWayID = givenWay.getAttributes().getNamedItem("id").toString();
