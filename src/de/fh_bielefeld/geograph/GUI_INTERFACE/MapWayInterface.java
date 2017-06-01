@@ -5,6 +5,10 @@ import java.util.ArrayList;
 import de.fh_bielefeld.geograph.GUI.MapNode;
 import de.fh_bielefeld.geograph.GUI.MapTag;
 
+/**
+ * TODO Kommt zum Parser (erst im Master Branch)
+ * Bei Fragen: Stefan fragen
+ */
 public interface MapWayInterface {
 
 	/**

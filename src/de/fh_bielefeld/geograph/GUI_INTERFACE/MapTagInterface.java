@@ -1,5 +1,9 @@
 package de.fh_bielefeld.geograph.GUI_INTERFACE;
 
+/**
+ * TODO Kommt zum Parser (erst im Master Branch)
+ * Bei Fragen: Stefan fragen
+ */
 public interface MapTagInterface {
 
 	/**

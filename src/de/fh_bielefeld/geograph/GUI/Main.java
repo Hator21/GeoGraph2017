@@ -6,6 +6,9 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+/**
+ * Main Class which starts the Program and starts the gui.
+ */
 public class Main extends Application {
 
 	public static void main(String[] args) {
@@ -14,9 +17,11 @@ public class Main extends Application {
 
 	@Override
 	public void start(Stage stage) throws Exception {
-		Parent root = FXMLLoader.load(getClass().getResource("OSMStreetGUI.fxml"));
+		Parent root = FXMLLoader.load(getClass().getResource("OSMStreetGUI2.fxml"));
 		stage.setTitle("OSMStreetGUI");
-		stage.setScene(new Scene(root, 1600, 900));
+		stage.setScene(new Scene(root, 1300, 700));
+		stage.setMinWidth(1000.0);
+		stage.setMinHeight(500.0);
 		stage.show();
 	}
 }

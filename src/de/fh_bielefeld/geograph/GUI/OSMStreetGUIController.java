@@ -1,8 +1,5 @@
 package de.fh_bielefeld.geograph.GUI;
 
-import de.fh_bielefeld.geograph.GUI_INTERFACE.ContentHolderInterface;
-import de.fh_bielefeld.geograph.GUI_INTERFACE.MapNodeInterface;
-import de.fh_bielefeld.geograph.GUI_INTERFACE.MapWayInterface;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -14,28 +11,34 @@ import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;
 import javafx.scene.transform.Affine;
 import javafx.scene.transform.Transform;
+import javafx.stage.FileChooser;
+import de.fh_bielefeld.geograph.GUI_INTERFACE.ContentHolderInterface;
+import de.fh_bielefeld.geograph.GUI_INTERFACE.MapNodeInterface;
+import de.fh_bielefeld.geograph.GUI_INTERFACE.MapWayInterface;
+import de.fh_bielefeld.geograph.PARSER.OmlParser;
 
 public class OSMStreetGUIController {
 
-	@FXML private Button	searchButton;
+	private OmlParser				parser;
 
-	@FXML private TextField	latitudeTextField, longitudeTextField;
+	@FXML private Button			searchButton, searchButtonArea, fileChooserButton;
 
-	@FXML private Slider	zoomSlider;
+	@FXML private TextField			latitudeTextField, longitudeTextField, latitudeTextFieldL, longitudeTextFieldL, latitudeTextFieldR, longitudeTextFieldR;
 
-	@FXML private Canvas	paintingCanvas;
+	@FXML private Slider			zoomSlider;
 
-	private GraphicsContext	gc;
+	@FXML private Canvas			paintingCanvas;
+
+	private GraphicsContext			gc;
 
 	private ContentHolderInterface	content		= new ContentHolder(this);
 
-	private final int		NODERADIUS	= 3;
-	private final int		ARR_SIZE	= 5;
+	private final int				NODERADIUS	= 3;
+	private final int				ARR_SIZE	= 5;
 
 	@FXML
 	public void initialize() {
 		gc = paintingCanvas.getGraphicsContext2D();
-		createExampleData();
 
 		searchButton.setOnAction((event) -> {
 			double latitude;
@@ -51,18 +54,58 @@ public class OSMStreetGUIController {
 				longitude = Double.parseDouble(longitudeTextField.getText());
 				content.setLongitude(longitude);
 			} catch (NumberFormatException nbe) {
-				popUp("Lï¿½ngengrad");
+				popUp("Längengrad");
 				longitudeTextField.setText("");
 			}
+		});
+
+		searchButtonArea.setOnAction((event) -> {
+			double latitudeL;
+			double longitudeL;
+			double latitudeR;
+			double longitudeR;
+			try {
+				latitudeL = Double.parseDouble(latitudeTextFieldL.getText());
+				content.setMinLatitude(latitudeL);
+			} catch (NumberFormatException nbe) {
+				popUp("Breitengrad Links");
+				// latitudeTextField.setText("");
+			}
+			try {
+				longitudeL = Double.parseDouble(longitudeTextFieldL.getText());
+				content.setMinLongitude(longitudeL);
+			} catch (NumberFormatException nbe) {
+				popUp("Längengrad Links");
+				// longitudeTextField.setText("");
+			}
+			try {
+				latitudeR = Double.parseDouble(latitudeTextFieldR.getText());
+				content.setMaxLatitude(latitudeR);
+			} catch (NumberFormatException nbe) {
+				popUp("Breitengrad Rechts");
+				// latitudeTextField.setText("");
+			}
+			try {
+				longitudeR = Double.parseDouble(longitudeTextFieldR.getText());
+				content.setMaxLongitude(longitudeR);
+			} catch (NumberFormatException nbe) {
+				popUp("Längengrad Rechts");
+				// longitudeTextField.setText("");
+			}
+		});
+
+		fileChooserButton.setOnAction((event) -> {
+			FileChooser fileChooser = new FileChooser();
+			fileChooser.setTitle("Open OSM File");
+			fileChooser.showOpenDialog(fileChooserButton.getScene().getWindow());
+
 		});
 
 		zoomSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
 			System.out.println("Slider Value Changed (newValue: " + newValue.doubleValue() + ")\n");
 		});
 
-		getNodes();
-
-		drawArrow(gc, 83, 903, 103, 923);
+		callParser();
 
 	}
 
@@ -77,12 +120,22 @@ public class OSMStreetGUIController {
 		gc.fillOval(mapLongitude(node.getLongitude()) - NODERADIUS + 1, mapLatitude(node.getLatitude()) - NODERADIUS + 1, NODERADIUS * 2 - 2, NODERADIUS * 2 - 2);
 	}
 
-	private void getWay() {
+	private void getWays() {
 		content.getWays().sendContent();
 	}
 
 	public boolean drawWay(MapWayInterface way) {
-		// gc.strokeOval(mapLatitude(way.getLatitude()), mapLongitude(way.getLongitude()), 3, 3);
+		for (int i = 0; i < way.getRefList().size() - 1; i++) {
+			String id1 = way.getRefList().get(i);
+			String id2 = way.getRefList().get(i + 1);
+			MapNodeInterface node1 = ((MapNodeInterface) (content.getNodes().getNodeByElement(id1)));
+			MapNodeInterface node2 = ((MapNodeInterface) (content.getNodes().getNodeByElement(id1)));
+			int x1 = (int) (mapLatitude(node1.getLatitude()));
+			int y1 = (int) (mapLatitude(node1.getLongitude()));
+			int x2 = (int) (mapLatitude(node2.getLatitude()));
+			int y2 = (int) (mapLatitude(node2.getLongitude()));
+			drawArrow(gc, x1, y1, x2, y2);
+		}
 		return true;
 	}
 
@@ -123,6 +176,17 @@ public class OSMStreetGUIController {
 		}, 4);
 	}
 
+	private void draw() {
+		getNodes();
+		getWays();
+	}
+
+	private void callParser() {
+		parser = new OmlParser(content);
+		content = parser.parse();
+		draw();
+	}
+
 	private void createExampleData() {
 		content.setLatitude(52.1174047);
 		content.setMinLatitude(52.1164047);
@@ -139,7 +203,7 @@ public class OSMStreetGUIController {
 		content.getNodes().insert(new MapNode("6", 52.1160254, 8.6781414));
 		content.getNodes().insert(new MapNode("7", 52.1158071, 8.6784022));
 
-//		content.getNodes().serializePrefix();
+		// content.getNodes().serializePrefix();
 	}
 
 }
