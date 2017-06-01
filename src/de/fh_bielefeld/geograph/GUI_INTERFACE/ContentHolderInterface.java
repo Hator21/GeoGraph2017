@@ -4,7 +4,6 @@ import de.fh_bielefeld.geograph.GUI.AVLTree.AVLNode;
 import de.fh_bielefeld.geograph.GUI.MapNode;
 import de.fh_bielefeld.geograph.GUI.MapWay;
 import de.fh_bielefeld.geograph.GUI.OSMStreetGUIController;
-import de.fh_bielefeld.geograph.GUI_INTERFACE.AVLTreeInterface;
 
 /**
  * Interface for the ContentHolder class.
@@ -13,7 +12,7 @@ import de.fh_bielefeld.geograph.GUI_INTERFACE.AVLTreeInterface;
  * TODO: Siehe Info in der ContentHolder class
  */
 public interface ContentHolderInterface {
-	
+
 	/**
 	 * @return
 	 */
@@ -107,7 +106,8 @@ public interface ContentHolderInterface {
 	/**
 	 * Creates the Nodes on the gui. For that it calls the function drawNode().
 	 * 
-	 * @param Node to draw on the gui.
+	 * @param Node
+	 *            to draw on the gui.
 	 */
 	void sendData(AVLNode t);
 

@@ -1,17 +1,20 @@
 package de.fh_bielefeld.geograph.GUI;
 
 import de.fh_bielefeld.geograph.GUI.AVLTree.AVLNode;
-import de.fh_bielefeld.geograph.GUI_INTERFACE.*;
+import de.fh_bielefeld.geograph.GUI_INTERFACE.AVLTreeInterface;
+import de.fh_bielefeld.geograph.GUI_INTERFACE.ContentHolderInterface;
+import de.fh_bielefeld.geograph.GUI_INTERFACE.MapNodeInterface;
+import de.fh_bielefeld.geograph.GUI_INTERFACE.MapWayInterface;
 
 /**
  * This class holds the complete data for the GUI.
  */
 public class ContentHolder implements ContentHolderInterface {
-	private AVLTreeInterface<MapNode>		nodes;
-	private AVLTreeInterface<MapWay>			ways;
-	private double					latitude, minLatitude, maxLatitude;
-	private double					longitude, minLongitude, maxLongitude;
-	private OSMStreetGUIController	controller;
+	private AVLTreeInterface<MapNode>	nodes;
+	private AVLTreeInterface<MapWay>	ways;
+	private double						latitude, minLatitude, maxLatitude;
+	private double						longitude, minLongitude, maxLongitude;
+	private OSMStreetGUIController		controller;
 
 	public ContentHolder(OSMStreetGUIController controller) {
 		nodes = new AVLTree<MapNode>(this);
@@ -37,7 +40,8 @@ public class ContentHolder implements ContentHolderInterface {
 	/**
 	 * Setter for the Nodes on the map.
 	 * 
-	 * @param Nodes on the map.
+	 * @param Nodes
+	 *            on the map.
 	 */
 	public void setNodes(AVLTreeInterface<MapNode> nodes) {
 		this.nodes = nodes;
@@ -55,7 +59,8 @@ public class ContentHolder implements ContentHolderInterface {
 	/**
 	 * Setter for the ways on the map.
 	 * 
-	 * @param Ways on the map.
+	 * @param Ways
+	 *            on the map.
 	 */
 	public void setWays(AVLTreeInterface<MapWay> ways) {
 		this.ways = ways;
@@ -70,7 +75,7 @@ public class ContentHolder implements ContentHolderInterface {
 	public double getLatitude() {
 		return latitude;
 	}
-	
+
 	/**
 	 * Setter for the Latitude value. TODO welcher Latitude Wert.
 	 * 
@@ -92,12 +97,12 @@ public class ContentHolder implements ContentHolderInterface {
 	/**
 	 * Setter for the Longitude value. TODO welcher Longitude Wert.
 	 * 
-	 * @param Longitude value.
+	 * @param Longitude
+	 *            value.
 	 */
 	public void setLongitude(double longitude) {
 		this.longitude = longitude;
 	}
-
 
 	/**
 	 * Getter for the minimal Latitude value. TODO welcher Latitude Wert.
@@ -111,12 +116,12 @@ public class ContentHolder implements ContentHolderInterface {
 	/**
 	 * Setter for the minimal Latitude value. TODO welcher Latitude Wert.
 	 * 
-	 * @param Latitude value.
+	 * @param Latitude
+	 *            value.
 	 */
 	public void setMinLatitude(double minLatitude) {
 		this.minLatitude = minLatitude;
 	}
-
 
 	/**
 	 * Getter for the maximum Latitude value. TODO welcher Latitude Wert.
@@ -130,12 +135,13 @@ public class ContentHolder implements ContentHolderInterface {
 	/**
 	 * Getter for the maximum Latitude value. TODO welcher Latitude Wert.
 	 * 
-	 * @param Latitude value.
+	 * @param Latitude
+	 *            value.
 	 */
 	public void setMaxLatitude(double maxLatitude) {
 		this.maxLatitude = maxLatitude;
 	}
-	
+
 	/**
 	 * Getter for the minimal Longitude value. TODO welcher Longitude Wert.
 	 * 
@@ -148,7 +154,8 @@ public class ContentHolder implements ContentHolderInterface {
 	/**
 	 * Setter for the minimal Longitude value. TODO welcher Longitude Wert.
 	 * 
-	 * @param Longitude value.
+	 * @param Longitude
+	 *            value.
 	 */
 	public void setMinLongitude(double minLongitude) {
 		this.minLongitude = minLongitude;
@@ -163,11 +170,11 @@ public class ContentHolder implements ContentHolderInterface {
 		return maxLongitude;
 	}
 
-
 	/**
 	 * Setter for the maximum Longitude value. TODO welcher Longitude Wert.
 	 * 
-	 * @param Longitude value.
+	 * @param Longitude
+	 *            value.
 	 */
 	public void setMaxLongitude(double maxLongitude) {
 		this.maxLongitude = maxLongitude;
@@ -182,11 +189,11 @@ public class ContentHolder implements ContentHolderInterface {
 		return controller;
 	}
 
-
 	/**
 	 * Setter for the OSMStreetGUI-Controller.
 	 * 
-	 * @param Controller from the OSMStreetGUI.
+	 * @param Controller
+	 *            from the OSMStreetGUI.
 	 */
 	public void setController(OSMStreetGUIController controller) {
 		this.controller = controller;
@@ -195,11 +202,11 @@ public class ContentHolder implements ContentHolderInterface {
 	/**
 	 * Creates the Nodes on the gui. For that it calls the function drawNode().
 	 * 
-	 * @param Node to draw on the gui.
+	 * @param Node
+	 *            to draw on the gui.
 	 */
 	public void sendData(AVLNode t) {
 		try {
-
 			MapNodeInterface node = ((MapNodeInterface) (t.element));
 			controller.drawNode(node);
 		} catch (ClassCastException cceN) {
@@ -212,5 +219,4 @@ public class ContentHolder implements ContentHolderInterface {
 			}
 		}
 	}
-
 }
