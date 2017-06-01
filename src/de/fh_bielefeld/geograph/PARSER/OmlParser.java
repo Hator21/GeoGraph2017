@@ -6,14 +6,18 @@ import de.fh_bielefeld.geograph.GUI.ContentHolder;
 import de.fh_bielefeld.geograph.GUI.MapWay;
 import de.fh_bielefeld.geograph.GUI.AVLTree;
 import de.fh_bielefeld.geograph.GUI.MapTag;
+import de.fh_bielefeld.geograph.API.OSMApi;
+import java.io.IOException;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import javax.xml.parsers.ParserConfigurationException;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 import org.w3c.dom.Element;
+import org.xml.sax.SAXException;
 
 
 public class OmlParser {
@@ -50,8 +54,17 @@ public class OmlParser {
         includeConditions.clear();
         
     }
-    public void parse(Document documentToParse) throws NullPointerException{
-        givenDocument=documentToParse;
+    public ContentHolder parse() throws NullPointerException{
+        OSMApi ApiCaller = new OSMApi();
+        try{
+            givenDocument=ApiCaller.getBoundingBoxLatLong(usedHolder.getMinLatitude(),usedHolder.getMinLongitude(),usedHolder.getMaxLatitude(),usedHolder.getMaxLongitude());
+        }catch(IOException e){
+            //was zu tuen ist
+        }catch(ParserConfigurationException e){
+            //was zu tuen ist
+        }catch(SAXException e){
+            //was zu tuen ist
+        }
         setIncludeConditions();
         NodeList relationsFromGivenDocument = givenDocument.getElementsByTagName("relation");
         
@@ -82,6 +95,7 @@ public class OmlParser {
         usedHolder.setNodes(parsedNodeTree);
         usedHolder.setWays(parsedWayTree);
         clearEverythingUnimportant();
+        return usedHolder;
     }
     private void parseWay(Element givenWay)throws NullPointerException{
         String parsedWayID = givenWay.getAttributes().getNamedItem("id").toString();
