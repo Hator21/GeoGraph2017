@@ -18,7 +18,13 @@ import org.w3c.dom.NodeList;
 import org.w3c.dom.Element;
 
 
-
+/**
+ * The Parser Class for an osm type Document
+ * with Methods to parse the given Document, and to return the Streets.
+ * @author  Stefan Schuck
+ * @version 0.1
+ * @since   2017-05-25 
+*/
 public class OmlParser {
     private double positiveDifference, negativeDifference;
     private AVLTree<MapNode> parsedNodeTree;
@@ -30,6 +36,11 @@ public class OmlParser {
     private Map<String,String> includeConditions;
     private Document givenDocument;
 
+    /**
+     * Method to get the data of a single node by id
+     * 
+     * @param givenHolder The ID of the Node you want to get additional information about
+ */
     public OmlParser(ContentHolderInterface givenHolder){
         usedHolder = givenHolder;
         positiveDifference = 0.0000005;//magicNumber how close the Nodes must be to be considered as one
@@ -68,9 +79,11 @@ public class OmlParser {
             if(relationsFromGivenDocument.item(i).hasChildNodes()){
                 NodeList childsOfRelation = relationsFromGivenDocument.item(i).getChildNodes();
                 for(int x=0;x<childsOfRelation.getLength();i++){
-                    if(includeConditions.containsKey(childsOfRelation.item(x).getAttributes().getNamedItem("k").getNodeValue())){
-                        if((childsOfRelation.item(x).getAttributes().getNamedItem("v").getNodeValue()).equals(includeConditions.get(childsOfRelation.item(x).getAttributes().getNamedItem("k")))){
-                            isImportant=true;
+                    if(childsOfRelation.item(x).getAttributes().getLength()>0){
+                        if(includeConditions.containsKey(childsOfRelation.item(x).getAttributes().getNamedItem("k").getNodeValue())){
+                            if((childsOfRelation.item(x).getAttributes().getNamedItem("v").getNodeValue()).equals(includeConditions.get(childsOfRelation.item(x).getAttributes().getNamedItem("k")))){
+                                isImportant=true;
+                            }
                         }
                     }
                 }
