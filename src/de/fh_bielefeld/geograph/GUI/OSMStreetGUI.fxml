@@ -55,8 +55,8 @@
                            <content>
                               <AnchorPane fx:id="Tab2Anchor" prefHeight="318.0" prefWidth="276.0">
                                  <children>
-                                    <TextField fx:id="longitudeTextFieldL" layoutX="110.0" layoutY="103.0" prefHeight="27.0" prefWidth="149.0" AnchorPane.bottomAnchor="669.0" AnchorPane.leftAnchor="110.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="103.0" />
-                                    <TextField fx:id="latitudeTextFieldL" layoutX="110.0" layoutY="76.0" prefHeight="27.0" prefWidth="149.0" AnchorPane.bottomAnchor="696.0" AnchorPane.leftAnchor="110.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="76.0" />
+                                    <TextField fx:id="longitudeTextFieldL" layoutX="110.0" layoutY="103.0" prefHeight="27.0" prefWidth="149.0" text="52.294" AnchorPane.bottomAnchor="669.0" AnchorPane.leftAnchor="110.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="103.0" />
+                                    <TextField fx:id="latitudeTextFieldL" layoutX="110.0" layoutY="76.0" prefHeight="27.0" prefWidth="149.0" text="8.9" AnchorPane.bottomAnchor="696.0" AnchorPane.leftAnchor="110.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="76.0" />
                                     <Button fx:id="searchButtonArea" alignment="CENTER" layoutX="5.0" layoutY="247.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="254.0" text="Nach Koordinaten suchen" AnchorPane.bottomAnchor="512.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="247.0">
                                        <font>
                                           <Font size="14.0" />
@@ -94,8 +94,8 @@
                                           <Font size="18.0" />
                                        </font>
                                     </Label>
-                                    <TextField fx:id="latitudeTextFieldR" layoutX="110.0" layoutY="161.0" AnchorPane.bottomAnchor="613.0" AnchorPane.leftAnchor="110.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="161.0" />
-                                    <TextField fx:id="longitudeTextFieldR" layoutX="110.0" layoutY="188.0" AnchorPane.bottomAnchor="586.0" AnchorPane.leftAnchor="110.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="188.0" />
+                                    <TextField fx:id="latitudeTextFieldR" layoutX="110.0" layoutY="161.0" text="8.91" AnchorPane.bottomAnchor="613.0" AnchorPane.leftAnchor="110.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="161.0" />
+                                    <TextField fx:id="longitudeTextFieldR" layoutX="110.0" layoutY="188.0" text="52.296" AnchorPane.bottomAnchor="586.0" AnchorPane.leftAnchor="110.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="188.0" />
                                     <Label fx:id="dgLabel1" layoutX="4.0" layoutY="8.0" prefHeight="39.0" prefWidth="267.0" text="Bereichskoordinaten*" AnchorPane.bottomAnchor="752.0" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="3.0" AnchorPane.topAnchor="8.0">
                                        <font>
                                           <Font size="24.0" />
