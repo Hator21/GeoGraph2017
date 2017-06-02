@@ -18,6 +18,7 @@ import org.w3c.dom.NodeList;
 import org.w3c.dom.Element;
 
 
+
 /**
  * The Parser Class for an osm type Document
  * with Methods to parse the given Document, and to return the Streets.
@@ -69,6 +70,7 @@ public class OmlParser {
         try{
             givenDocument=ApiCaller.getBoundingBoxLatLong(usedHolder.getMinLatitude(),usedHolder.getMinLongitude(),usedHolder.getMaxLatitude(),usedHolder.getMaxLongitude());
         }catch(InvalidAPIRequestException e){
+
             //was zu tuen ist
         }
         setIncludeConditions();
