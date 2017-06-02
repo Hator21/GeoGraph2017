@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><osm attribution="http://www.openstreetmap.org/copyright" copyright="OpenStreetMap and contributors" generator="CGImap 0.6.0 (18249 thorn-01.openstreetmap.org)" license="http://opendatacommons.org/licenses/odbl/1-0/" version="0.6">
+ <bounds maxlat="13.4049540" maxlon="52.7200070" minlat="13.2049540" minlon="52.5200070"/>
+ <node changeset="1044219" id="388477418" lat="13.3601390" lon="52.5427780" timestamp="2009-05-02T07:08:08Z" uid="110046" user="freietonne-db" version="1" visible="true">
+  <tag k="created_by" v="m.jastrow"/>
+  <tag k="freietonne_id" v="650"/>
+  <tag k="freietonne_link" v="http://www.freietonne.de/index.php?site=38&amp;infotyp=1&amp;editgps=650"/>
+  <tag k="freietonne_symbol" v="37"/>
+  <tag k="height" v="34"/>
+  <tag k="information_typ" v="irrevelant"/>
+  <tag k="name" v="FT-Entwickler M.J."/>
+ </node>
+ <node changeset="24178879" id="2965790636" lat="13.3716883" lon="52.5225850" timestamp="2014-07-16T10:50:54Z" uid="121453" user="gadacz" version="1" visible="true"/>
+</osm>

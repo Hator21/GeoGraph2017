@@ -34,14 +34,9 @@ public class OSMApiTest{
 	 * @throws InvalidAPIRequestException 
 	 */
 	@Test (expected = InvalidAPIRequestException.class)
-	public void getNodeWithIDGivenAWrongNode() {
+	public void getNodeWithIDGivenAWrongNode() throws InvalidAPIRequestException {
 		long notValidNode = -120;
-		try{
-			this.testDocument = OSMApi.getNodeWithID(notValidNode);
-		}
-		catch(InvalidAPIRequestException ex) {
-			assertTrue("The Exception we expected to get", true);
-		}
+		this.testDocument = OSMApi.getNodeWithID(notValidNode);
 	}
 	
 	/**
@@ -49,12 +44,14 @@ public class OSMApiTest{
 	 */
 	@Test
 	public void getNodeWithIDGivenValidNode(){
-		long validNode = 54;
+		long validNode = 132611634;
 		try{
 			this.testDocument = OSMApi.getNodeWithID(validNode);
 		}
 		catch(InvalidAPIRequestException ex){
-			fail("api failure");
+			ex.printStackTrace();
+			fail("There shouldn't be an InvalidAPIRequestException !");
+			
 		}
 		assertNotNull(this.testDocument);
 	}
@@ -62,37 +59,28 @@ public class OSMApiTest{
 	/**
 	 * This test will invoke the getBoundingBoxOfRange method with a range over 0.25.
 	 * The tested method is expected to throw an IOException.
+	 * @throws InvalidAPIRequestException 
 	 */
 	@Test (expected = InvalidAPIRequestException.class)
-	public void getBoundingBoxOfRangeGivenTooHighRange(){
+	public void getBoundingBoxOfRangeGivenTooHighRange() throws InvalidAPIRequestException{
 		latitude = 51.9032375;
 		longitude = 8.3857535;
 		range = 1;
 		
-		try{
-			this.testDocument = OSMApi.getBoundingBoxOfRange(latitude, longitude, range);
-		}
-		catch(InvalidAPIRequestException ex){
-			assertTrue("The Exception we expected to get", true);
-		}
+		this.testDocument = OSMApi.getBoundingBoxOfRange(latitude, longitude, range);
 	}
 
 	/**
 	 * This test will invoke the getBoundingBoxOfRange method with a range below 0.
 	 * The tested method is expected to throw an IOException.
+	 * @throws InvalidAPIRequestException 
 	 */
 	@Test (expected = InvalidAPIRequestException.class)
-	public void getBoundingBoxOfRangeGivenNegativeRange(){
+	public void getBoundingBoxOfRangeGivenNegativeRange() throws InvalidAPIRequestException{
 		latitude = 51.9032375;
 		longitude = 8.3857535;
 		range = -1;
-		
-		try{
-			this.testDocument = OSMApi.getBoundingBoxOfRange(latitude, longitude, range);
-		}
-		catch(InvalidAPIRequestException ex){
-			assertTrue("The Exception we expected to get.", true);
-		}
+		this.testDocument = OSMApi.getBoundingBoxOfRange(latitude, longitude, range);
 	}
 
 	/**
@@ -115,21 +103,15 @@ public class OSMApiTest{
 
 	/**
 	 * This test will invoke the getBoundingBoxOfRange method with the minimum range 0.
+	 * @throws InvalidAPIRequestException 
 	 * @deprecated
 	 */
-	@Test
-	public void getBoundingBoxOfRangeGivenZeroRange(){
+	@Test (expected = InvalidAPIRequestException.class)
+	public void getBoundingBoxOfRangeGivenZeroRange() throws InvalidAPIRequestException{
 		latitude = 51.9032375;
 		longitude = 8.3857535;
 		range = 0;
-		
-		try{
-			this.testDocument = OSMApi.getBoundingBoxOfRange(latitude, longitude, range);
-		}
-		catch(InvalidAPIRequestException ex){
-			fail("There shouldn't be an InvalidApiRequestException!");
-		}
-		assertNotNull(this.testDocument);
+		this.testDocument = OSMApi.getBoundingBoxOfRange(latitude, longitude, range);
 	}
 	
 	/**
@@ -170,35 +152,26 @@ public class OSMApiTest{
 	
 	/**
 	 * This test will invoke the getBoundingBoxOfRange method with a Latitude over 90.
+	 * @throws InvalidAPIRequestException 
 	 */
 	@Test (expected = InvalidAPIRequestException.class)
-	public void getBoundingBoxOfRangeGivenWrongLatitude(){
+	public void getBoundingBoxOfRangeGivenWrongLatitude() throws InvalidAPIRequestException{
 		latitude = 91.9032375;
 		longitude = 8.3857535;
 		range = 0.1;
-		
-		try{
-			this.testDocument = OSMApi.getBoundingBoxOfRange(latitude, longitude, range);
-		}
-		catch(InvalidAPIRequestException ex){
-			assertTrue("The Exception we expected to get.", true);
-		}
+		this.testDocument = OSMApi.getBoundingBoxOfRange(latitude, longitude, range);
 	}
 	
 	/**
 	 * This test will invoke the getBoundingBoxOfRange method with a Latitude over 180.
+	 * @throws InvalidAPIRequestException 
 	 */
 	@Test (expected = InvalidAPIRequestException.class)
-	public void getBoundingBoxOfRangeGivenWrongLongitude(){
+	public void getBoundingBoxOfRangeGivenWrongLongitude() throws InvalidAPIRequestException{
 		latitude = 51.9032375;
 		longitude = 181;
 		range = 0.1;
-		try{
-			this.testDocument = OSMApi.getBoundingBoxOfRange(latitude, longitude, range);
-		}
-		catch(InvalidAPIRequestException ex){
-			assertTrue("The Exception we expected to get.", true);
-		}
+		this.testDocument = OSMApi.getBoundingBoxOfRange(latitude, longitude, range);
 	}
 	
 	/**
@@ -221,88 +194,70 @@ public class OSMApiTest{
 	
 	/**
 	 * This test will invoke the getBoundingBoxLatLong method with two same coordinates.
+	 * @throws InvalidAPIRequestException 
 	 * @deprecated
 	 */
-	@Test
-	public void getBoundinBoxLatLongGivenTwoSameCoordinates(){
+	@Test (expected = InvalidAPIRequestException.class)
+	public void getBoundinBoxLatLongGivenTwoSameCoordinates() throws InvalidAPIRequestException{
 		latitude = 52.520007;
 		longitude = 13.204953999999975;
-		try{
-			this.testDocument = OSMApi.getBoundingBoxLatLong(latitude, longitude, latitude, longitude);
-		}
-		catch(InvalidAPIRequestException ex){
-			fail("There shouldn't be an InvalidAPIRequestException");
-		}
-		assertNotNull(this.testDocument);
+		this.testDocument = OSMApi.getBoundingBoxLatLong(latitude, longitude, latitude, longitude);
+		
 	}
 	
 	/**
 	 * This test will invoke the getBoundingBoxLatLong method with a wrong minLatitude.
+	 * @throws InvalidAPIRequestException 
 	 */
 	@Test (expected = InvalidAPIRequestException.class)
-	public void getBoundinBoxLatLongGivenWrongMinLatitude(){
+	public void getBoundinBoxLatLongGivenWrongMinLatitude() throws InvalidAPIRequestException{
 		double minLatitude = 91;
 		double minLongitude = 13.204953999999975;
 		double maxLatitude = 52.720007;
 		double maxLongitude = 13.204953999999975;
-		try{
-			this.testDocument = OSMApi.getBoundingBoxLatLong(minLatitude, minLongitude,
-					maxLatitude, maxLongitude);
-		}
-		catch(InvalidAPIRequestException ex){
-			assertTrue("The Exception we expected to get.", true);
-		}
+		
+		this.testDocument = OSMApi.getBoundingBoxLatLong(minLatitude, minLongitude, maxLatitude, maxLongitude);
 	}
 	
 	/**
 	 * This test will invoke the getBoundingBoxLatLong method with a wrong maxLatitude.
+	 * @throws InvalidAPIRequestException 
 	 */
-	@Test
-	public void getBoundinBoxLatLongGivenWrongMaxLatitude(){
+	@Test (expected = InvalidAPIRequestException.class)
+	public void getBoundinBoxLatLongGivenWrongMaxLatitude() throws InvalidAPIRequestException{
 		double minLatitude = 52.720007;
 		double minLongitude = 13.204953999999975;
 		double maxLatitude = 91;
 		double maxLongitude = 13.204953999999975;
-		try{
-			this.testDocument = OSMApi.getBoundingBoxLatLong(minLatitude, minLongitude, maxLatitude, maxLongitude);
-		}
-		catch(InvalidAPIRequestException ex){
-			assertTrue("The Exception we expected to get.", true);
-		}
+		
+		this.testDocument = OSMApi.getBoundingBoxLatLong(minLatitude, minLongitude, maxLatitude, maxLongitude);
 	}
 	
 	/**
 	 * This test will invoke the getBoundingBoxLatLong method with a wrong minLongitude.
+	 * @throws InvalidAPIRequestException 
 	 */
 	@Test (expected = InvalidAPIRequestException.class)
-	public void getBoundinBoxLatLongGivenWrongMinLongitude(){
+	public void getBoundinBoxLatLongGivenWrongMinLongitude() throws InvalidAPIRequestException{
 		double minLatitude = 52.520007;
 		double minLongitude = 181;
 		double maxLatitude = 52.520007;
 		double maxLongitude = 13.204953999999975;
-		try{
-			this.testDocument = OSMApi.getBoundingBoxLatLong(minLatitude, minLongitude,
-					maxLatitude, maxLongitude);
-		}
-		catch(InvalidAPIRequestException ex){
-			assertTrue("The Exception we expected to get.", true);
-		}
+		
+		this.testDocument = OSMApi.getBoundingBoxLatLong(minLatitude, minLongitude, maxLatitude, maxLongitude);
 	}
 	
 	/**
 	 * This test will invoke the getBoundingBoxLatLong method with a wrong maxLongitude.
+	 * @throws InvalidAPIRequestException 
 	 */
 	@Test (expected = InvalidAPIRequestException.class)
-	public void getBoundinBoxLatLongGivenWrongMaxLongitude(){
+	public void getBoundinBoxLatLongGivenWrongMaxLongitude() throws InvalidAPIRequestException{
 		double minLatitude = 52.520007;
 		double minLongitude = 13.204953999999975;
 		double maxLatitude = 52.520007;
 		double maxLongitude = 181;
-		try{
-			this.testDocument = OSMApi.getBoundingBoxLatLong(minLatitude, minLongitude, maxLatitude, maxLongitude);
-		}
-		catch(InvalidAPIRequestException ex){
-			assertTrue("The Exception we expected to get.", true);
-		}
+		
+		this.testDocument = OSMApi.getBoundingBoxLatLong(minLatitude, minLongitude, maxLatitude, maxLongitude);
 	}
 }
