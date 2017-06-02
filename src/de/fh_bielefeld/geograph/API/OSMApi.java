@@ -113,6 +113,8 @@ public class OSMApi {
             throw new InvalidAPIRequestException("Longitude is out of Range ( not between -180 and 180)");
         if((minLatitude == maxLatitude)||(minLongitude == maxLongitude))
             throw new InvalidAPIRequestException("BoundingBox size would be zero");
+        if((minLatitude > maxLatitude) || (minLongitude > maxLongitude))
+            throw new InvalidAPIRequestException("The min Values must be lower than the max Values");
         
         APIRequestBuilder builder = new APIRequestBuilder();
         
