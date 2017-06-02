@@ -17,7 +17,7 @@ public class Main extends Application {
 
 	@Override
 	public void start(Stage stage) throws Exception {
-		Parent root = FXMLLoader.load(getClass().getResource("OSMStreetGUI2.fxml"));
+		Parent root = FXMLLoader.load(getClass().getResource("OSMStreetGUI.fxml"));
 		stage.setTitle("OSMStreetGUI");
 		stage.setScene(new Scene(root, 1300, 700));
 		stage.setMinWidth(1000.0);
