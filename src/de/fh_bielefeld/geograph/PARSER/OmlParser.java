@@ -12,10 +12,15 @@ import de.fh_bielefeld.geograph.API.OSMApi;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import javax.xml.xpath.XPathFactory;
+import javax.xml.xpath.XPath;
+import javax.xml.xpath.XPathConstants;
+import javax.xml.xpath.XPathExpressionException;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 import org.w3c.dom.Element;
+import org.w3c.dom.Node;
 
 
 
@@ -73,6 +78,7 @@ public class OmlParser {
 
             //was zu tuen ist
         }
+        givenDocument.getDocumentElement().normalize();
         setIncludeConditions();
         NodeList relationsFromGivenDocument = givenDocument.getElementsByTagName("relation");
         
@@ -83,7 +89,7 @@ public class OmlParser {
                 for(int x=0;x<childsOfRelation.getLength();x++){
                     if((childsOfRelation.item(x).getAttributes()!=null)&&(childsOfRelation.item(x).getAttributes().getNamedItem("k")!= null)){
                         if(includeConditions.containsKey(childsOfRelation.item(x).getAttributes().getNamedItem("k").getNodeValue())){
-                            if((childsOfRelation.item(x).getAttributes().getNamedItem("v").getNodeValue()).equals(includeConditions.get(childsOfRelation.item(x).getAttributes().getNamedItem("k")))){
+                            if((childsOfRelation.item(x).getAttributes().getNamedItem("v").getNodeValue()).equals(includeConditions.get(childsOfRelation.item(x).getAttributes().getNamedItem("k").getNodeValue()))){
                                 isImportant=true;
                             }
                         }
@@ -91,12 +97,22 @@ public class OmlParser {
                 }
                 if(isImportant){
                     for(int x=0;x<childsOfRelation.getLength();x++){
-                       if((childsOfRelation.item(x).getAttributes().getNamedItem("type").getNodeValue()).equals("way")){
-                           try{
-                               parseWay(givenDocument.getElementById(childsOfRelation.item(x).getAttributes().getNamedItem("ref").getNodeValue()));
-                           }catch(NullPointerException e){
-                               //do Nothing, because there is no way!
-                           }
+                        if((childsOfRelation.item(x).getAttributes()!=null)&&(childsOfRelation.item(x).getAttributes().getNamedItem("type")!=null)){
+                            if((childsOfRelation.item(x).getAttributes().getNamedItem("type").getNodeValue()).equals("way")){
+                                XPathFactory factory=XPathFactory.newInstance();
+                                XPath xpath = factory.newXPath();
+                                try{
+                                    //System.out.println("erhaltenesNode "+ childsOfRelation.item(x).getAttributes().getNamedItem("ref").getNodeValue());
+                                    String anfrageString="/osm/way[@id='"+childsOfRelation.item(x).getAttributes().getNamedItem("ref").getNodeValue()+"']";
+                                    //System.out.println(anfrageString);
+                                    Node uebergabeNode =(Node) xpath.evaluate(anfrageString,givenDocument,XPathConstants.NODE);
+                                    if(uebergabeNode!=null){
+                                        parseWay(uebergabeNode);
+                                    }
+                                }catch(XPathExpressionException e){
+                                    e.printStackTrace();
+                                }
+                            }
                        }
                     }
                 }
@@ -105,9 +121,11 @@ public class OmlParser {
         usedHolder.setNodes(parsedNodeTree);
         usedHolder.setWays(parsedWayTree);
         clearEverythingUnimportant();
+        System.out.println("returning");
         return usedHolder;
     }
-    private void parseWay(Element givenWay)throws NullPointerException{
+    private void parseWay(Node givenWay){
+        System.out.println("parsewy gebonnen");
         String parsedWayID = givenWay.getAttributes().getNamedItem("id").toString();
         ArrayList<String> refsFromGivenWay= new ArrayList<String>();
         ArrayList<MapTag> tagsFromGivenWay= new ArrayList<MapTag>();
@@ -116,8 +134,19 @@ public class OmlParser {
             
             for(int j=0;j<childsFromGivenWays.getLength();j++){
                 if(childsFromGivenWays.item(j).getNodeName()=="nd"){
-                    parseNode(givenDocument.getElementById(childsFromGivenWays.item(j).getAttributes().getNamedItem("ref").getNodeValue()));
-                    if(changedIDS.containsKey(childsFromGivenWays.item(j).getAttributes().getNamedItem("ref").getNodeValue())){
+                    XPathFactory factory=XPathFactory.newInstance();
+                    XPath xpath = factory.newXPath();
+                    try{
+                        String anfrageString="/osm/node[@id='"+childsFromGivenWays.item(j).getAttributes().getNamedItem("ref").getNodeValue()+"']";
+                        Node uebergabeNode =(Node) xpath.evaluate(anfrageString,givenDocument,XPathConstants.NODE);
+                        if(uebergabeNode!=null){
+                            parseNode(uebergabeNode);
+                        }
+                    }catch(XPathExpressionException e){
+                        e.printStackTrace();
+                    }
+                                
+                     if(changedIDS.containsKey(childsFromGivenWays.item(j).getAttributes().getNamedItem("ref").getNodeValue())){
                         refsFromGivenWay.add(changedIDS.get(childsFromGivenWays.item(j).getAttributes().getNamedItem("ref").getNodeValue()));
                     }else{
                         refsFromGivenWay.add(childsFromGivenWays.item(j).getAttributes().getNamedItem("ref").getNodeValue());
@@ -133,7 +162,7 @@ public class OmlParser {
         
     }
     
-    private void parseNode(Element givenNode){
+    private void parseNode(Node givenNode){
         String parsedNodeID = givenNode.getAttributes().getNamedItem("id").toString();
         Double parsedNodeLongitude = Double.parseDouble(givenNode.getAttributes().getNamedItem("lon").getNodeValue());
         Double parsedNodeLatitude = Double.parseDouble(givenNode.getAttributes().getNamedItem("lat").getNodeValue());
@@ -162,7 +191,9 @@ public class OmlParser {
                 negativeDifference>=(parsedNodeLatitude-nodesToTransfer.get(z).getLatitude()))
                ){
                 changedIDS.put(parsedNodeID, nodesToTransfer.get(z).getId());
-                nodesToTransfer.get(z).getTagList().addAll(parsedNode.getTagList());
+                if(parsedNode.getTagList()!=null){
+                    nodesToTransfer.get(z).getTagList().addAll(parsedNode.getTagList());
+                }
                 break;
             }
         }
