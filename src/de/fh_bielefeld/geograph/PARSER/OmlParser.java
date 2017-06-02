@@ -2,22 +2,20 @@ package de.fh_bielefeld.geograph.PARSER;
 
 
 import de.fh_bielefeld.geograph.GUI.MapNode;
-import de.fh_bielefeld.geograph.GUI.ContentHolder;
+import de.fh_bielefeld.geograph.GUI_INTERFACE.ContentHolderInterface;
 import de.fh_bielefeld.geograph.GUI.MapWay;
 import de.fh_bielefeld.geograph.GUI.AVLTree;
 import de.fh_bielefeld.geograph.GUI.MapTag;
 import de.fh_bielefeld.geograph.API.OSMApi;
-import java.io.IOException;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import javax.xml.parsers.ParserConfigurationException;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 import org.w3c.dom.Element;
-import org.xml.sax.SAXException;
+
 
 
 public class OmlParser {
@@ -26,12 +24,12 @@ public class OmlParser {
     private AVLTree<MapWay> parsedWayTree;
     private ArrayList<MapNode> nodesToTransfer;
     private ArrayList<MapWay> waysToTransfer;
-    private ContentHolder usedHolder;
+    private ContentHolderInterface usedHolder;
     private Map<String,String> changedIDS;
     private Map<String,String> includeConditions;
     private Document givenDocument;
 
-    public OmlParser(ContentHolder givenHolder){
+    public OmlParser(ContentHolderInterface givenHolder){
         usedHolder = givenHolder;
         positiveDifference = 0.0000005;//magicNumber how close the Nodes must be to be considered as one
         negativeDifference = positiveDifference*(-1);
@@ -54,15 +52,11 @@ public class OmlParser {
         includeConditions.clear();
         
     }
-    public ContentHolder parse() throws NullPointerException{
+    public ContentHolderInterface parse() throws NullPointerException{
         OSMApi ApiCaller = new OSMApi();
         try{
             givenDocument=ApiCaller.getBoundingBoxLatLong(usedHolder.getMinLatitude(),usedHolder.getMinLongitude(),usedHolder.getMaxLatitude(),usedHolder.getMaxLongitude());
-        }catch(IOException e){
-            //was zu tuen ist
-        }catch(ParserConfigurationException e){
-            //was zu tuen ist
-        }catch(SAXException e){
+        }catch(Exception e){
             //was zu tuen ist
         }
         setIncludeConditions();
