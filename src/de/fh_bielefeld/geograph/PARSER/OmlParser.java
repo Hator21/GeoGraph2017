@@ -73,11 +73,7 @@ public class OmlParser {
 
             //was zu tuen ist
         }
-        for(int i=0;i<givenDocument.getDocumentElement().getAttributes().getLength();i++){
-            System.out.println(givenDocument.getDocumentElement().getAttributes().item(i).getNodeValue());
-        }
         
-        givenDocument.getDocumentElement().setIdAttribute("id", true);
         setIncludeConditions();
         NodeList relationsFromGivenDocument = givenDocument.getElementsByTagName("relation");
         
@@ -112,7 +108,6 @@ public class OmlParser {
         usedHolder.setNodes(parsedNodeTree);
         usedHolder.setWays(parsedWayTree);
         clearEverythingUnimportant();
-        System.out.println("returned");
         return usedHolder;
     }
     private void parseWay(Element givenWay){
