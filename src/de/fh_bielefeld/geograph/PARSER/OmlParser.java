@@ -81,7 +81,7 @@ public class OmlParser {
             if(relationsFromGivenDocument.item(i).hasChildNodes()){
                 NodeList childsOfRelation = relationsFromGivenDocument.item(i).getChildNodes();
                 for(int x=0;x<childsOfRelation.getLength();i++){
-                    if(childsOfRelation.item(x).getAttributes().getLength()>0){
+                    if(childsOfRelation.item(x).getAttributes()!=null){
                         if(includeConditions.containsKey(childsOfRelation.item(x).getAttributes().getNamedItem("k").getNodeValue())){
                             if((childsOfRelation.item(x).getAttributes().getNamedItem("v").getNodeValue()).equals(includeConditions.get(childsOfRelation.item(x).getAttributes().getNamedItem("k")))){
                                 isImportant=true;
