@@ -1,16 +1,14 @@
 package de.fh_bielefeld.geograph.TEST;
 
 import de.fh_bielefeld.geograph.API.OSMApi;
+import de.fh_bielefeld.geograph.API.Exception.InvalidAPIRequestException;
 
 import static org.junit.Assert.*;
-
-import java.io.IOException;
-
-import javax.xml.parsers.ParserConfigurationException;
-
-import org.xml.sax.SAXException;
+//import org.junit.After;
+//import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.Ignore;
+//import org.junit.BeforeClass;
+//import org.junit.Ignore;
 import org.junit.Test;
 import org.w3c.dom.Document;
 
@@ -18,6 +16,9 @@ import org.w3c.dom.Document;
  * Tests for the OSMApi class
  */
 public class OSMApiTest{
+	double latitude = 0;
+	double longitude = 0;
+	double range = 0;
 	Document testDocument;
 	
 	/**
@@ -27,26 +28,20 @@ public class OSMApiTest{
 	public void initializeDocument(){
 		this.testDocument = null;
 	}
-	
+
 	/**
 	 * This test will invoke the getNodeWithID method with an invalid node.
+	 * @throws InvalidAPIRequestException 
 	 */
-	@Ignore("not ready yet")
-	@Test
-	public void getNodeWithIDGivenAWrongNode(){
+	@Test (expected = InvalidAPIRequestException.class)
+	public void getNodeWithIDGivenAWrongNode() {
+		long notValidNode = -120;
 		try{
-			this.testDocument = OSMApi.getNodeWithID(-120);
-		} 
-		catch (SAXException e){
-			assertTrue(true);
+			this.testDocument = OSMApi.getNodeWithID(notValidNode);
 		}
-		catch(IOException e){
-			fail();
+		catch(InvalidAPIRequestException ex) {
+			assertTrue("The Exception we expected to get", true);
 		}
-		catch(ParserConfigurationException e){
-			assertTrue(true);
-		}
-		assertNotNull(testDocument);
 	}
 	
 	/**
@@ -58,14 +53,8 @@ public class OSMApiTest{
 		try{
 			this.testDocument = OSMApi.getNodeWithID(validNode);
 		}
-		catch(IOException e){
-			fail("There's most likely no internet connection!");
-		}
-		catch(ParserConfigurationException e){
-			fail("For some reason the method failed!");
-		}
-		catch(SAXException e){
-			fail("For some reason the method failed!");
+		catch(InvalidAPIRequestException ex){
+			fail("api failure");
 		}
 		assertNotNull(this.testDocument);
 	}
@@ -74,19 +63,17 @@ public class OSMApiTest{
 	 * This test will invoke the getBoundingBoxOfRange method with a range over 0.25.
 	 * The tested method is expected to throw an IOException.
 	 */
-	@Test
+	@Test (expected = InvalidAPIRequestException.class)
 	public void getBoundingBoxOfRangeGivenTooHighRange(){
+		latitude = 51.9032375;
+		longitude = 8.3857535;
+		range = 1;
+		
 		try{
-			this.testDocument = OSMApi.getBoundingBoxOfRange(51.9032375, 8.3857535, 1);
+			this.testDocument = OSMApi.getBoundingBoxOfRange(latitude, longitude, range);
 		}
-		catch(IOException e){
+		catch(InvalidAPIRequestException ex){
 			assertTrue("The Exception we expected to get", true);
-		}
-		catch(ParserConfigurationException e){
-			fail("Not the Exception we expected!");
-		}
-		catch(SAXException e){
-			fail("Not the Exception we expected!");
 		}
 	}
 
@@ -94,19 +81,17 @@ public class OSMApiTest{
 	 * This test will invoke the getBoundingBoxOfRange method with a range below 0.
 	 * The tested method is expected to throw an IOException.
 	 */
-	@Test
+	@Test (expected = InvalidAPIRequestException.class)
 	public void getBoundingBoxOfRangeGivenNegativeRange(){
+		latitude = 51.9032375;
+		longitude = 8.3857535;
+		range = -1;
+		
 		try{
-			this.testDocument = OSMApi.getBoundingBoxOfRange(51.9032375, 8.3857535, -1);
+			this.testDocument = OSMApi.getBoundingBoxOfRange(latitude, longitude, range);
 		}
-		catch(IOException e){
+		catch(InvalidAPIRequestException ex){
 			assertTrue("The Exception we expected to get.", true);
-		}
-		catch(ParserConfigurationException e){
-			fail("Not the Exception we expected!(ParserConfigurationException)");
-		}
-		catch(SAXException e){
-			fail("Not the Exception we expected!(SAXException)");
 		}
 	}
 
@@ -115,37 +100,34 @@ public class OSMApiTest{
 	 */
 	@Test
 	public void getBoundingBoxOfRangeGivenMaximumRange(){
+		latitude = 51.9032375;
+		longitude = 8.3857535;
+		range = 0.25;
+		
 		try{
-			this.testDocument = OSMApi.getBoundingBoxOfRange(51.9032375, 8.3857535, 0.25);
+			this.testDocument = OSMApi.getBoundingBoxOfRange(latitude, longitude, range);
 		}
-		catch(IOException e){
+		catch(InvalidAPIRequestException ex){
 			fail("There shouldn't be an IOException!");
-		}
-		catch(ParserConfigurationException e){
-			fail("There shouldn't be a ParserConfigurationException!");
-		}
-		catch(SAXException e){
-			fail("There shouldn't be a SAXException!");
 		}
 		assertNotNull(this.testDocument);
 	}
 
 	/**
 	 * This test will invoke the getBoundingBoxOfRange method with the minimum range 0.
+	 * @deprecated
 	 */
 	@Test
 	public void getBoundingBoxOfRangeGivenZeroRange(){
+		latitude = 51.9032375;
+		longitude = 8.3857535;
+		range = 0;
+		
 		try{
-			this.testDocument = OSMApi.getBoundingBoxOfRange(51.9032375, 8.3857535, 0);
+			this.testDocument = OSMApi.getBoundingBoxOfRange(latitude, longitude, range);
 		}
-		catch(IOException e){
-			fail("There shouldn't be an IOException!");
-		}
-		catch(ParserConfigurationException e){
-			fail("There shouldn't be a ParserConfigurationException!");
-		}
-		catch(SAXException e){
-			fail("There shouldn't be a SAXException!");
+		catch(InvalidAPIRequestException ex){
+			fail("There shouldn't be an InvalidApiRequestException!");
 		}
 		assertNotNull(this.testDocument);
 	}
@@ -155,37 +137,33 @@ public class OSMApiTest{
 	 */
 	@Test
 	public void getBoundingBoxOfRangeGivenValidArguments(){
+		latitude = 51.9032375;
+		longitude = 8.3857535;
+		range = 0.1;
+		
 		try{
-			this.testDocument = OSMApi.getBoundingBoxOfRange(51.9032375, 8.3857535, 0.1);
+			this.testDocument = OSMApi.getBoundingBoxOfRange(latitude, longitude, range);
 		}
-		catch(IOException e){
-			fail("There shouldn't be an IOException!");
-		}
-		catch(ParserConfigurationException e){
-			fail("There shouldn't be a ParserConfigurationException!");
-		}
-		catch(SAXException e){
-			fail("There shouldn't be a SAXException!");
+		catch(InvalidAPIRequestException ex){
+			fail("There shouldn't be an InvalidAPIRequestException!");
 		}
 		assertNotNull(this.testDocument);
 	}
 
 	/**
 	 * This test will invoke the getBoundingBoxOfRange method with the same value for latitude and longitude.
+	 * @deprecated
 	 */
 	@Test
 	public void getBoundingBoxOfRangeGivenSameCoordinates(){
+		latitude = 51.9032375;
+		longitude = 51.9032375;
+		range = 0.1;
 		try{
-			this.testDocument = OSMApi.getBoundingBoxOfRange(51.9032375, 51.9032375, 0.1);
+			this.testDocument = OSMApi.getBoundingBoxOfRange(latitude, longitude, range);
 		}
-		catch(IOException e){
-			fail("There shouldn't be an IOException!");
-		}
-		catch(ParserConfigurationException e){
-			fail("There shouldn't be a ParserConfigurationException!");
-		}
-		catch(SAXException e){
-			fail("There shouldn't be a SAXException!");
+		catch(InvalidAPIRequestException ex){
+			fail("There shouldn't be an InvalidAPIRequesException");
 		}
 		assertNotNull(this.testDocument);
 	}
@@ -193,38 +171,33 @@ public class OSMApiTest{
 	/**
 	 * This test will invoke the getBoundingBoxOfRange method with a Latitude over 90.
 	 */
-	@Test
+	@Test (expected = InvalidAPIRequestException.class)
 	public void getBoundingBoxOfRangeGivenWrongLatitude(){
+		latitude = 91.9032375;
+		longitude = 8.3857535;
+		range = 0.1;
+		
 		try{
-			this.testDocument = OSMApi.getBoundingBoxOfRange(91, 8.3857535, 0.1);
+			this.testDocument = OSMApi.getBoundingBoxOfRange(latitude, longitude, range);
 		}
-		catch(IOException e){
+		catch(InvalidAPIRequestException ex){
 			assertTrue("The Exception we expected to get.", true);
-		}
-		catch(ParserConfigurationException e){
-			fail("There shouldn't be a ParserConfigurationException!");
-		}
-		catch(SAXException e){
-			fail("There shouldn't be a SAXException!");
 		}
 	}
 	
 	/**
 	 * This test will invoke the getBoundingBoxOfRange method with a Latitude over 180.
 	 */
-	@Test
+	@Test (expected = InvalidAPIRequestException.class)
 	public void getBoundingBoxOfRangeGivenWrongLongitude(){
+		latitude = 51.9032375;
+		longitude = 181;
+		range = 0.1;
 		try{
-			this.testDocument = OSMApi.getBoundingBoxOfRange(51.9032375, 181, 0.1);
+			this.testDocument = OSMApi.getBoundingBoxOfRange(latitude, longitude, range);
 		}
-		catch(IOException e){
+		catch(InvalidAPIRequestException ex){
 			assertTrue("The Exception we expected to get.", true);
-		}
-		catch(ParserConfigurationException e){
-			fail("There shouldn't be a ParserConfigurationException!");
-		}
-		catch(SAXException e){
-			fail("There shouldn't be a SAXException!");
 		}
 	}
 	
@@ -233,39 +206,32 @@ public class OSMApiTest{
 	 */
 	@Test
 	public void getBoundinBoxLatLongGivenValidCoordinates(){
+		latitude = 52.520007;
+		longitude = 13.204953999999975;
+		double latitude2 = 52.720007;
+		double longitude2 = 13.404953999999975;
 		try{
-			this.testDocument = OSMApi.getBoundingBoxLatLong(52.520007, 13.204953999999975,
-					52.720007, 13.404953999999975);
+			this.testDocument = OSMApi.getBoundingBoxLatLong(latitude, longitude, latitude2, longitude2);
 		}
-		catch(IOException e){
-			fail("There shouldn't be an IOException!");
-		}
-		catch(ParserConfigurationException e){
-			fail("There shouldn't be a ParserConfigurationException!");
-		}
-		catch(SAXException e){
-			fail("There shouldn't be a SAXException!");
+		catch(InvalidAPIRequestException ex){
+			fail("There shouldn't be an InvalidAPIRequestException!");
 		}
 		assertNotNull(this.testDocument);
 	}
 	
 	/**
 	 * This test will invoke the getBoundingBoxLatLong method with two same coordinates.
+	 * @deprecated
 	 */
 	@Test
 	public void getBoundinBoxLatLongGivenTwoSameCoordinates(){
+		latitude = 52.520007;
+		longitude = 13.204953999999975;
 		try{
-			this.testDocument = OSMApi.getBoundingBoxLatLong(52.520007, 13.204953999999975,
-					52.520007, 13.204953999999975);
+			this.testDocument = OSMApi.getBoundingBoxLatLong(latitude, longitude, latitude, longitude);
 		}
-		catch(IOException e){
-			fail("There shouldn't be an IOException!");
-		}
-		catch(ParserConfigurationException e){
-			fail("There shouldn't be a ParserConfigurationException!");
-		}
-		catch(SAXException e){
-			fail("There shouldn't be a SAXException!");
+		catch(InvalidAPIRequestException ex){
+			fail("There shouldn't be an InvalidAPIRequestException");
 		}
 		assertNotNull(this.testDocument);
 	}
@@ -273,20 +239,18 @@ public class OSMApiTest{
 	/**
 	 * This test will invoke the getBoundingBoxLatLong method with a wrong minLatitude.
 	 */
-	@Test
+	@Test (expected = InvalidAPIRequestException.class)
 	public void getBoundinBoxLatLongGivenWrongMinLatitude(){
+		double minLatitude = 91;
+		double minLongitude = 13.204953999999975;
+		double maxLatitude = 52.720007;
+		double maxLongitude = 13.204953999999975;
 		try{
-			this.testDocument = OSMApi.getBoundingBoxLatLong(91, 13.204953999999975,
-					52.720007, 13.204953999999975);
+			this.testDocument = OSMApi.getBoundingBoxLatLong(minLatitude, minLongitude,
+					maxLatitude, maxLongitude);
 		}
-		catch(IOException e){
+		catch(InvalidAPIRequestException ex){
 			assertTrue("The Exception we expected to get.", true);
-		}
-		catch(ParserConfigurationException e){
-			fail("There shouldn't be a ParserConfigurationException!");
-		}
-		catch(SAXException e){
-			fail("There shouldn't be a SAXException!");
 		}
 	}
 	
@@ -295,58 +259,50 @@ public class OSMApiTest{
 	 */
 	@Test
 	public void getBoundinBoxLatLongGivenWrongMaxLatitude(){
+		double minLatitude = 52.720007;
+		double minLongitude = 13.204953999999975;
+		double maxLatitude = 91;
+		double maxLongitude = 13.204953999999975;
 		try{
-			this.testDocument = OSMApi.getBoundingBoxLatLong(52.520007, 13.204953999999975,
-					91, 13.204953999999975);
+			this.testDocument = OSMApi.getBoundingBoxLatLong(minLatitude, minLongitude, maxLatitude, maxLongitude);
 		}
-		catch(IOException e){
+		catch(InvalidAPIRequestException ex){
 			assertTrue("The Exception we expected to get.", true);
-		}
-		catch(ParserConfigurationException e){
-			fail("There shouldn't be a ParserConfigurationException!");
-		}
-		catch(SAXException e){
-			fail("There shouldn't be a SAXException!");
 		}
 	}
 	
 	/**
 	 * This test will invoke the getBoundingBoxLatLong method with a wrong minLongitude.
 	 */
-	@Test
+	@Test (expected = InvalidAPIRequestException.class)
 	public void getBoundinBoxLatLongGivenWrongMinLongitude(){
+		double minLatitude = 52.520007;
+		double minLongitude = 181;
+		double maxLatitude = 52.520007;
+		double maxLongitude = 13.204953999999975;
 		try{
-			this.testDocument = OSMApi.getBoundingBoxLatLong(52.520007, 181,
-					52.520007, 13.204953999999975);
+			this.testDocument = OSMApi.getBoundingBoxLatLong(minLatitude, minLongitude,
+					maxLatitude, maxLongitude);
 		}
-		catch(IOException e){
+		catch(InvalidAPIRequestException ex){
 			assertTrue("The Exception we expected to get.", true);
-		}
-		catch(ParserConfigurationException e){
-			fail("There shouldn't be a ParserConfigurationException!");
-		}
-		catch(SAXException e){
-			fail("There shouldn't be a SAXException!");
 		}
 	}
 	
 	/**
 	 * This test will invoke the getBoundingBoxLatLong method with a wrong maxLongitude.
 	 */
-	@Test
+	@Test (expected = InvalidAPIRequestException.class)
 	public void getBoundinBoxLatLongGivenWrongMaxLongitude(){
+		double minLatitude = 52.520007;
+		double minLongitude = 13.204953999999975;
+		double maxLatitude = 52.520007;
+		double maxLongitude = 181;
 		try{
-			this.testDocument = OSMApi.getBoundingBoxLatLong(52.520007, 13.204953999999975,
-					52.520007, 181);
+			this.testDocument = OSMApi.getBoundingBoxLatLong(minLatitude, minLongitude, maxLatitude, maxLongitude);
 		}
-		catch(IOException e){
+		catch(InvalidAPIRequestException ex){
 			assertTrue("The Exception we expected to get.", true);
-		}
-		catch(ParserConfigurationException e){
-			fail("There shouldn't be a ParserConfigurationException!");
-		}
-		catch(SAXException e){
-			fail("There shouldn't be a SAXException!");
 		}
 	}
 }
