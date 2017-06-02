@@ -8,59 +8,147 @@
 
 <AnchorPane fx:id="anchor" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.fh_bielefeld.geograph.GUI.OSMStreetGUIController">
    <children>
-      <HBox fx:id="hBox" prefHeight="900.0" prefWidth="1600.0">
+      <HBox fx:id="hBox" prefHeight="900.0" prefWidth="1600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <AnchorPane fx:id="leftAnchor" prefHeight="900.0" prefWidth="276.0">
+            <VBox prefHeight="900.0" prefWidth="273.0" HBox.hgrow="ALWAYS">
                <children>
-                  <Label fx:id="dgLabel" layoutX="14.0" layoutY="14.0" prefHeight="41.0" prefWidth="210.0" text="DG (Dezimalgrad)*">
-                     <font>
-                        <Font size="24.0" />
-                     </font>
-                  </Label>
-                  <Label fx:id="latitudeLabel" layoutX="14.0" layoutY="55.0" text="Breitengrad">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                  </Label>
-                  <Label fx:id="longitudeLabel" layoutX="13.0" layoutY="91.0" text="Längengrad">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                  </Label>
-                  <Label fx:id="wgs84Label" layoutX="13.0" layoutY="172.0" text="*Kartenbezugssystem WGS 84" />
-                  <Button fx:id="searchButton" alignment="CENTER" layoutX="14.0" layoutY="130.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="254.0" text="Nach Koordinaten suchen">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Button>
-                  <TextField fx:id="latitudeTextField" layoutX="119.0" layoutY="56.0" />
-                  <TextField fx:id="longitudeTextField" layoutX="119.0" layoutY="92.0" />
-                  <Separator fx:id="upperSeparator" layoutX="19.0" layoutY="206.0" prefHeight="0.0" prefWidth="244.0" />
-                  <Slider fx:id="zoomSlider" layoutX="13.0" layoutY="872.0" max="0.25" min="0" prefHeight="14.0" prefWidth="254.0" value="0.25" />
-                  <Label fx:id="smallZoomLabel" layoutX="13.0" layoutY="838.0" text="Klein">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                  </Label>
-                  <Label fx:id="bigZoomLabel" layoutX="224.0" layoutY="838.0" text="Groß">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                  </Label>
-                  <Separator fx:id="lowerSeparator" layoutX="19.0" layoutY="829.0" prefHeight="3.0" prefWidth="244.0" />
-                  <Label fx:id="descriptionLabel" alignment="TOP_LEFT" contentDisplay="TEXT_ONLY" layoutX="13.0" layoutY="220.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="596.0" prefWidth="254.0" text="Mit dieser Applikation können Sie dies und jenes tun... " textOverrun="CLIP" wrapText="true">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                  </Label>
-               </children>
-            </AnchorPane>
-            <AnchorPane fx:id="rightAnchor" prefHeight="900.0" prefWidth="1325.0">
-               <children>
-                  <Pane fx:id="mapPane" layoutX="14.0" layoutY="14.0" prefHeight="873.0" prefWidth="1296.0" style="-fx-border-color: grey; -fx-border-width: 2; -fx-border-style: solid; -fx-background-color: #F7F7F7;">
+                  <TabPane fx:id="VBoxHighTabPane" prefHeight="1109.0" prefWidth="273.0" tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS">
+                    <tabs>
+                      <Tab fx:id="Tab1" text="Mittelpunkt">
+                           <content>
+                              <AnchorPane fx:id="Tab1Anchor" prefHeight="900.0" prefWidth="276.0">
+                                 <children>
+                                    <Label fx:id="CenterLabel" layoutX="14.0" layoutY="14.0" prefHeight="41.0" prefWidth="262.0" text="Mittelpunktkoordinate*" AnchorPane.bottomAnchor="734.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="8.0" AnchorPane.topAnchor="14.0">
+                                       <font>
+                                          <Font size="24.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="latitudeLabel" layoutX="15.0" layoutY="48.0" text="Breitengrad" AnchorPane.bottomAnchor="700.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="7.0" AnchorPane.topAnchor="48.0">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="longitudeLabel" layoutX="15.0" layoutY="84.0" text="Längengrad" AnchorPane.bottomAnchor="664.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="7.0" AnchorPane.topAnchor="84.0">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="wgs84Label" layoutX="13.0" layoutY="172.0" text="*Kartenbezugssystem WGS 84" AnchorPane.bottomAnchor="600.0" AnchorPane.leftAnchor="13.0" AnchorPane.rightAnchor="111.0" AnchorPane.topAnchor="172.0" />
+                                    <Button fx:id="searchButton" alignment="CENTER" layoutX="14.0" layoutY="130.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="254.0" text="Nach Koordinaten suchen" AnchorPane.bottomAnchor="629.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="16.0" AnchorPane.topAnchor="130.0">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font>
+                                    </Button>
+                                    <TextField fx:id="latitudeTextField" layoutX="119.0" layoutY="56.0" AnchorPane.bottomAnchor="708.0" AnchorPane.leftAnchor="119.0" AnchorPane.rightAnchor="16.0" AnchorPane.topAnchor="56.0" />
+                                    <TextField fx:id="longitudeTextField" layoutX="119.0" layoutY="92.0" AnchorPane.bottomAnchor="672.0" AnchorPane.leftAnchor="119.0" AnchorPane.rightAnchor="16.0" AnchorPane.topAnchor="92.0" />
+                                    <Separator fx:id="upperSeparator" layoutX="19.0" layoutY="206.0" prefHeight="0.0" prefWidth="244.0" AnchorPane.bottomAnchor="580.0" AnchorPane.leftAnchor="19.0" AnchorPane.rightAnchor="21.0" AnchorPane.topAnchor="206.0" />
+                                    <Label fx:id="descriptionLabel" alignment="TOP_LEFT" contentDisplay="TEXT_ONLY" layoutX="7.0" layoutY="219.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="293.0" prefWidth="262.0" text="Mit dieser Applikation können Sie dies und jenes tun... " textOverrun="CLIP" wrapText="true" AnchorPane.bottomAnchor="277.0" AnchorPane.leftAnchor="7.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="219.0">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </AnchorPane>
+                           </content>
+                        </Tab>
+                      <Tab fx:id="Tab2" text="Bereich">
+                           <content>
+                              <AnchorPane fx:id="Tab2Anchor" prefHeight="318.0" prefWidth="276.0">
+                                 <children>
+                                    <TextField fx:id="longitudeTextFieldL" layoutX="110.0" layoutY="103.0" prefHeight="27.0" prefWidth="149.0" AnchorPane.bottomAnchor="669.0" AnchorPane.leftAnchor="110.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="103.0" />
+                                    <TextField fx:id="latitudeTextFieldL" layoutX="110.0" layoutY="76.0" prefHeight="27.0" prefWidth="149.0" AnchorPane.bottomAnchor="696.0" AnchorPane.leftAnchor="110.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="76.0" />
+                                    <Button fx:id="searchButtonArea" alignment="CENTER" layoutX="5.0" layoutY="247.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="254.0" text="Nach Koordinaten suchen" AnchorPane.bottomAnchor="512.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="247.0">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font>
+                                    </Button>
+                                    <Separator layoutX="9.0" layoutY="295.0" prefHeight="14.0" prefWidth="247.0" AnchorPane.bottomAnchor="490.0" AnchorPane.leftAnchor="9.0" AnchorPane.rightAnchor="18.0" AnchorPane.topAnchor="295.0" />
+                                    <Label fx:id="wgs84Label1" layoutX="6.0" layoutY="221.0" text="*Kartenbezugssystem WGS 84" AnchorPane.bottomAnchor="551.0" AnchorPane.leftAnchor="6.0" AnchorPane.rightAnchor="108.0" AnchorPane.topAnchor="221.0" />
+                                    <Label fx:id="longitudeLabelR" layoutX="6.0" layoutY="103.0" prefHeight="27.0" prefWidth="98.0" text="Längengrad" AnchorPane.bottomAnchor="669.0" AnchorPane.leftAnchor="6.0" AnchorPane.rightAnchor="170.0" AnchorPane.topAnchor="103.0">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="latitudeLabelR" layoutX="6.0" layoutY="76.0" prefHeight="27.0" prefWidth="94.0" text="Breitengrad" AnchorPane.bottomAnchor="696.0" AnchorPane.leftAnchor="6.0" AnchorPane.rightAnchor="174.0" AnchorPane.topAnchor="76.0">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="latitudeLabelR" layoutX="6.0" layoutY="160.0" prefHeight="27.0" prefWidth="95.0" text="Breitengrad" AnchorPane.bottomAnchor="612.0" AnchorPane.leftAnchor="6.0" AnchorPane.rightAnchor="173.0" AnchorPane.topAnchor="160.0">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="longitudeLabelR" layoutX="6.0" layoutY="187.0" prefHeight="27.0" prefWidth="99.0" text="Längengrad" AnchorPane.bottomAnchor="585.0" AnchorPane.leftAnchor="6.0" AnchorPane.rightAnchor="169.0" AnchorPane.topAnchor="187.0">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="llLabel" layoutX="6.0" layoutY="47.0" prefHeight="27.0" prefWidth="97.0" text="Links Unten:" AnchorPane.bottomAnchor="725.0" AnchorPane.leftAnchor="6.0" AnchorPane.rightAnchor="108.0" AnchorPane.topAnchor="47.0">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="roLabel" layoutX="6.0" layoutY="134.0" prefHeight="27.0" prefWidth="107.0" text="Rechts Oben:" AnchorPane.bottomAnchor="638.0" AnchorPane.leftAnchor="6.0" AnchorPane.rightAnchor="161.0" AnchorPane.topAnchor="134.0">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                    </Label>
+                                    <TextField fx:id="latitudeTextFieldR" layoutX="110.0" layoutY="161.0" AnchorPane.bottomAnchor="613.0" AnchorPane.leftAnchor="110.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="161.0" />
+                                    <TextField fx:id="longitudeTextFieldR" layoutX="110.0" layoutY="188.0" AnchorPane.bottomAnchor="586.0" AnchorPane.leftAnchor="110.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="188.0" />
+                                    <Label fx:id="dgLabel1" layoutX="4.0" layoutY="8.0" prefHeight="39.0" prefWidth="267.0" text="Bereichskoordinaten*" AnchorPane.bottomAnchor="752.0" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="3.0" AnchorPane.topAnchor="8.0">
+                                       <font>
+                                          <Font size="24.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="descriptionLabel1" alignment="TOP_LEFT" contentDisplay="TEXT_ONLY" layoutX="4.0" layoutY="316.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="310.0" prefWidth="267.0" text="Mit dieser Applikation können Sie dies und jenes tun... " textOverrun="CLIP" wrapText="true" AnchorPane.bottomAnchor="173.0" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="3.0" AnchorPane.topAnchor="316.0">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </AnchorPane>
+                           </content>
+                        </Tab>
+                        <Tab text="Datei">
+                          <content>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                 <children>
+                                    <Label fx:id="FileChooserLabel" layoutX="65.0" layoutY="14.0" prefHeight="35.0" prefWidth="128.0" text="Datei Laden" AnchorPane.bottomAnchor="740.0" AnchorPane.leftAnchor="65.0" AnchorPane.rightAnchor="81.0" AnchorPane.topAnchor="14.0">
+                                       <font>
+                                          <Font size="24.0" />
+                                       </font>
+                                    </Label>
+                                    <Button fx:id="fileChooserButton" layoutX="89.0" layoutY="64.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="81.0" text="Auswählen" AnchorPane.bottomAnchor="700.0" AnchorPane.leftAnchor="89.0" AnchorPane.rightAnchor="104.0" AnchorPane.topAnchor="64.0" />
+                                 </children>
+                              </AnchorPane>
+                          </content>
+                        </Tab>
+                    </tabs>
+                  </TabPane>
+                  <AnchorPane fx:id="VBoxLowAnchor" prefHeight="374.0" prefWidth="273.0" VBox.vgrow="ALWAYS">
                      <children>
-                        <Canvas fx:id="paintingCanvas" height="873.0" width="1296.0" />
-                     </children></Pane>
+                        <Slider fx:id="zoomSlider" layoutX="10.0" layoutY="55.0" max="0.25" min="0" prefHeight="14.0" prefWidth="254.0" value="0.25" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="55.0" />
+                        <Label fx:id="smallZoomLabel" layoutX="14.0" layoutY="28.0" text="Klein" AnchorPane.bottomAnchor="28.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="221.0" AnchorPane.topAnchor="28.0">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="bigZoomLabel" layoutX="225.0" layoutY="28.0" text="Groß" AnchorPane.bottomAnchor="28.0" AnchorPane.leftAnchor="225.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="28.0">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                     </children></AnchorPane>
+               </children>
+            </VBox>
+            <AnchorPane fx:id="rightAnchor" prefHeight="900.0" prefWidth="1325.0" HBox.hgrow="ALWAYS">
+               <children>
+                  <Pane fx:id="mapPane" layoutX="7.0" layoutY="7.0" prefHeight="886.0" prefWidth="1309.0" style="-fx-border-color: #000000;" AnchorPane.bottomAnchor="7.0" AnchorPane.leftAnchor="7.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="7.0">
+                     <children>
+                        <Canvas fx:id="paintingCanvas" height="887.0" layoutX="7.0" layoutY="6.0" width="1309.0" />
+                     </children>
+                  </Pane>
                </children>
             </AnchorPane>
          </children>

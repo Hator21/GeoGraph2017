@@ -2,13 +2,18 @@ package de.fh_bielefeld.geograph.GUI;
 
 import de.fh_bielefeld.geograph.GUI_INTERFACE.AVLTreeInterface;
 import de.fh_bielefeld.geograph.GUI_INTERFACE.ContentHolderInterface;
+import de.fh_bielefeld.geograph.GUI_INTERFACE.MapNodeInterface;
 
+/**
+ * TODO Kommt zum Parser (erst im Master Branch)
+ * Bei Fragen: Stefan fragen
+ */
 public class AVLTree<T extends Comparable<? super T>> implements AVLTreeInterface<T> {
 
-	public AVLNode<T>		root;
-	public int				countInsertions;
-	public int				countSingleRotations;
-	public int				countDoubleRotations;
+	public AVLNode<T>				root;
+	public int						countInsertions;
+	public int						countSingleRotations;
+	public int						countDoubleRotations;
 
 	private ContentHolderInterface	content;
 
@@ -259,6 +264,22 @@ public class AVLTree<T extends Comparable<? super T>> implements AVLTreeInterfac
 		return true;
 	}
 
+	public AVLNode getNodeByElement(String id) {
+		return getNodeByElement(id, root);
+	}
+
+	protected AVLNode getNodeByElement(String id, AVLNode<T> t) {
+		if (t == null) {
+			return null;
+		} else if (((MapNodeInterface) (t)).getId().compareTo(id) < 0) {
+			return getNodeByElement(id, t.left);
+		} else if (((MapNodeInterface) (t)).getId().compareTo(id) > 0) {
+			return getNodeByElement(id, t.right);
+		}
+		return t;
+	}
+	
+
 	public boolean checkBalanceOfTree(AVLTree.AVLNode<Integer> current) {
 		boolean balancedRight = true, balancedLeft = true;
 		int leftHeight = 0, rightHeight = 0;
@@ -299,7 +320,6 @@ public class AVLTree<T extends Comparable<? super T>> implements AVLTreeInterfac
 	}
 
 	public static class AVLNode<T> {
-
 
 		protected T				element;
 		protected AVLNode<T>	left;
