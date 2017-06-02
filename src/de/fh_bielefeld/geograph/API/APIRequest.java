@@ -39,9 +39,11 @@ public class APIRequest {
                 throw new InvalidAPIRequestException("Not the right amount of Arguments for this type of request");
             }
             this.url = server_url + call_url;
-            for(String argument : argument_list){
-                this.url += argument;
-            }
+            this.url += argument_list.get(0) + ",";
+            this.url += argument_list.get(1) + ",";
+            this.url += argument_list.get(2) + ",";
+            this.url += argument_list.get(3);
+            
             return true;
         }else if(this.request_type == RequestType.NODE_BY_ID){
             //There is one parameter needed for this request
