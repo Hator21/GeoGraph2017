@@ -57,6 +57,8 @@ public class OSMStreetGUIController {
 				popUp("Längengrad");
 				longitudeTextField.setText("");
 			}
+			
+			callParser();
 		});
 
 		searchButtonArea.setOnAction((event) -> {
@@ -92,6 +94,8 @@ public class OSMStreetGUIController {
 				popUp("Längengrad Rechts");
 				// longitudeTextField.setText("");
 			}
+			callParser();
+			
 		});
 
 		fileChooserButton.setOnAction((event) -> {
@@ -105,7 +109,7 @@ public class OSMStreetGUIController {
 			System.out.println("Slider Value Changed (newValue: " + newValue.doubleValue() + ")\n");
 		});
 
-		callParser();
+		
 
 	}
 
