@@ -66,10 +66,20 @@
                               <Font size="18.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="MinLatitudeTextField" layoutX="445.0" layoutY="64.0" AnchorPane.leftAnchor="445.0" AnchorPane.topAnchor="64.0" />
-                        <TextField fx:id="MinLongitudeTextField" layoutX="445.0" layoutY="97.0" AnchorPane.leftAnchor="445.0" AnchorPane.topAnchor="97.0" />
-                        <TextField fx:id="MaxLatitudeTextField" layoutX="445.0" layoutY="133.0" AnchorPane.leftAnchor="445.0" AnchorPane.topAnchor="133.0" />
-                        <TextField fx:id="MaxLongitudeTextField" layoutX="445.0" layoutY="167.0" AnchorPane.leftAnchor="445.0" AnchorPane.topAnchor="167.0" />
+                        <TextField fx:id="latitudeTextFieldL" layoutX="445.0" layoutY="64.0" AnchorPane.leftAnchor="445.0" AnchorPane.topAnchor="64.0" />
+                        <TextField fx:id="longitudeTextFieldL" layoutX="445.0" layoutY="97.0" AnchorPane.leftAnchor="445.0" AnchorPane.topAnchor="97.0" />
+                        <TextField fx:id="latitudeTextFieldR" layoutX="445.0" layoutY="133.0" AnchorPane.leftAnchor="445.0" AnchorPane.topAnchor="133.0" />
+                        <TextField fx:id="longitudeTextFieldR" layoutX="445.0" layoutY="167.0" AnchorPane.leftAnchor="445.0" AnchorPane.topAnchor="167.0" />
+                        <Button fx:id="searchButtonArea" alignment="CENTER" layoutX="629.0" layoutY="58.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="267.0" text="searchButtonArea">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="fileChooserButton" alignment="CENTER" layoutX="629.0" layoutY="104.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="267.0" text="fileChooserButton">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Button>
                      </children>
                   </AnchorPane>
                   <Pane minHeight="230.0" minWidth="300.0" prefHeight="230.0" prefWidth="300.0">
