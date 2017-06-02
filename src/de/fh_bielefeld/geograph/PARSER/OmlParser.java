@@ -1,6 +1,7 @@
 package de.fh_bielefeld.geograph.PARSER;
 
 
+import de.fh_bielefeld.geograph.API.Exception.InvalidAPIRequestException;
 import de.fh_bielefeld.geograph.GUI.MapNode;
 import de.fh_bielefeld.geograph.GUI_INTERFACE.ContentHolderInterface;
 import de.fh_bielefeld.geograph.GUI.MapWay;
@@ -56,7 +57,7 @@ public class OmlParser {
         OSMApi ApiCaller = new OSMApi();
         try{
             givenDocument=ApiCaller.getBoundingBoxLatLong(usedHolder.getMinLatitude(),usedHolder.getMinLongitude(),usedHolder.getMaxLatitude(),usedHolder.getMaxLongitude());
-        }catch(Exception e){
+        }catch(InvalidAPIRequestException e){
             //was zu tuen ist
         }
         setIncludeConditions();
