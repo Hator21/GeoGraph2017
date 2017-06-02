@@ -73,6 +73,11 @@ public class OmlParser {
 
             //was zu tuen ist
         }
+        for(int i=0;i<givenDocument.getDocumentElement().getAttributes().getLength();i++){
+            System.out.println(givenDocument.getDocumentElement().getAttributes().item(i).getNodeValue());
+        }
+        
+        givenDocument.getDocumentElement().setIdAttribute("id", true);
         setIncludeConditions();
         NodeList relationsFromGivenDocument = givenDocument.getElementsByTagName("relation");
         
@@ -83,7 +88,7 @@ public class OmlParser {
                 for(int x=0;x<childsOfRelation.getLength();x++){
                     if((childsOfRelation.item(x).getAttributes()!=null)&&(childsOfRelation.item(x).getAttributes().getNamedItem("k")!= null)){
                         if(includeConditions.containsKey(childsOfRelation.item(x).getAttributes().getNamedItem("k").getNodeValue())){
-                            if((childsOfRelation.item(x).getAttributes().getNamedItem("v").getNodeValue()).equals(includeConditions.get(childsOfRelation.item(x).getAttributes().getNamedItem("k")))){
+                            if((childsOfRelation.item(x).getAttributes().getNamedItem("v").getNodeValue()).equals(includeConditions.get(childsOfRelation.item(x).getAttributes().getNamedItem("k").getNodeValue()))){
                                 isImportant=true;
                             }
                         }
@@ -91,12 +96,14 @@ public class OmlParser {
                 }
                 if(isImportant){
                     for(int x=0;x<childsOfRelation.getLength();x++){
-                       if((childsOfRelation.item(x).getAttributes().getNamedItem("type").getNodeValue()).equals("way")){
-                           try{
-                               parseWay(givenDocument.getElementById(childsOfRelation.item(x).getAttributes().getNamedItem("ref").getNodeValue()));
-                           }catch(NullPointerException e){
-                               //do Nothing, because there is no way!
-                           }
+                        if((childsOfRelation.item(x).getAttributes()!=null)&&(childsOfRelation.item(x).getAttributes().getNamedItem("type")!=null)){
+                            if((childsOfRelation.item(x).getAttributes().getNamedItem("type").getNodeValue().toString()).equals("way")){
+                                if(givenDocument.getElementById(childsOfRelation.item(x).getAttributes().getNamedItem("ref").getNodeValue())!=null){
+                                    System.out.println("parse way begonnen");
+                                    parseWay(givenDocument.getElementById(childsOfRelation.item(x).getAttributes().getNamedItem("ref").getNodeValue()));
+                                    System.out.println("parse way beendet");
+                                }
+                            }
                        }
                     }
                 }
@@ -105,9 +112,10 @@ public class OmlParser {
         usedHolder.setNodes(parsedNodeTree);
         usedHolder.setWays(parsedWayTree);
         clearEverythingUnimportant();
+        System.out.println("returned");
         return usedHolder;
     }
-    private void parseWay(Element givenWay)throws NullPointerException{
+    private void parseWay(Element givenWay){
         String parsedWayID = givenWay.getAttributes().getNamedItem("id").toString();
         ArrayList<String> refsFromGivenWay= new ArrayList<String>();
         ArrayList<MapTag> tagsFromGivenWay= new ArrayList<MapTag>();
