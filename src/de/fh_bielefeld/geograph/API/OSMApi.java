@@ -38,7 +38,12 @@ public class OSMApi {
      * @throws ParserConfigurationException If the answer is not a valid XML document or the parser factory cannot be initialized correctly
      * @throws InvalidAPIRequestException If the request failed or the given Arguments do not match the API documentation
      */
-    public static Document getNodeWithID(long nodeId) throws InvalidAPIRequestException {
+    public static Document getNodeWithID(int nodeId) throws InvalidAPIRequestException {
+        
+        if(nodeId >= 0){
+            throw new InvalidAPIRequestException("Node ID is out of range(must be greater than 0)");
+        }
+        
         
         APIRequestBuilder builder = new APIRequestBuilder();
         
@@ -108,6 +113,8 @@ public class OSMApi {
             throw new InvalidAPIRequestException("Longitude is out of Range ( not between -180 and 180)");
         if((minLatitude == maxLatitude)||(minLongitude == maxLongitude))
             throw new InvalidAPIRequestException("BoundingBox size would be zero");
+        if((minLatitude > maxLatitude) || (minLongitude > maxLongitude))
+            throw new InvalidAPIRequestException("The min Values must be lower than the max Values");
         
         APIRequestBuilder builder = new APIRequestBuilder();
         

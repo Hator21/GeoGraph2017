@@ -46,11 +46,14 @@ public class APIRequest {
             
             return true;
         }else if(this.request_type == RequestType.NODE_BY_ID){
-            //There is one parameter needed for this request
+            //There is only one parameter allowed for this request
             if(argument_list.size() != 1){
                 throw new InvalidAPIRequestException("Not the right amount of Arguments for this type of request");
             }
-            this.url = server_url + call_url + argument_list.get(0);
+            this.url = server_url + call_url;
+            this.url += argument_list.get(0);
+            
+            return true;
         }
         return false;
     }
