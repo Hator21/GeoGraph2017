@@ -121,10 +121,10 @@ public class OSMApi {
         APIRequest request = builder.server("http://www.openstreetmap.org")
                 .call("/api/0.6/map?bbox=")
                 .callType(RequestType.BOUNDING_BOX_LATLANG)
-                .argument(String.valueOf(minLatitude))
                 .argument(String.valueOf(minLongitude))
-                .argument(String.valueOf(maxLatitude))
+                .argument(String.valueOf(minLatitude))
                 .argument(String.valueOf(maxLongitude))
+                .argument(String.valueOf(maxLatitude))
                 .build();
         
         if(request.ready()){
@@ -133,7 +133,7 @@ public class OSMApi {
                 return request.getResponse();
             }else{//If response type is error switch to other api
                 request = builder.server("http://overpass-api.de")
-                    .call("/api/map?bbox=")
+                    .call("/api/xapi?map?bbox=")
                     .build();
                 if(request.ready()){
                     request = sendRequest(request);
