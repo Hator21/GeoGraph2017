@@ -76,6 +76,7 @@ public class OmlParser {
 		givenDocument = ApiCaller.getBoundingBoxLatLong(usedHolder.getMinLatitude(), usedHolder.getMinLongitude(), usedHolder.getMaxLatitude(), usedHolder.getMaxLongitude());
 
 		givenDocument.getDocumentElement().normalize();
+		
 		setIncludeConditions();
 		NodeList relationsFromGivenDocument = givenDocument.getElementsByTagName("relation");
 
