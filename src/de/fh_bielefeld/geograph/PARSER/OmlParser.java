@@ -71,14 +71,10 @@ public class OmlParser {
 
 	}
 
-	public ContentHolderInterface parse() throws NullPointerException {
+	public ContentHolderInterface parse() throws NullPointerException, InvalidAPIRequestException {
 		OSMApi ApiCaller = new OSMApi();
-		try {
-			givenDocument = ApiCaller.getBoundingBoxLatLong(usedHolder.getMinLatitude(), usedHolder.getMinLongitude(), usedHolder.getMaxLatitude(), usedHolder.getMaxLongitude());
-		} catch (InvalidAPIRequestException e) {
-
-			// was zu tuen ist
-		}
+                givenDocument = ApiCaller.getBoundingBoxLatLong(usedHolder.getMinLatitude(), usedHolder.getMinLongitude(), usedHolder.getMaxLatitude(), usedHolder.getMaxLongitude());
+		
 		setIncludeConditions();
 		NodeList relationsFromGivenDocument = givenDocument.getElementsByTagName("relation");
 
