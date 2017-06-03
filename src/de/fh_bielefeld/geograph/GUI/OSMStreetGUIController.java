@@ -12,6 +12,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.transform.Affine;
 import javafx.scene.transform.Transform;
 import javafx.stage.FileChooser;
+import de.fh_bielefeld.geograph.API.Exception.InvalidAPIRequestException;
 import de.fh_bielefeld.geograph.GUI_INTERFACE.ContentHolderInterface;
 import de.fh_bielefeld.geograph.GUI_INTERFACE.MapNodeInterface;
 import de.fh_bielefeld.geograph.GUI_INTERFACE.MapWayInterface;
@@ -220,7 +221,11 @@ public class OSMStreetGUIController {
 
 	private void callParser() {
 		parser = new OmlParser(content);
-		content = parser.parse();
-		draw();
+		try {
+			content = parser.parse();
+			draw();
+		} catch (NullPointerException | InvalidAPIRequestException e) {
+			e.printStackTrace();
+		}
 	}
 }
