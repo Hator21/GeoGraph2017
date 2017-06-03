@@ -271,14 +271,13 @@ public class AVLTree<T extends Comparable<? super T>> implements AVLTreeInterfac
 	protected AVLNode getNodeByElement(String id, AVLNode<T> t) {
 		if (t == null) {
 			return null;
-		} else if (((MapNodeInterface) (t)).getId().compareTo(id) < 0) {
+		} else if (((MapNodeInterface) (t.element)).getId().compareTo(id) < 0) {
 			return getNodeByElement(id, t.left);
-		} else if (((MapNodeInterface) (t)).getId().compareTo(id) > 0) {
+		} else if (((MapNodeInterface) (t.element)).getId().compareTo(id) > 0) {
 			return getNodeByElement(id, t.right);
 		}
 		return t;
 	}
-	
 
 	public boolean checkBalanceOfTree(AVLTree.AVLNode<Integer> current) {
 		boolean balancedRight = true, balancedLeft = true;
