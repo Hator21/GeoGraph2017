@@ -62,40 +62,56 @@ public class OSMStreetGUIController {
 		});
 
 		searchButtonArea.setOnAction((event) -> {
-			double latitudeL;
-			double longitudeL;
-			double latitudeR;
-			double longitudeR;
+			boolean ok = true;
+			double latitudeL = 0;
+			double longitudeL = 0;
+			double latitudeR = 0;
+			double longitudeR = 0;
 			try {
 				latitudeL = Double.parseDouble(latitudeTextFieldL.getText());
-				content.setMinLatitude(latitudeL);
 			} catch (NumberFormatException nbe) {
 				popUp("Breitengrad Links");
 				latitudeTextFieldL.setText("");
+				ok = false;
 			}
 			try {
 				longitudeL = Double.parseDouble(longitudeTextFieldL.getText());
-				content.setMinLongitude(longitudeL);
+
 			} catch (NumberFormatException nbe) {
 				popUp("Längengrad Links");
 				longitudeTextFieldL.setText("");
+				ok = false;
 			}
 			try {
 				latitudeR = Double.parseDouble(latitudeTextFieldR.getText());
-				content.setMaxLatitude(latitudeR);
+
 			} catch (NumberFormatException nbe) {
 				popUp("Breitengrad Rechts");
 				latitudeTextFieldR.setText("");
+				ok = false;
 			}
 			try {
 				longitudeR = Double.parseDouble(longitudeTextFieldR.getText());
-				content.setMaxLongitude(longitudeR);
 			} catch (NumberFormatException nbe) {
 				popUp("Längengrad Rechts");
 				longitudeTextFieldR.setText("");
+				ok = false;
 			}
-			callParser();
-
+			if (ok) {
+				if (latitudeL < latitudeR) {
+					if (longitudeL < longitudeR) {
+						content.setMinLatitude(latitudeL);
+						content.setMinLongitude(longitudeL);
+						content.setMaxLatitude(latitudeR);
+						content.setMaxLongitude(longitudeR);
+						callParser();
+					} else {
+						popUpLong();
+					}
+				} else {
+					popUpLat();
+				}
+			}
 		});
 
 		fileChooserButton.setOnAction((event) -> {
@@ -159,6 +175,22 @@ public class OSMStreetGUIController {
 		alert.setTitle("Falsche Eingabe");
 		alert.setHeaderText(null);
 		alert.setContentText("Der " + grad + " ist keine Zahl");
+		alert.showAndWait();
+	}
+
+	private void popUpLat() {
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("Falsche Eingabe");
+		alert.setHeaderText(null);
+		alert.setContentText("Latitude Links > Latitude Rechts");
+		alert.showAndWait();
+	}
+
+	private void popUpLong() {
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("Falsche Eingabe");
+		alert.setHeaderText(null);
+		alert.setContentText("Longitude Links > Longitude Rechts");
 		alert.showAndWait();
 	}
 
