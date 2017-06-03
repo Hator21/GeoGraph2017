@@ -68,35 +68,31 @@ public class OSMStreetGUIController {
 			double longitudeR;
 			try {
 				latitudeL = Double.parseDouble(latitudeTextFieldL.getText());
-				System.out.println("LatitudeL:" + latitudeL);
 				content.setMinLatitude(latitudeL);
 			} catch (NumberFormatException nbe) {
 				popUp("Breitengrad Links");
-				// latitudeTextField.setText("");
+				latitudeTextFieldL.setText("");
 			}
 			try {
 				longitudeL = Double.parseDouble(longitudeTextFieldL.getText());
-				System.out.println("LongitudeL:" + longitudeL);
 				content.setMinLongitude(longitudeL);
 			} catch (NumberFormatException nbe) {
 				popUp("Längengrad Links");
-				// longitudeTextField.setText("");
+				longitudeTextFieldL.setText("");
 			}
 			try {
 				latitudeR = Double.parseDouble(latitudeTextFieldR.getText());
-				System.out.println("LatitudeR:" + latitudeR);
 				content.setMaxLatitude(latitudeR);
 			} catch (NumberFormatException nbe) {
 				popUp("Breitengrad Rechts");
-				// latitudeTextField.setText("");
+				latitudeTextFieldR.setText("");
 			}
 			try {
 				longitudeR = Double.parseDouble(longitudeTextFieldR.getText());
-				System.out.println("LongitudeR:" + longitudeR);
 				content.setMaxLongitude(longitudeR);
 			} catch (NumberFormatException nbe) {
 				popUp("Längengrad Rechts");
-				// longitudeTextField.setText("");
+				longitudeTextFieldR.setText("");
 			}
 			callParser();
 
@@ -120,12 +116,12 @@ public class OSMStreetGUIController {
 	}
 
 	public void drawNode(MapNodeInterface node) {
-		System.out.println(node.getId() + " -> " + node.getLatitude() + " - " + node.getLongitude() + " wird gezeichnet");
-		System.out.println((mapLatitude(node.getLatitude()) - NODERADIUS) + " - " + (mapLongitude(node.getLongitude()) - NODERADIUS));
-		gc.setStroke(Color.BLACK);
-		gc.strokeOval(mapLongitude(node.getLongitude()) - NODERADIUS, mapLatitude(node.getLatitude()) - NODERADIUS, NODERADIUS * 2, NODERADIUS * 2);
-		gc.setFill(Color.RED);
-		gc.fillOval(mapLongitude(node.getLongitude()) - NODERADIUS + 1, mapLatitude(node.getLatitude()) - NODERADIUS + 1, NODERADIUS * 2 - 2, NODERADIUS * 2 - 2);
+		if (0 <= (mapLatitude(node.getLatitude()) - NODERADIUS) && (mapLatitude(node.getLatitude()) - NODERADIUS) <= paintingCanvas.getHeight() && 0 <= (mapLongitude(node.getLongitude()) - NODERADIUS) && (mapLongitude(node.getLongitude()) - NODERADIUS) <= paintingCanvas.getWidth()) {
+			gc.setStroke(Color.BLACK);
+			gc.strokeOval(mapLongitude(node.getLongitude()) - NODERADIUS, mapLatitude(node.getLatitude()) - NODERADIUS, NODERADIUS * 2, NODERADIUS * 2);
+			gc.setFill(Color.RED);
+			gc.fillOval(mapLongitude(node.getLongitude()) - NODERADIUS + 1, mapLatitude(node.getLatitude()) - NODERADIUS + 1, NODERADIUS * 2 - 2, NODERADIUS * 2 - 2);
+		}
 	}
 
 	private void getWays() {
@@ -148,8 +144,7 @@ public class OSMStreetGUIController {
 	}
 
 	public double mapLatitude(double latitude) {
-		System.out.println(paintingCanvas.getHeight() + " * ((" + latitude + " - " + content.getMinLatitude() + ") / (" + content.getMaxLatitude() + " - " + content.getMinLatitude() + "))");
-		double y = paintingCanvas.getHeight() * ((latitude - content.getMinLatitude()) / (content.getMaxLatitude() - content.getMinLatitude()));
+		double y = paintingCanvas.getHeight() - (paintingCanvas.getHeight() * ((latitude - content.getMinLatitude()) / (content.getMaxLatitude() - content.getMinLatitude())));
 		return y;
 
 	}
@@ -188,7 +183,7 @@ public class OSMStreetGUIController {
 
 	private void draw() {
 		getNodes();
-		getWays();
+		// getWays();
 	}
 
 	private void callParser() {
@@ -196,24 +191,4 @@ public class OSMStreetGUIController {
 		content = parser.parse();
 		draw();
 	}
-
-	// private void createExampleData() {
-	// content.setLatitude(52.1174047);
-	// content.setMinLatitude(52.1164047);
-	// content.setMaxLatitude(52.1184047);
-	// content.setLongitude(8.6764046);
-	// content.setMinLongitude(8.6740046);
-	// content.setMaxLongitude(8.6788046);
-	//
-	// content.getNodes().insert(new MapNode("1", 52.1172509, 8.6764067));
-	// content.getNodes().insert(new MapNode("2", 52.1172090, 8.6764746));
-	// content.getNodes().insert(new MapNode("3", 52.1170113, 8.6768153));
-	// content.getNodes().insert(new MapNode("4", 52.1166197, 8.6773873));
-	// content.getNodes().insert(new MapNode("5", 52.1162315, 8.6778956));
-	// content.getNodes().insert(new MapNode("6", 52.1160254, 8.6781414));
-	// content.getNodes().insert(new MapNode("7", 52.1158071, 8.6784022));
-	//
-	// content.getNodes().serializePrefix();
-	// }
-
 }
