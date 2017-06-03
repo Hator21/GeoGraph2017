@@ -79,7 +79,6 @@ public class OmlParser {
 
 			// was zu tuen ist
 		}
-		givenDocument.getDocumentElement().normalize();
 		setIncludeConditions();
 		NodeList relationsFromGivenDocument = givenDocument.getElementsByTagName("relation");
 
