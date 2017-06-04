@@ -69,15 +69,15 @@
 			\textbf{Primary Actor :} \centering & User \\ \hline 
 			\textbf{Preconditions :}\centering & 
 			1. Programm ist gestartet \newline 
-			2. User hat Längen und Breitengrad eingegeben	\\ \hline 
+			2. User hat BoundingBox min und max eingegeben	\\ \hline 
 			\textbf{Postconditions :}\centering &  
 			1. User hat den Kartenbereich erfolgreich geladen \newline 
-			2. Karte wird angezeigt \\ \hline
+			2. GEO-06 \\ \hline
 			\textbf{Other Use Cases :}\centering & - \\ \hline  
 			\textbf{Main Success Scenario :}\centering & 
-			1. User gibt Längen und Breitengrad ein \newline
+			1. User gibt BoundingBox min und max ein \newline
 			2. User klickt auf "Nach Kordinaten suchen" \newline
-			3. Karte wird angezeigt \\ \hline  
+			3. GEO-06 \\ \hline  
 			\textbf{Extensions :}\centering & - \\ \hline  
 			\textbf{Priority :}\centering & High \\ \hline  
 		\end{tabular}
@@ -97,12 +97,12 @@
 			1. GEO-01\\ \hline 
 			\textbf{Postconditions :}\centering & 
 			1. User hat Kartenbereich aus OSM-Datei geladen \newline
-			2. Karte wird angezeigt \\ \hline
+			2. GEO-06 \\ \hline
 			\textbf{Other Use Cases :}\centering & - \\ \hline  
 			\textbf{Main Success Scenario :}\centering & 
 			1. GEO-01 \newline
-			2. User klickt auf " Nach Kordinaten suchen" \newline
-			3. Karte wird angezeigt \\ \hline  
+			2. User klickt auf "Nach Kordinaten suchen" \newline
+			3. GEO-06 \\ \hline  
 			\textbf{Extensions :}\centering & - \\ \hline  
 			\textbf{Priority :}\centering & High \\ \hline  
 		\end{tabular}
@@ -123,13 +123,13 @@
 			\textbf{Postconditions :}\centering & 
 			1. User bewegt Slider in den positiven/negativen Bereich \newline
 			2. Kartenausschnitt vergrößert/verkleinert sich \newline
-			3. Karte wird angezeigt \\ \hline
+			3. GEO-06 \\ \hline
 			\textbf{Other Use Cases :}\centering & - \\ \hline  
 			\textbf{Main Success Scenario :}\centering & 
 			1. GEO-01 oder GEO-02 \newline
 			2. User bewegt Slider in Positiven/Negativen Bereich \newline
 			3. Karte wird vergrößert/verkleinert \newline
-			4. Karte wird angezeigt \\ \hline  
+			4. GEO-06 \\ \hline  
 			\textbf{Extensions :}\centering & - \\ \hline  
 			\textbf{Priority :}\centering & High \\ \hline  
 		\end{tabular}
@@ -150,12 +150,12 @@
 			\textbf{Postconditions :}\centering & 
 			1. User bewegt die Maus in x/y Richtung \newline
 			2. Der Kartenausschnitt bewegt sich in x/y Richtung \newline
-			3. Der Kartenausschnitt wird angezeigt \\ \hline
+			3. GEO-06 \\ \hline
 			\textbf{Other Use Cases :}\centering & - \\ \hline  
 			\textbf{Main Success Scenario :}\centering & 
 			1. GEO-01 oder GEO-02 \newline
 			2. User hält Maus gedrückt und schiebt den Kartenausschnitt \newline
-			3. Kartenausschnitt wird angezeigt \\ \hline  
+			3. GEO-06 \\ \hline  
 			\textbf{Extensions :}\centering & 
 			1. Nur zuvor geladener Kartenausschnitt wird angezeigt \\ \hline  
 			\textbf{Priority :}\centering & High \\ \hline  
@@ -168,7 +168,7 @@
 			\textbf{GEO-05 } \\ 
 			\hline
 			\textbf{ID :}\centering & GEO-05  \\ \hline 
-			\textbf{Title :}\centering & Zentrierung auf einer Node \\ \hline 
+			\textbf{Title :}\centering & Nächsten Punkt suchen und Ansicht auf Node zentrieren \\ \hline 
 			\textbf{Description :}\centering & Zentrierung auf einer Node nach eingabe von Langen-und Breitengrad \\ \hline 
 			\textbf{Trigger :}\centering & User gibt Breiten-und Längengrad ein und die nächstgelegende Node wird zentriert \\ \hline 
 			\textbf{Primary Actor :} \centering & User \\ \hline 
@@ -177,17 +177,40 @@
 			\textbf{Postconditions :}\centering &
 			1. Kartenausschnitt wird auf die nächstgelgende Node verschoben \newline
 			2. Karte wird auf die Node zentriert \newline
-			3. Karte wird angezeigt \\ \hline
+			3. GEO-06 \\ \hline
 			\textbf{Other Use Cases :}\centering & - \\ \hline  
 			\textbf{Main Success Scenario :}\centering &
 			1. GEO-01 oder GEO-02 \newline
 			2. Kartenausschnitt wird verschoben \newline
 			3. Karte wird auf Node zentriert \newline
-			4. Karte wird angezeigt \\ \hline  
+			4. GEO-06 \\ \hline  
 			\textbf{Extensions :}\centering & - \\ \hline  
 			\textbf{Priority :}\centering & High \\ \hline  
 		\end{tabular}
 	\end{table}	
+	
+	\begin{table}[H]
+		\begin{tabular}{|p{8cm}|p{8cm}|}
+			\hline
+			\textbf{GEO-06 } \\ 
+			\hline
+			\textbf{ID :}\centering & GEO-06  \\ \hline 
+			\textbf{Title :}\centering & Karte zeichnen \\ \hline 
+			\textbf{Description :}\centering & Karte zeichen nach Eingabe von Längen und Breitengrad \\ \hline 
+			\textbf{Trigger :}\centering & User gibt Breiten-und Längengrad ein und die Karte wird gezeichnet \\ \hline 
+			\textbf{Primary Actor :} \centering & User \\ \hline 
+			\textbf{Preconditions :}\centering & -
+			 \\ \hline 
+			\textbf{Postconditions :}\centering	& 
+			1. GEO-01 oder GEO-02 \\ \hline		
+			\textbf{Other Use Cases :}\centering & - \\ \hline  
+			\textbf{Main Success Scenario :}\centering &
+			1. GEO-01 oder GEO-02 \newline
+			2. Karte wird gezeichnet \\ \hline  
+			\textbf{Extensions :}\centering & - \\ \hline  
+			\textbf{Priority :}\centering & High \\ \hline  
+		\end{tabular}
+	\end{table}		
 	
 	\subsection{Aktivitätsdiagramm}
 		\begin{figure}[H]
