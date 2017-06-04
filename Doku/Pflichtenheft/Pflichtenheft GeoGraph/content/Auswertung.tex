@@ -1,17 +1,19 @@
 \newpage
 	\section{\Large ZIELBESTIMMUNG}
+	Das Benutzungsziel ist:
 	\begin{itemize}
-		\item Korrektheit der Nodes
-		\item Struktur
-		\item Benutzerfreundlichkeit
+		\item Es soll möglich sein OSM Ausschnitte über die OSM API abzufragen. Dieser Ausschnitt wird über eine Boundingbox ausgewählt.
+		\item Sobald ein Ausschnitt geladen wurde, kann ein Punkt via Koordinate(Längen- und Breitengrad) ausgewählt werden und der nächstliegende Node zu diesem Punkt soll dann zentriert werden.
+		\item Der Kartenausschnit soll Verschiebbar, Vergrößerbar und Verkleinerbar sein.
 	\end{itemize}
 	\subsection{Musskriterien}
 	\begin{itemize}
 		\item Das System muss auf dem Kartenbezugssystem WGS 84 laufen
 		\item Das System muss nach Eingabe von Breiten- \& Längengrad eine Teilkarte ausgeben. Auf dieser Karte sind die Bundesautobahnen und Bundesstraßen sowie Richtungspfeile in die, die Autobahn/Straße verläuft, eingezeichnet. Dabei zeigen die Pfeile in die jeweilige Richtung der nächsten Node.
 		\item Das System muss die Pfeile, so anpassen das die Länge der Pfeile in proportionaler abhängig zur Geschwindigkeitsbeschränkung stehen. 
-		\item Das System muss nach Eingabe einer minimalen und maximalen-Eingabe eines Punktes. Den Ausschnitt der Karte darstellen.
+		\item Das System muss nach Eingabe einer minimalen und maximalen-Eingabe eines Punkten, den Ausschnitt der Karte darstellen.
 		\item Das System muss nachdem eine Karte dargestellt wurde, den ausgewählten Kartenbereich verschieben können.
+		\item Das System muss nach laden eines Kartenbereichs diesen Verschieben, Vergrößern, und Verkleinern können.
 		\item Das System muss skalierbar sein.
 	\end{itemize}
 	\subsection{Abgrenzungskriterien}
@@ -30,7 +32,8 @@
 	\begin{itemize}
 		\item Die Zielgruppe sind Leute, 
 		\begin{itemize}
-			\item die Wert auf \textbf{"Wege zur Gewinnung und Korrektur von Kartendaten"} legen.
+			\item wie Herr Dr. Fünfzig
+			\item die Wert auf \textbf{"Wege zur Gewinnung und Korrektur von Kartendaten"} legen.(Aus Anfordernungen des Kunden entnommen)
 			\item die Initiativen für \textbf{"GeoInformation und Navigation"} unterstützen.
 		\end{itemize}
 	\end{itemize}
@@ -205,7 +208,11 @@
 	\section{\Large PRODUKTDATEN}
 		Langfristig sollen folgende Daten im System gespeichert | ausgelesen werden:
 	\begin{itemize}
-		\item Speicherung der Straßenpunkte als OSM-Datei
+		\item Speicherung der OSM-Datei in folgendem Format: 
+		\begin{itemize}
+			\item Min und Max der BoundingBox
+			\item 51.9\_52.1\_52.1\_53.0.osm (Beispiel)
+		\end{itemize}
 		\item Laden der Daten via Overpass API
 	\end{itemize}
 	\subsection{Analyseklassendiagramm}	
@@ -245,8 +252,15 @@
 	\begin{figure}[H]
 	\centering
 	\includegraphics[width=0.7\linewidth]{images/OSMStreetView}
-	\caption{Benutzeroberfläche bsp.}
+	\caption{Benutzeroberfläche}
 	\label{fig:GUI}
+	\end{figure}
+	
+	\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\linewidth]{images/OSMStreetView2}
+	\caption{Benutzeroberfläche}
+	\label{fig:GUI2}
 	\end{figure}
 	
 	\subsection{Zustandsdiagramme}
@@ -270,7 +284,7 @@
 		\begin{itemize}
 			\item Richtigkeit der Nodes
 			\item Richtigkeit der Pfeile
-			\item Genauigkeit der Nodes
+			\item Genaues Darstellen der Nodes in abhängigkeit zur OSM-Datei
 			\item Genauigkeit der BoundingBox
 			\item Genauigkeit beim Skalieren
 		\end{itemize}  
@@ -278,7 +292,7 @@
 		\item Performant in Abhängigkeit zur Downloadgeschwindigkeit und API
 		\item Wenn der markierte Bereich der Boundingbox zu groß ist, dann kann das laden der Nodes sehr lange dauern
 		\item Aktuelle Betriebssysteme abdecken(Windows, Linux)
-		\item Daten müssen gespeichert werden	 
+		\item Abgefragte OSM-Datein werden lokal gespeichert mit den Min und Max Angaben der BoundingBox	(bsp. 51.9\_52.1\_52.1\_53.0.osm) 
 	\end{itemize} 
 
 	
@@ -346,6 +360,14 @@
 	\section{\Large GLOSSAR}
 	In diesem Kapitel wird die spezifische Sprache des Auftraggebers wie \textbf{ Kürzel } und \textbf{ Fachbegriffe } beschrieben, z.B. :
 	\begin{itemize}
+		\item \textbf{ System }
+		\begin{itemize}
+			\item Hiermit ist das gesamte Programm gemeint 
+		\end{itemize}
+		\item \textbf{ skalierbar}
+		\begin{itemize}
+			\item in Bezug auf das System, ist hier gemeint das es erweiterbar sein soll
+		\end{itemize}
 		\item \textbf{ User }
 		\begin{itemize}
 			\item Bearbeitet das Programm
