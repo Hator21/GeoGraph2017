@@ -16,5 +16,8 @@ GUI:
 Parser:
 - Stefan Schuck
 
+Stellvertretender Teamleiter:
+- Dennis Starke
+
 Teamleiter:
 - Alexander Sochart
