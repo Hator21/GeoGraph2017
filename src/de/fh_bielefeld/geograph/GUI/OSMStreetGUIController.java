@@ -11,7 +11,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;
 import javafx.scene.transform.Affine;
 import javafx.scene.transform.Transform;
-import javafx.stage.FileChooser;
 import de.fh_bielefeld.geograph.API.Exception.InvalidAPIRequestException;
 import de.fh_bielefeld.geograph.GUI_INTERFACE.ContentHolderInterface;
 import de.fh_bielefeld.geograph.GUI_INTERFACE.MapNodeInterface;
@@ -22,7 +21,7 @@ public class OSMStreetGUIController {
 
 	private OmlParser				parser;
 
-	@FXML private Button			searchButton, searchButtonArea, fileChooserButton;
+	@FXML private Button			searchButton, searchButtonArea/* , fileChooserButton */;
 
 	@FXML private TextField			latitudeTextField, longitudeTextField, latitudeTextFieldL, longitudeTextFieldL, latitudeTextFieldR, longitudeTextFieldR;
 
@@ -115,12 +114,13 @@ public class OSMStreetGUIController {
 			}
 		});
 
-		fileChooserButton.setOnAction((event) -> {
-			FileChooser fileChooser = new FileChooser();
-			fileChooser.setTitle("Open OSM File");
-			fileChooser.showOpenDialog(fileChooserButton.getScene().getWindow());
-
-		});
+		/*
+		 * fileChooserButton.setOnAction((event) -> {
+		 * FileChooser fileChooser = new FileChooser();
+		 * fileChooser.setTitle("Open OSM File");
+		 * fileChooser.showOpenDialog(fileChooserButton.getScene().getWindow());
+		 * });
+		 */
 
 		zoomSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
 			System.out.println("Slider Value Changed (newValue: " + newValue.doubleValue() + ")\n");
