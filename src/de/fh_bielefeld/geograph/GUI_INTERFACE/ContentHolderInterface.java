@@ -1,6 +1,7 @@
 package de.fh_bielefeld.geograph.GUI_INTERFACE;
 
-import de.fh_bielefeld.geograph.GUI.AVLTree.AVLNode;
+import java.util.ArrayList;
+
 import de.fh_bielefeld.geograph.GUI.MapNode;
 import de.fh_bielefeld.geograph.GUI.MapWay;
 import de.fh_bielefeld.geograph.GUI.OSMStreetGUIController;
@@ -16,22 +17,22 @@ public interface ContentHolderInterface {
 	/**
 	 * @return
 	 */
-	AVLTreeInterface<MapNode> getNodes();
+	ArrayList<MapNode> getNodes();
 
 	/**
 	 * @param nodes
 	 */
-	void setNodes(AVLTreeInterface<MapNode> nodes);
+	void setNodes(ArrayList<MapNode> nodes);
 
 	/**
 	 * @return
 	 */
-	AVLTreeInterface<MapWay> getWays();
+	ArrayList<MapWay> getWays();
 
 	/**
 	 * @param ways
 	 */
-	void setWays(AVLTreeInterface<MapWay> ways);
+	void setWays(ArrayList<MapWay> ways);
 
 	/**
 	 * @return
@@ -102,13 +103,4 @@ public interface ContentHolderInterface {
 	 * @param controller
 	 */
 	void setController(OSMStreetGUIController controller);
-
-	/**
-	 * Creates the Nodes on the gui. For that it calls the function drawNode().
-	 * 
-	 * @param Node
-	 *            to draw on the gui.
-	 */
-	void sendData(AVLNode t);
-
 }
