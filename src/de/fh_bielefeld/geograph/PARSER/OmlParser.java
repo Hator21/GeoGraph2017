@@ -30,15 +30,15 @@ import de.fh_bielefeld.geograph.GUI_INTERFACE.ContentHolderInterface;
  * @since 2017-05-25
  */
 public class OmlParser {
-	private double					positiveDifference, negativeDifference;
-	private AVLTree<MapNode>		parsedNodeTree;
-	private AVLTree<MapWay>			parsedWayTree;
+	private double				positiveDifference, negativeDifference;
+	private ArrayList<MapNode>		parsedNodes;
+	private ArrayList<MapWay>		parsedWays;
 	private ArrayList<MapNode>		nodesToTransfer;
 	private ArrayList<MapWay>		waysToTransfer;
-	private ContentHolderInterface	usedHolder;
+	private ContentHolderInterface          usedHolder;
 	private Map<String, String>		changedIDS;
 	private Map<String, String>		includeConditions;
-	private Document				givenDocument;
+	private Document			givenDocument;
 
 	/**
 	 * Method to get the data of a single node by id
@@ -50,8 +50,8 @@ public class OmlParser {
 		usedHolder = givenHolder;
 		positiveDifference = 0.0000005;// magicNumber how close the Nodes must be to be considered as one
 		negativeDifference = positiveDifference * (-1);
-		parsedNodeTree = new AVLTree<MapNode>(usedHolder);
-		parsedWayTree = new AVLTree<MapWay>(usedHolder);
+		parsedNodes = new ArrayList<MapNode>();
+		parsedWays = new ArrayList<MapWay>();
 		nodesToTransfer = new ArrayList<MapNode>();
 		waysToTransfer = new ArrayList<MapWay>();
 		changedIDS = new HashMap<String, String>();
@@ -116,8 +116,8 @@ public class OmlParser {
 				}
 			}
 		}
-		usedHolder.setNodes(parsedNodeTree);
-		usedHolder.setWays(parsedWayTree);
+		usedHolder.setNodes(parsedNodes);
+		usedHolder.setWays(parsedWays);
 		clearEverythingUnimportant();
 		System.out.println("returning");
 		return usedHolder;
@@ -154,11 +154,8 @@ public class OmlParser {
 			}
 		}
 		MapWay parsedWay = new MapWay(parsedWayID, refsFromGivenWay, tagsFromGivenWay);
-		parsedWayTree.insert(parsedWay);
-		for (int i = 0; i < nodesToTransfer.size(); i++) {
-			parsedNodeTree.insert(nodesToTransfer.get(i));
-		}
-
+		parsedWays.add(parsedWay);
+                parsedNodes=nodesToTransfer;
 	}
 
 	private void parseNode(Node givenNode) {
