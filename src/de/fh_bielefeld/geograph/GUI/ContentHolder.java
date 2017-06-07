@@ -1,24 +1,22 @@
 package de.fh_bielefeld.geograph.GUI;
 
-import de.fh_bielefeld.geograph.GUI.AVLTree.AVLNode;
-import de.fh_bielefeld.geograph.GUI_INTERFACE.AVLTreeInterface;
+import java.util.ArrayList;
+
 import de.fh_bielefeld.geograph.GUI_INTERFACE.ContentHolderInterface;
-import de.fh_bielefeld.geograph.GUI_INTERFACE.MapNodeInterface;
-import de.fh_bielefeld.geograph.GUI_INTERFACE.MapWayInterface;
 
 /**
  * This class holds the complete data for the GUI.
  */
 public class ContentHolder implements ContentHolderInterface {
-	private AVLTreeInterface<MapNode>	nodes;
-	private AVLTreeInterface<MapWay>	ways;
-	private double						latitude, minLatitude, maxLatitude;
-	private double						longitude, minLongitude, maxLongitude;
-	private OSMStreetGUIController		controller;
+	private ArrayList<MapNode>		nodes;
+	private ArrayList<MapWay>		ways;
+	private double					latitude, minLatitude, maxLatitude;
+	private double					longitude, minLongitude, maxLongitude;
+	private OSMStreetGUIController	controller;
 
 	public ContentHolder(OSMStreetGUIController controller) {
-		nodes = new AVLTree<MapNode>(this);
-		ways = new AVLTree<MapWay>(this);
+		nodes = new ArrayList<MapNode>();
+		ways = new ArrayList<MapWay>();
 		latitude = 0;
 		longitude = 0;
 		minLatitude = 0;
@@ -33,7 +31,7 @@ public class ContentHolder implements ContentHolderInterface {
 	 * 
 	 * @return Nodes on the map.
 	 */
-	public AVLTreeInterface<MapNode> getNodes() {
+	public ArrayList<MapNode> getNodes() {
 		return nodes;
 	}
 
@@ -43,7 +41,7 @@ public class ContentHolder implements ContentHolderInterface {
 	 * @param Nodes
 	 *            on the map.
 	 */
-	public void setNodes(AVLTreeInterface<MapNode> nodes) {
+	public void setNodes(ArrayList<MapNode> nodes) {
 		this.nodes = nodes;
 	}
 
@@ -52,7 +50,7 @@ public class ContentHolder implements ContentHolderInterface {
 	 * 
 	 * @return Ways on the map.
 	 */
-	public AVLTreeInterface<MapWay> getWays() {
+	public ArrayList<MapWay> getWays() {
 		return ways;
 	}
 
@@ -62,7 +60,7 @@ public class ContentHolder implements ContentHolderInterface {
 	 * @param Ways
 	 *            on the map.
 	 */
-	public void setWays(AVLTreeInterface<MapWay> ways) {
+	public void setWays(ArrayList<MapWay> ways) {
 		this.ways = ways;
 	}
 
@@ -197,26 +195,5 @@ public class ContentHolder implements ContentHolderInterface {
 	 */
 	public void setController(OSMStreetGUIController controller) {
 		this.controller = controller;
-	}
-
-	/**
-	 * Creates the Nodes on the gui. For that it calls the function drawNode().
-	 * 
-	 * @param Node
-	 *            to draw on the gui.
-	 */
-	public void sendData(AVLNode t) {
-		try {
-			MapNodeInterface node = ((MapNodeInterface) (t.element));
-			controller.drawNode(node);
-		} catch (ClassCastException cceN) {
-			try {
-				MapWayInterface way = ((MapWayInterface) (t.element));
-
-				controller.drawWay(way);
-			} catch (ClassCastException cceW) {
-				System.out.println("Something wrong with casting");
-			}
-		}
 	}
 }
