@@ -15,7 +15,6 @@ import org.w3c.dom.NodeList;
 
 import de.fh_bielefeld.geograph.API.OSMApi;
 import de.fh_bielefeld.geograph.API.Exception.InvalidAPIRequestException;
-import de.fh_bielefeld.geograph.GUI.AVLTree;
 import de.fh_bielefeld.geograph.GUI.MapNode;
 import de.fh_bielefeld.geograph.GUI.MapTag;
 import de.fh_bielefeld.geograph.GUI.MapWay;
@@ -30,15 +29,15 @@ import de.fh_bielefeld.geograph.GUI_INTERFACE.ContentHolderInterface;
  * @since 2017-05-25
  */
 public class OmlParser {
-	private double				positiveDifference, negativeDifference;
+	private double					positiveDifference, negativeDifference;
 	private ArrayList<MapNode>		parsedNodes;
 	private ArrayList<MapWay>		parsedWays;
 	private ArrayList<MapNode>		nodesToTransfer;
 	private ArrayList<MapWay>		waysToTransfer;
-	private ContentHolderInterface          usedHolder;
+	private ContentHolderInterface	usedHolder;
 	private Map<String, String>		changedIDS;
 	private Map<String, String>		includeConditions;
-	private Document			givenDocument;
+	private Document				givenDocument;
 
 	/**
 	 * Method to get the data of a single node by id
@@ -59,25 +58,27 @@ public class OmlParser {
 		includeConditions.put("route", "road");
 
 	}
-        /**
+
+	/**
 	 * Method to get the data of a single node by id
 	 * 
 	 */
 	private void clearEverythingUnimportant() {
 		waysToTransfer.clear();
 		nodesToTransfer.clear();
-                parsedNodes.clear();
-                parsedWays.clear();
+		parsedNodes.clear();
+		parsedWays.clear();
 		changedIDS.clear();
 
 	}
 
 	public ContentHolderInterface parse() throws NullPointerException, InvalidAPIRequestException {
+		clearEverythingUnimportant();
 		OSMApi ApiCaller = new OSMApi();
 		givenDocument = ApiCaller.getBoundingBoxLatLong(usedHolder.getMinLatitude(), usedHolder.getMinLongitude(), usedHolder.getMaxLatitude(), usedHolder.getMaxLongitude());
 
 		givenDocument.getDocumentElement().normalize();
-		
+
 		NodeList relationsFromGivenDocument = givenDocument.getElementsByTagName("relation");
 
 		for (int i = 0; i < relationsFromGivenDocument.getLength(); i++) {
@@ -118,12 +119,11 @@ public class OmlParser {
 		}
 		usedHolder.setNodes(parsedNodes);
 		usedHolder.setWays(parsedWays);
-		clearEverythingUnimportant();
 		return usedHolder;
 	}
 
 	private void parseWay(Node givenWay) {
-		String parsedWayID = givenWay.getAttributes().getNamedItem("id").toString();
+		String parsedWayID = givenWay.getAttributes().getNamedItem("id").getNodeValue();
 		ArrayList<String> refsFromGivenWay = new ArrayList<String>();
 		ArrayList<MapTag> tagsFromGivenWay = new ArrayList<MapTag>();
 		if (givenWay.hasChildNodes()) {
@@ -153,13 +153,13 @@ public class OmlParser {
 		}
 		MapWay parsedWay = new MapWay(parsedWayID, refsFromGivenWay, tagsFromGivenWay);
 		parsedWays.add(parsedWay);
-                for(MapNode node:nodesToTransfer){
-                    parsedNodes.add(node);
-                }
+		for (MapNode node : nodesToTransfer) {
+			parsedNodes.add(node);
+		}
 	}
 
 	private void parseNode(Node givenNode) {
-		String parsedNodeID = givenNode.getAttributes().getNamedItem("id").toString();
+		String parsedNodeID = givenNode.getAttributes().getNamedItem("id").getNodeValue();
 		Double parsedNodeLongitude = Double.parseDouble(givenNode.getAttributes().getNamedItem("lon").getNodeValue());
 		Double parsedNodeLatitude = Double.parseDouble(givenNode.getAttributes().getNamedItem("lat").getNodeValue());
 
