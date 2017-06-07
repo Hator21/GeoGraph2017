@@ -129,7 +129,6 @@ public class OSMStreetGUIController {
 	}
 
 	private void getNodes() {
-		System.out.println(content.getNodes().size());
 		for (MapNodeInterface node : content.getNodes()) {
 			System.out.println("drawNode: " + node.getId());
 			drawNode(node);
@@ -146,7 +145,6 @@ public class OSMStreetGUIController {
 	}
 
 	private void getWays() {
-		System.out.println(content.getWays().size());
 		for (MapWayInterface way : content.getWays()) {
 			drawWay(way);
 		}
@@ -169,10 +167,10 @@ public class OSMStreetGUIController {
 				}
 			}
 			if (node1 != null && node2 != null) {
-				int x1 = (int) (mapLatitude(node1.getLatitude()));
-				int y1 = (int) (mapLatitude(node1.getLongitude()));
-				int x2 = (int) (mapLatitude(node2.getLatitude()));
-				int y2 = (int) (mapLatitude(node2.getLongitude()));
+				int y1 = (int) (mapLatitude(node1.getLatitude()));
+				int x1 = (int) (mapLongitude(node1.getLongitude()));
+				int y2 = (int) (mapLatitude(node2.getLatitude()));
+				int x2 = (int) (mapLongitude(node2.getLongitude()));
 				drawArrow(gc, x1, y1, x2, y2);
 			}
 		}
@@ -233,7 +231,6 @@ public class OSMStreetGUIController {
 	}
 
 	private void draw() {
-		System.out.println("Called draw");
 		getNodes();
 		getWays();
 	}
