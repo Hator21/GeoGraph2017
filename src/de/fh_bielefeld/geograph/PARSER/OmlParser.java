@@ -48,7 +48,7 @@ public class OmlParser {
 	 */
 	public OmlParser(ContentHolderInterface givenHolder) {
 		usedHolder = givenHolder;
-		positiveDifference = 0.0005;// magicNumber how close the Nodes must be to be considered as one
+		positiveDifference = 0.00015;// magicNumber how close the Nodes must be to be considered as one
 		negativeDifference = positiveDifference * (-1);
 		parsedNodes = new ArrayList<MapNode>();
 		parsedWays = new ArrayList<MapWay>();
@@ -131,6 +131,14 @@ public class OmlParser {
 
 			for (int j = 0; j < childsFromGivenWays.getLength(); j++) {
 				if (childsFromGivenWays.item(j).getNodeName() == "nd") {
+                                    boolean childExists=false;
+                                    for(MapNode nodeToCheck:parsedNodes){
+                                        if(nodeToCheck.getId().toString().equals(childsFromGivenWays.item(j).getAttributes().getNamedItem("ref").getNodeValue())){
+                                            childExists = true;
+                                            break;
+                                        }
+                                    }
+                                    if(!childExists){
 					XPathFactory factory = XPathFactory.newInstance();
 					XPath xpath = factory.newXPath();
 					try {
@@ -148,6 +156,7 @@ public class OmlParser {
 					} else {
 						refsFromGivenWay.add(childsFromGivenWays.item(j).getAttributes().getNamedItem("ref").getNodeValue());
 					}
+                                    }
 				}
 			}
 		}
