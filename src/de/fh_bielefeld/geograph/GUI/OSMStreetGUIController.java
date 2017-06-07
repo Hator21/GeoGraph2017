@@ -21,7 +21,7 @@ public class OSMStreetGUIController {
 
 	private OmlParser				parser;
 
-	@FXML private Button			searchButton, searchButtonArea/* , fileChooserButton */;
+	@FXML private Button			/* searchButton, */searchButtonArea/* , fileChooserButton */;
 
 	@FXML private TextField			latitudeTextField, longitudeTextField, latitudeTextFieldL, longitudeTextFieldL, latitudeTextFieldR, longitudeTextFieldR;
 
@@ -40,26 +40,27 @@ public class OSMStreetGUIController {
 	public void initialize() {
 		gc = paintingCanvas.getGraphicsContext2D();
 
-		searchButton.setOnAction((event) -> {
-			double latitude;
-			double longitude;
-			try {
-				latitude = Double.parseDouble(latitudeTextField.getText());
-				content.setLatitude(latitude);
-			} catch (NumberFormatException nbe) {
-				popUp("Breitengrad");
-				latitudeTextField.setText("");
-			}
-			try {
-				longitude = Double.parseDouble(longitudeTextField.getText());
-				content.setLongitude(longitude);
-			} catch (NumberFormatException nbe) {
-				popUp("Längengrad");
-				longitudeTextField.setText("");
-			}
-
-			callParser();
-		});
+		/*
+		 * searchButton.setOnAction((event) -> {
+		 * double latitude;
+		 * double longitude;
+		 * try {
+		 * latitude = Double.parseDouble(latitudeTextField.getText());
+		 * content.setLatitude(latitude);
+		 * } catch (NumberFormatException nbe) {
+		 * popUp("Breitengrad");
+		 * latitudeTextField.setText("");
+		 * }
+		 * try {
+		 * longitude = Double.parseDouble(longitudeTextField.getText());
+		 * content.setLongitude(longitude);
+		 * } catch (NumberFormatException nbe) {
+		 * popUp("Längengrad");
+		 * longitudeTextField.setText("");
+		 * }
+		 * callParser();
+		 * });
+		 */
 
 		searchButtonArea.setOnAction((event) -> {
 			boolean ok = true;

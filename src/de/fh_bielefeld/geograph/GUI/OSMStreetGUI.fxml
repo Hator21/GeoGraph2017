@@ -14,8 +14,9 @@
                <children>
                   <TabPane fx:id="VBoxHighTabPane" prefHeight="1109.0" prefWidth="273.0" tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS">
                     <tabs>
-                      <Tab fx:id="Tab1" text="Mittelpunkt">
-                           <content>
+                     <!--
+                    	 <Tab fx:id="Tab1" text="Mittelpunkt">
+                         	<content>
                               <AnchorPane fx:id="Tab1Anchor" prefHeight="900.0" prefWidth="276.0">
                                  <children>
                                     <Label fx:id="CenterLabel" layoutX="14.0" layoutY="14.0" prefHeight="41.0" prefWidth="262.0" text="Mittelpunktkoordinate*" AnchorPane.bottomAnchor="734.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="8.0" AnchorPane.topAnchor="14.0">
@@ -51,7 +52,8 @@
                               </AnchorPane>
                            </content>
                         </Tab>
-                      <Tab fx:id="Tab2" text="Bereich">
+                        -->
+                      	<Tab fx:id="Tab2" text="Bereich">
                            <content>
                               <AnchorPane fx:id="Tab2Anchor" prefHeight="318.0" prefWidth="276.0">
                                  <children>
