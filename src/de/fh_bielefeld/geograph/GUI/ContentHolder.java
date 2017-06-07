@@ -208,15 +208,6 @@ public class ContentHolder implements ContentHolderInterface {
 	public void sendData(AVLNode t) {
 		try {
 			MapNodeInterface node = ((MapNodeInterface) (t.element));
-			if (t.left != null && t.right != null) {
-				System.out.println(node.getId() + " Height: " + t.height + "\n" + ((MapNodeInterface) (t.left.element)).getId() + " <- -> " + ((MapNodeInterface) (t.right.element)).getId() + "\n");
-			} else if (t.left != null && t.right == null) {
-				System.out.println(node.getId() + " Height: " + t.height + "\n" + ((MapNodeInterface) (t.left.element)).getId() + " <- -> null" + "\n");
-			} else if (t.left != null && t.right == null) {
-				System.out.println(node.getId() + " Height: " + t.height + "\n" + "null <- -> " + ((MapNodeInterface) (t.right.element)).getId() + "\n");
-			} else if (t.left == null && t.right == null) {
-				System.out.println(node.getId() + " Height: " + t.height + "\n" + "null <- -> null" + "\n");
-			}
 			controller.drawNode(node);
 		} catch (ClassCastException cceN) {
 			try {

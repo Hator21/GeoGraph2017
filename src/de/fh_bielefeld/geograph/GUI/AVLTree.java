@@ -270,16 +270,12 @@ public class AVLTree<T extends Comparable<? super T>> implements AVLTreeInterfac
 
 	protected AVLNode getNodeByElement(String id, AVLNode<T> t) {
 		if (t == null) {
-			System.out.println("return null");
 			return null;
 		} else if (((MapNodeInterface) (t.element)).getId().compareTo(id) < 0) {
-			System.out.println("->left");
 			return getNodeByElement(id, t.left);
 		} else if (((MapNodeInterface) (t.element)).getId().compareTo(id) > 0) {
-			System.out.println("->right");
 			return getNodeByElement(id, t.right);
 		}
-		System.out.println("t found");
 		return t;
 	}
 
