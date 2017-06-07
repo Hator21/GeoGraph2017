@@ -48,7 +48,7 @@ public class OmlParser {
 	 */
 	public OmlParser(ContentHolderInterface givenHolder) {
 		usedHolder = givenHolder;
-		positiveDifference = 0.0000005;// magicNumber how close the Nodes must be to be considered as one
+		positiveDifference = 0.00015;// magicNumber how close the Nodes must be to be considered as one
 		negativeDifference = positiveDifference * (-1);
 		parsedNodes = new ArrayList<MapNode>();
 		parsedWays = new ArrayList<MapWay>();
@@ -73,6 +73,7 @@ public class OmlParser {
 	}
 
 	public ContentHolderInterface parse() throws NullPointerException, InvalidAPIRequestException {
+		clearEverythingUnimportant();
 		OSMApi ApiCaller = new OSMApi();
 		givenDocument = ApiCaller.getBoundingBoxLatLong(usedHolder.getMinLatitude(), usedHolder.getMinLongitude(), usedHolder.getMaxLatitude(), usedHolder.getMaxLongitude());
 
@@ -118,12 +119,11 @@ public class OmlParser {
 		}
 		usedHolder.setNodes(parsedNodes);
 		usedHolder.setWays(parsedWays);
-		clearEverythingUnimportant();
 		return usedHolder;
 	}
 
 	private void parseWay(Node givenWay) {
-		String parsedWayID = givenWay.getAttributes().getNamedItem("id").toString();
+		String parsedWayID = givenWay.getAttributes().getNamedItem("id").getNodeValue();
 		ArrayList<String> refsFromGivenWay = new ArrayList<String>();
 		ArrayList<MapTag> tagsFromGivenWay = new ArrayList<MapTag>();
 		if (givenWay.hasChildNodes()) {
@@ -131,6 +131,14 @@ public class OmlParser {
 
 			for (int j = 0; j < childsFromGivenWays.getLength(); j++) {
 				if (childsFromGivenWays.item(j).getNodeName() == "nd") {
+                                    boolean childExists=false;
+                                    for(MapNode nodeToCheck:parsedNodes){
+                                        if(nodeToCheck.getId().toString().equals(childsFromGivenWays.item(j).getAttributes().getNamedItem("ref").getNodeValue())){
+                                            childExists = true;
+                                            break;
+                                        }
+                                    }
+                                    if(!childExists){
 					XPathFactory factory = XPathFactory.newInstance();
 					XPath xpath = factory.newXPath();
 					try {
@@ -148,6 +156,7 @@ public class OmlParser {
 					} else {
 						refsFromGivenWay.add(childsFromGivenWays.item(j).getAttributes().getNamedItem("ref").getNodeValue());
 					}
+                                    }
 				}
 			}
 		}
@@ -159,7 +168,7 @@ public class OmlParser {
 	}
 
 	private void parseNode(Node givenNode) {
-		String parsedNodeID = givenNode.getAttributes().getNamedItem("id").toString();
+		String parsedNodeID = givenNode.getAttributes().getNamedItem("id").getNodeValue();
 		Double parsedNodeLongitude = Double.parseDouble(givenNode.getAttributes().getNamedItem("lon").getNodeValue());
 		Double parsedNodeLatitude = Double.parseDouble(givenNode.getAttributes().getNamedItem("lat").getNodeValue());
 
@@ -183,8 +192,14 @@ public class OmlParser {
 		for (int z = 0; z < nodesToTransfer.size(); z++) {
 			if ((positiveDifference >= (parsedNodeLongitude - nodesToTransfer.get(z).getLongitude()) && (parsedNodeLongitude - nodesToTransfer.get(z).getLongitude() >= negativeDifference)) && (positiveDifference >= (parsedNodeLatitude - nodesToTransfer.get(z).getLatitude()) && (parsedNodeLatitude - nodesToTransfer.get(z).getLatitude()) >= negativeDifference)) {
 				changedIDS.put(parsedNodeID, nodesToTransfer.get(z).getId());
-				if (parsedNode.getTagList() != null) {
-					nodesToTransfer.get(z).getTagList().addAll(parsedNode.getTagList());
+				if ((parsedNode.getTagList() != null)) {
+                                    if(nodesToTransfer.get(z).getTagList()!=null){
+                                       ArrayList<MapTag> newList=nodesToTransfer.get(z).getTagList();
+                                       newList.addAll(parsedNode.getTagList());
+                                       nodesToTransfer.get(z).setTagList(newList);
+                                    }else{
+                                        nodesToTransfer.get(z).setTagList(parsedNode.getTagList());
+                                    }
 				}
 				break;
 			}
