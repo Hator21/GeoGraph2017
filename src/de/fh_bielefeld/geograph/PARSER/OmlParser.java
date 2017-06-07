@@ -56,18 +56,19 @@ public class OmlParser {
 		waysToTransfer = new ArrayList<MapWay>();
 		changedIDS = new HashMap<String, String>();
 		includeConditions = new HashMap<String, String>();
-
-	}
-
-	private void setIncludeConditions() {
 		includeConditions.put("route", "road");
-	}
 
+	}
+        /**
+	 * Method to get the data of a single node by id
+	 * 
+	 */
 	private void clearEverythingUnimportant() {
 		waysToTransfer.clear();
 		nodesToTransfer.clear();
+                parsedNodes.clear();
+                parsedWays.clear();
 		changedIDS.clear();
-		includeConditions.clear();
 
 	}
 
@@ -77,7 +78,6 @@ public class OmlParser {
 
 		givenDocument.getDocumentElement().normalize();
 		
-		setIncludeConditions();
 		NodeList relationsFromGivenDocument = givenDocument.getElementsByTagName("relation");
 
 		for (int i = 0; i < relationsFromGivenDocument.getLength(); i++) {
@@ -119,12 +119,10 @@ public class OmlParser {
 		usedHolder.setNodes(parsedNodes);
 		usedHolder.setWays(parsedWays);
 		clearEverythingUnimportant();
-		System.out.println("returning");
 		return usedHolder;
 	}
 
 	private void parseWay(Node givenWay) {
-		System.out.println("parsewy gebonnen");
 		String parsedWayID = givenWay.getAttributes().getNamedItem("id").toString();
 		ArrayList<String> refsFromGivenWay = new ArrayList<String>();
 		ArrayList<MapTag> tagsFromGivenWay = new ArrayList<MapTag>();
@@ -155,7 +153,9 @@ public class OmlParser {
 		}
 		MapWay parsedWay = new MapWay(parsedWayID, refsFromGivenWay, tagsFromGivenWay);
 		parsedWays.add(parsedWay);
-                parsedNodes=nodesToTransfer;
+                for(MapNode node:nodesToTransfer){
+                    parsedNodes.add(node);
+                }
 	}
 
 	private void parseNode(Node givenNode) {
