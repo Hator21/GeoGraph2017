@@ -14,7 +14,6 @@ import javafx.scene.transform.Transform;
 import de.fh_bielefeld.geograph.API.Exception.InvalidAPIRequestException;
 import de.fh_bielefeld.geograph.GUI_INTERFACE.ContentHolderInterface;
 import de.fh_bielefeld.geograph.GUI_INTERFACE.MapNodeInterface;
-import de.fh_bielefeld.geograph.GUI_INTERFACE.MapWayInterface;
 import de.fh_bielefeld.geograph.PARSER.OmlParser;
 
 public class OSMStreetGUIController {
@@ -129,7 +128,9 @@ public class OSMStreetGUIController {
 	}
 
 	private void getNodes() {
-		content.getNodes().sendContent();
+		for (MapNodeInterface node : content.getNodes()) {
+			drawNode(node);
+		}
 	}
 
 	public void drawNode(MapNodeInterface node) {
@@ -141,24 +142,30 @@ public class OSMStreetGUIController {
 		}
 	}
 
-	private void getWays() {
-		content.getWays().sendContent();
-	}
+	/*
+	 * private void getWays() {
+	 * for (MapWayInterface way : content.getWays()) {
+	 * drawWay(way);
+	 * }
+	 * }
+	 */
 
-	public boolean drawWay(MapWayInterface way) {
-		for (int i = 0; i < way.getRefList().size() - 1; i++) {
-			String id1 = way.getRefList().get(i);
-			String id2 = way.getRefList().get(i + 1);
-			MapNodeInterface node1 = ((MapNodeInterface) (content.getNodes().getNodeByElement(id1).element));
-			MapNodeInterface node2 = ((MapNodeInterface) (content.getNodes().getNodeByElement(id1).element));
-			int x1 = (int) (mapLatitude(node1.getLatitude()));
-			int y1 = (int) (mapLatitude(node1.getLongitude()));
-			int x2 = (int) (mapLatitude(node2.getLatitude()));
-			int y2 = (int) (mapLatitude(node2.getLongitude()));
-			drawArrow(gc, x1, y1, x2, y2);
-		}
-		return true;
-	}
+	/*
+	 * public boolean drawWay(MapWayInterface way) {
+	 * for (int i = 0; i < way.getRefList().size() - 1; i++) {
+	 * String id1 = way.getRefList().get(i);
+	 * String id2 = way.getRefList().get(i + 1);
+	 * MapNodeInterface node1 = ((MapNodeInterface) (content.getNodes().);
+	 * MapNodeInterface node2 = ((MapNodeInterface) (content.getNodes().get(i+1));
+	 * int x1 = (int) (mapLatitude(node1.getLatitude()));
+	 * int y1 = (int) (mapLatitude(node1.getLongitude()));
+	 * int x2 = (int) (mapLatitude(node2.getLatitude()));
+	 * int y2 = (int) (mapLatitude(node2.getLongitude()));
+	 * drawArrow(gc, x1, y1, x2, y2);
+	 * }
+	 * return true;
+	 * }
+	 */
 
 	public double mapLatitude(double latitude) {
 		double y = paintingCanvas.getHeight() - (paintingCanvas.getHeight() * ((latitude - content.getMinLatitude()) / (content.getMaxLatitude() - content.getMinLatitude())));
