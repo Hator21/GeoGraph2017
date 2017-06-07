@@ -2,7 +2,6 @@ package de.fh_bielefeld.geograph.GUI;
 
 import de.fh_bielefeld.geograph.GUI_INTERFACE.AVLTreeInterface;
 import de.fh_bielefeld.geograph.GUI_INTERFACE.ContentHolderInterface;
-import de.fh_bielefeld.geograph.GUI_INTERFACE.MapNodeInterface;
 
 /**
  * TODO Kommt zum Parser (erst im Master Branch)
@@ -145,18 +144,6 @@ public class AVLTree<T extends Comparable<? super T>> implements AVLTreeInterfac
 		}
 	}
 
-	public void sendContent() {
-		sendContent(root);
-	}
-
-	public void sendContent(AVLNode<T> t) {
-		if (t != null) {
-			content.sendData(t);
-			sendContent(t.left);
-			sendContent(t.right);
-		}
-	}
-
 	public void makeEmpty() {
 		root = null;
 	}
@@ -262,21 +249,6 @@ public class AVLTree<T extends Comparable<? super T>> implements AVLTreeInterfac
 		}
 
 		return true;
-	}
-
-	public AVLNode getNodeByElement(String id) {
-		return getNodeByElement(id, root);
-	}
-
-	protected AVLNode getNodeByElement(String id, AVLNode<T> t) {
-		if (t == null) {
-			return null;
-		} else if (((MapNodeInterface) (t.element)).getId().compareTo(id) < 0) {
-			return getNodeByElement(id, t.left);
-		} else if (((MapNodeInterface) (t.element)).getId().compareTo(id) > 0) {
-			return getNodeByElement(id, t.right);
-		}
-		return t;
 	}
 
 	public boolean checkBalanceOfTree(AVLTree.AVLNode<Integer> current) {
