@@ -14,6 +14,7 @@ import javafx.scene.transform.Transform;
 import de.fh_bielefeld.geograph.API.Exception.InvalidAPIRequestException;
 import de.fh_bielefeld.geograph.GUI_INTERFACE.ContentHolderInterface;
 import de.fh_bielefeld.geograph.GUI_INTERFACE.MapNodeInterface;
+import de.fh_bielefeld.geograph.GUI_INTERFACE.MapWayInterface;
 import de.fh_bielefeld.geograph.PARSER.OmlParser;
 
 public class OSMStreetGUIController {
@@ -128,7 +129,9 @@ public class OSMStreetGUIController {
 	}
 
 	private void getNodes() {
+		System.out.println(content.getNodes().size());
 		for (MapNodeInterface node : content.getNodes()) {
+			System.out.println("drawNode: " + node.getId());
 			drawNode(node);
 		}
 	}
@@ -142,30 +145,38 @@ public class OSMStreetGUIController {
 		}
 	}
 
-	/*
-	 * private void getWays() {
-	 * for (MapWayInterface way : content.getWays()) {
-	 * drawWay(way);
-	 * }
-	 * }
-	 */
+	private void getWays() {
+		System.out.println(content.getWays().size());
+		for (MapWayInterface way : content.getWays()) {
+			drawWay(way);
+		}
+	}
 
-	/*
-	 * public boolean drawWay(MapWayInterface way) {
-	 * for (int i = 0; i < way.getRefList().size() - 1; i++) {
-	 * String id1 = way.getRefList().get(i);
-	 * String id2 = way.getRefList().get(i + 1);
-	 * MapNodeInterface node1 = ((MapNodeInterface) (content.getNodes().);
-	 * MapNodeInterface node2 = ((MapNodeInterface) (content.getNodes().get(i+1));
-	 * int x1 = (int) (mapLatitude(node1.getLatitude()));
-	 * int y1 = (int) (mapLatitude(node1.getLongitude()));
-	 * int x2 = (int) (mapLatitude(node2.getLatitude()));
-	 * int y2 = (int) (mapLatitude(node2.getLongitude()));
-	 * drawArrow(gc, x1, y1, x2, y2);
-	 * }
-	 * return true;
-	 * }
-	 */
+	public void drawWay(MapWayInterface way) {
+		MapNodeInterface node1;
+		MapNodeInterface node2;
+		for (int i = 0; i < way.getRefList().size() - 1; i++) {
+			String id1 = way.getRefList().get(i);
+			String id2 = way.getRefList().get(i + 1);
+			node1 = null;
+			node2 = null;
+			for (MapNodeInterface node : content.getNodes()) {
+				if (node.getId().equals(id1)) {
+					node1 = node;
+				}
+				if (node.getId().equals(id2)) {
+					node2 = node;
+				}
+			}
+			if (node1 != null && node2 != null) {
+				int x1 = (int) (mapLatitude(node1.getLatitude()));
+				int y1 = (int) (mapLatitude(node1.getLongitude()));
+				int x2 = (int) (mapLatitude(node2.getLatitude()));
+				int y2 = (int) (mapLatitude(node2.getLongitude()));
+				drawArrow(gc, x1, y1, x2, y2);
+			}
+		}
+	}
 
 	public double mapLatitude(double latitude) {
 		double y = paintingCanvas.getHeight() - (paintingCanvas.getHeight() * ((latitude - content.getMinLatitude()) / (content.getMaxLatitude() - content.getMinLatitude())));
@@ -222,8 +233,9 @@ public class OSMStreetGUIController {
 	}
 
 	private void draw() {
+		System.out.println("Called draw");
 		getNodes();
-		// getWays();
+		getWays();
 	}
 
 	private void callParser() {
