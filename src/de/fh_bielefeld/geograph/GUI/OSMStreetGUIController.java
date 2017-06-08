@@ -32,11 +32,7 @@ public class OSMStreetGUIController {
 
 	@FXML private Canvas			paintingCanvas;
 	
-	@FXML private AnchorPane		anchor;
-	
 	@FXML private AnchorPane		rightAnchor;
-	
-	private Stage					stage;
 
 	private GraphicsContext			gc;
 
