@@ -1,18 +1,13 @@
 package de.fh_bielefeld.geograph.TEST;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.fail;
-
-//import org.junit.After;
-//import org.junit.AfterClass;
-import org.junit.Before;
-//import org.junit.BeforeClass;
-//import org.junit.Ignore;
-import org.junit.Test;
-import org.w3c.dom.Document;
-
 import de.fh_bielefeld.geograph.API.OSMApi;
 import de.fh_bielefeld.geograph.API.Exception.InvalidAPIRequestException;
+
+import static org.junit.Assert.*;
+
+import org.junit.Before;
+import org.junit.Test;
+import org.w3c.dom.Document;
 
 /**
  * Tests for the OSMApi class
@@ -38,8 +33,8 @@ public class OSMApiTest {
 	 */
 	@Test(expected = InvalidAPIRequestException.class)
 	public void getNodeWithIDGivenAWrongNode() throws InvalidAPIRequestException {
-		int notValidNode = -120;
-		this.testDocument = OSMApi.getNodeWithID(notValidNode);
+		int invalidNode = -120;
+		this.testDocument = OSMApi.getNodeWithID(invalidNode);
 	}
 
 	/**
