@@ -1,5 +1,8 @@
 package de.fh_bielefeld.geograph.GUI;
 
+import java.awt.Point;
+
+import javafx.beans.value.ChangeListener;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -8,6 +11,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.transform.Affine;
 import javafx.scene.transform.Transform;
@@ -29,16 +33,24 @@ public class OSMStreetGUIController {
 
 	@FXML private Canvas			paintingCanvas;
 
+	@FXML private AnchorPane		rightAnchor;
+
 	private GraphicsContext			gc;
 
-	private ContentHolderInterface	content		= new ContentHolder(this);
+	private ContentHolderInterface	content				= new ContentHolder(this);
 
-	private final int				NODERADIUS	= 3;
-	private final int				ARR_SIZE	= 5;
+	private final int				NODERADIUS			= 3;
+	private final int				ARR_SIZE			= 5;
+
+	private double					zoomFactor			= 0;
+
+	ChangeListener<Number>			stageSizeListener	= (observable, oldValue, newValue) -> this.resize();
 
 	@FXML
 	public void initialize() {
 		gc = paintingCanvas.getGraphicsContext2D();
+		rightAnchor.widthProperty().addListener(stageSizeListener);
+		rightAnchor.heightProperty().addListener(stageSizeListener);
 
 		/*
 		 * searchButton.setOnAction((event) -> {
@@ -55,7 +67,7 @@ public class OSMStreetGUIController {
 		 * longitude = Double.parseDouble(longitudeTextField.getText());
 		 * content.setLongitude(longitude);
 		 * } catch (NumberFormatException nbe) {
-		 * popUp("Längengrad");
+		 * popUp("Laengengrad");
 		 * longitudeTextField.setText("");
 		 * }
 		 * callParser();
@@ -79,7 +91,7 @@ public class OSMStreetGUIController {
 				longitudeL = Double.parseDouble(longitudeTextFieldL.getText());
 
 			} catch (NumberFormatException nbe) {
-				popUp("Längengrad Links");
+				popUp("Laengengrad Links");
 				longitudeTextFieldL.setText("");
 				ok = false;
 			}
@@ -94,7 +106,7 @@ public class OSMStreetGUIController {
 			try {
 				longitudeR = Double.parseDouble(longitudeTextFieldR.getText());
 			} catch (NumberFormatException nbe) {
-				popUp("Längengrad Rechts");
+				popUp("Laengengrad Rechts");
 				longitudeTextFieldR.setText("");
 				ok = false;
 			}
@@ -124,24 +136,49 @@ public class OSMStreetGUIController {
 		 */
 
 		zoomSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
-			System.out.println("Slider Value Changed (newValue: " + newValue.doubleValue() + ")\n");
+			zoomFactor = zoomSlider.getValue();
+			gc.clearRect(0, 0, paintingCanvas.getWidth(), paintingCanvas.getHeight());
+			draw();
 		});
 
 	}
 
+	private void resize() {
+		clearCanvas();
+		paintingCanvas.setWidth(rightAnchor.getWidth() - 14.0);
+		paintingCanvas.setHeight(rightAnchor.getHeight() - 14.0);
+		draw();
+	}
+
+	private void clearCanvas() {
+		gc.clearRect(0, 0, paintingCanvas.getWidth(), paintingCanvas.getHeight());
+	}
+
+	private Point getNodeCoords(MapNodeInterface node) {
+		double latitude = (mapLatitude(node.getLatitude()) - NODERADIUS);
+		double longitude = (mapLongitude(node.getLongitude()) - NODERADIUS);
+		double middleX = paintingCanvas.getWidth() / 2;
+		double middleY = paintingCanvas.getHeight() / 2;
+		double latitudeN = (latitude) - (middleY - latitude) * zoomFactor;
+		double longitudeN = (longitude) + (longitude - middleX) * zoomFactor;
+		return new Point((int) longitudeN, (int) latitudeN);
+	}
+
 	private void getNodes() {
 		for (MapNodeInterface node : content.getNodes()) {
-			System.out.println("drawNode: " + node.getId());
 			drawNode(node);
 		}
 	}
 
 	public void drawNode(MapNodeInterface node) {
-		if (0 <= (mapLatitude(node.getLatitude()) - NODERADIUS) && (mapLatitude(node.getLatitude()) - NODERADIUS) <= paintingCanvas.getHeight() && 0 <= (mapLongitude(node.getLongitude()) - NODERADIUS) && (mapLongitude(node.getLongitude()) - NODERADIUS) <= paintingCanvas.getWidth()) {
+		Point c = getNodeCoords(node);
+		double latitude = c.getY();
+		double longitude = c.getX();
+		if (0 <= latitude && latitude <= paintingCanvas.getHeight() && 0 <= longitude && longitude <= paintingCanvas.getWidth()) {
 			gc.setStroke(Color.BLACK);
-			gc.strokeOval(mapLongitude(node.getLongitude()) - NODERADIUS, mapLatitude(node.getLatitude()) - NODERADIUS, NODERADIUS * 2, NODERADIUS * 2);
+			gc.strokeOval(longitude + 1, latitude + 1, NODERADIUS * 2, NODERADIUS * 2);
 			gc.setFill(Color.RED);
-			gc.fillOval(mapLongitude(node.getLongitude()) - NODERADIUS + 1, mapLatitude(node.getLatitude()) - NODERADIUS + 1, NODERADIUS * 2 - 2, NODERADIUS * 2 - 2);
+			gc.fillOval(longitude + 2, latitude + 2, NODERADIUS * 2 - 2, NODERADIUS * 2 - 2);
 		}
 	}
 
@@ -168,10 +205,16 @@ public class OSMStreetGUIController {
 				}
 			}
 			if (node1 != null && node2 != null) {
-				int y1 = (int) (mapLatitude(node1.getLatitude()));
-				int x1 = (int) (mapLongitude(node1.getLongitude()));
-				int y2 = (int) (mapLatitude(node2.getLatitude()));
-				int x2 = (int) (mapLongitude(node2.getLongitude()));
+				Point c1 = getNodeCoords(node1);
+				double latitude1 = c1.getY();
+				double longitude1 = c1.getX();
+				Point c2 = getNodeCoords(node2);
+				double latitude2 = c2.getY();
+				double longitude2 = c2.getX();
+				int y1 = (int) (latitude1 + 4);
+				int x1 = (int) (longitude1 + 4);
+				int y2 = (int) (latitude2 + 4);
+				int x2 = (int) (longitude2 + 4);
 				drawArrow(gc, x1, y1, x2, y2);
 			}
 		}
@@ -219,6 +262,7 @@ public class OSMStreetGUIController {
 		double angle = Math.atan2(dy, dx);
 		int len = (int) Math.sqrt(dx * dx + dy * dy);
 
+		Transform save = gc.getTransform();
 		Transform transform = Transform.translate(x1, y1);
 		transform = transform.createConcatenation(Transform.rotate(Math.toDegrees(angle), 0, 0));
 		gc.setTransform(new Affine(transform));
@@ -229,6 +273,8 @@ public class OSMStreetGUIController {
 		}, new double[] {
 				0, -ARR_SIZE, ARR_SIZE, 0
 		}, 4);
+
+		gc.setTransform(new Affine(save));
 	}
 
 	private void draw() {

@@ -1,5 +1,7 @@
 package de.fh_bielefeld.geograph.GUI;
 
+
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -22,6 +24,7 @@ public class Main extends Application {
 		stage.setScene(new Scene(root, 1300, 700));
 		stage.setMinWidth(1000.0);
 		stage.setMinHeight(500.0);
+	
 		stage.show();
 	}
 }
