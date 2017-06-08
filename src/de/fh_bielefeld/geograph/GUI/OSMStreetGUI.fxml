@@ -65,7 +65,7 @@
                                        </font>
                                     </Button>
                                     <Separator layoutX="9.0" layoutY="295.0" prefHeight="14.0" prefWidth="247.0" AnchorPane.bottomAnchor="490.0" AnchorPane.leftAnchor="9.0" AnchorPane.rightAnchor="18.0" AnchorPane.topAnchor="295.0" />
-                                    <Label fx:id="wgs84Label1" layoutX="6.0" layoutY="221.0" text="*Kartenbezugssystem WGS 84" AnchorPane.bottomAnchor="551.0" AnchorPane.leftAnchor="6.0" AnchorPane.rightAnchor="108.0" AnchorPane.topAnchor="221.0" />
+                                    <Label fx:id="wgs84Label1" layoutX="6.0" layoutY="221.0" text="*Kartenbezugssystem WGS 84" AnchorPane.bottomAnchor="551.0" AnchorPane.leftAnchor="6.0" AnchorPane.rightAnchor="6.0" AnchorPane.topAnchor="221.0" />
                                     <Label fx:id="longitudeLabelR" layoutX="6.0" layoutY="103.0" prefHeight="27.0" prefWidth="98.0" text="Längengrad" AnchorPane.bottomAnchor="669.0" AnchorPane.leftAnchor="6.0" AnchorPane.rightAnchor="170.0" AnchorPane.topAnchor="103.0">
                                        <font>
                                           <Font size="18.0" />
@@ -133,12 +133,12 @@
                   <AnchorPane fx:id="VBoxLowAnchor" prefHeight="374.0" prefWidth="273.0" VBox.vgrow="ALWAYS">
                      <children>
                         <Slider fx:id="zoomSlider" layoutX="10.0" layoutY="55.0" max="0.25" min="0" prefHeight="14.0" prefWidth="254.0" value="0.25" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="55.0" />
-                        <Label fx:id="smallZoomLabel" layoutX="14.0" layoutY="28.0" text="Klein" AnchorPane.bottomAnchor="28.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="221.0" AnchorPane.topAnchor="28.0">
+                        <Label fx:id="smallZoomLabel" layoutX="14.0" layoutY="28.0" minHeight="29.0" minWidth="60.0" text="Klein" AnchorPane.bottomAnchor="28.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="200.0" AnchorPane.topAnchor="28.0">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </Label>
-                        <Label fx:id="bigZoomLabel" layoutX="225.0" layoutY="28.0" text="Groß" AnchorPane.bottomAnchor="28.0" AnchorPane.leftAnchor="225.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="28.0">
+                        <Label fx:id="bigZoomLabel" alignment="CENTER_RIGHT" layoutX="225.0" layoutY="28.0" minHeight="29.0" minWidth="49.0" text="Groß" AnchorPane.bottomAnchor="28.0" AnchorPane.leftAnchor="215.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="28.0">
                            <font>
                               <Font size="18.0" />
                            </font>
@@ -148,9 +148,9 @@
             </VBox>
             <AnchorPane fx:id="rightAnchor" prefHeight="900.0" prefWidth="1325.0" HBox.hgrow="ALWAYS">
                <children>
-                  <Pane fx:id="mapPane" layoutX="7.0" layoutY="7.0" prefHeight="886.0" prefWidth="1309.0" style="-fx-border-color: #000000;" AnchorPane.bottomAnchor="7.0" AnchorPane.leftAnchor="7.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="7.0">
+                  <Pane fx:id="mapPane" layoutX="0.0" layoutY="0.0" style="-fx-border-color: #000000;" AnchorPane.bottomAnchor="7.0" AnchorPane.leftAnchor="7.0" AnchorPane.rightAnchor="7.0" AnchorPane.topAnchor="7.0">
                      <children>
-                        <Canvas fx:id="paintingCanvas" height="887.0" layoutX="7.0" layoutY="6.0" width="1309.0" />
+                        <Canvas fx:id="paintingCanvas" height="887.0" width="1309.0" />
                      </children>
                   </Pane>
                </children>

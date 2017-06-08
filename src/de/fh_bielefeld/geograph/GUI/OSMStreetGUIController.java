@@ -1,5 +1,6 @@
 package de.fh_bielefeld.geograph.GUI;
 
+import javafx.beans.value.ChangeListener;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -8,9 +9,11 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.transform.Affine;
 import javafx.scene.transform.Transform;
+import javafx.stage.Stage;
 import de.fh_bielefeld.geograph.API.Exception.InvalidAPIRequestException;
 import de.fh_bielefeld.geograph.GUI_INTERFACE.ContentHolderInterface;
 import de.fh_bielefeld.geograph.GUI_INTERFACE.MapNodeInterface;
@@ -28,6 +31,12 @@ public class OSMStreetGUIController {
 	@FXML private Slider			zoomSlider;
 
 	@FXML private Canvas			paintingCanvas;
+	
+	@FXML private AnchorPane		anchor;
+	
+	@FXML private AnchorPane		rightAnchor;
+	
+	private Stage					stage;
 
 	private GraphicsContext			gc;
 
@@ -35,11 +44,16 @@ public class OSMStreetGUIController {
 
 	private final int				NODERADIUS	= 3;
 	private final int				ARR_SIZE	= 5;
+	
+	ChangeListener<Number> stageSizeListener = (observable, oldValue, newValue) ->
+	this.resize();
 
 	@FXML
 	public void initialize() {
 		gc = paintingCanvas.getGraphicsContext2D();
-
+		rightAnchor.widthProperty().addListener(stageSizeListener);
+		rightAnchor.heightProperty().addListener(stageSizeListener);
+		
 		/*
 		 * searchButton.setOnAction((event) -> {
 		 * double latitude;
@@ -55,7 +69,7 @@ public class OSMStreetGUIController {
 		 * longitude = Double.parseDouble(longitudeTextField.getText());
 		 * content.setLongitude(longitude);
 		 * } catch (NumberFormatException nbe) {
-		 * popUp("Längengrad");
+		 * popUp("Laengengrad");
 		 * longitudeTextField.setText("");
 		 * }
 		 * callParser();
@@ -79,7 +93,7 @@ public class OSMStreetGUIController {
 				longitudeL = Double.parseDouble(longitudeTextFieldL.getText());
 
 			} catch (NumberFormatException nbe) {
-				popUp("Längengrad Links");
+				popUp("Laengengrad Links");
 				longitudeTextFieldL.setText("");
 				ok = false;
 			}
@@ -94,7 +108,7 @@ public class OSMStreetGUIController {
 			try {
 				longitudeR = Double.parseDouble(longitudeTextFieldR.getText());
 			} catch (NumberFormatException nbe) {
-				popUp("Längengrad Rechts");
+				popUp("Laengengrad Rechts");
 				longitudeTextFieldR.setText("");
 				ok = false;
 			}
@@ -126,7 +140,19 @@ public class OSMStreetGUIController {
 		zoomSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
 			System.out.println("Slider Value Changed (newValue: " + newValue.doubleValue() + ")\n");
 		});
-
+		
+	}
+	
+	private void resize(){
+		clearCanvas();
+		paintingCanvas.setWidth(rightAnchor.getWidth()-14.0);
+		paintingCanvas.setHeight(rightAnchor.getHeight()-14.0);
+		draw();
+	}
+	
+	private void clearCanvas(){
+		gc.setFill(Color.ALICEBLUE);
+		gc.clearRect(0, 0, paintingCanvas.getWidth(), paintingCanvas.getHeight());
 	}
 
 	private void getNodes() {
@@ -219,6 +245,7 @@ public class OSMStreetGUIController {
 		double angle = Math.atan2(dy, dx);
 		int len = (int) Math.sqrt(dx * dx + dy * dy);
 
+		Transform save = gc.getTransform();
 		Transform transform = Transform.translate(x1, y1);
 		transform = transform.createConcatenation(Transform.rotate(Math.toDegrees(angle), 0, 0));
 		gc.setTransform(new Affine(transform));
@@ -229,6 +256,8 @@ public class OSMStreetGUIController {
 		}, new double[] {
 				0, -ARR_SIZE, ARR_SIZE, 0
 		}, 4);
+		
+		gc.setTransform(new Affine(save));
 	}
 
 	private void draw() {
