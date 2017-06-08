@@ -132,7 +132,7 @@
                   </TabPane>
                   <AnchorPane fx:id="VBoxLowAnchor" prefHeight="374.0" prefWidth="273.0" VBox.vgrow="ALWAYS">
                      <children>
-                        <Slider fx:id="zoomSlider" layoutX="10.0" layoutY="55.0" max="0.25" min="0" prefHeight="14.0" prefWidth="254.0" value="0.25" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="55.0" />
+                        <Slider fx:id="zoomSlider" layoutX="10.0" layoutY="55.0" max="1" min="-1" prefHeight="14.0" prefWidth="254.0" value="0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="55.0" />
                         <Label fx:id="smallZoomLabel" layoutX="14.0" layoutY="28.0" minHeight="29.0" minWidth="60.0" text="Klein" AnchorPane.bottomAnchor="28.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="200.0" AnchorPane.topAnchor="28.0">
                            <font>
                               <Font size="18.0" />
