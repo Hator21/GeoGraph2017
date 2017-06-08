@@ -3,7 +3,6 @@ package de.fh_bielefeld.geograph.GUI;
 
 
 import javafx.application.Application;
-import javafx.beans.value.ChangeListener;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
