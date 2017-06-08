@@ -15,7 +15,6 @@ import org.w3c.dom.NodeList;
 
 import de.fh_bielefeld.geograph.API.OSMApi;
 import de.fh_bielefeld.geograph.API.Exception.InvalidAPIRequestException;
-import de.fh_bielefeld.geograph.GUI.AVLTree;
 import de.fh_bielefeld.geograph.GUI.MapNode;
 import de.fh_bielefeld.geograph.GUI.MapTag;
 import de.fh_bielefeld.geograph.GUI.MapWay;
@@ -31,8 +30,8 @@ import de.fh_bielefeld.geograph.GUI_INTERFACE.ContentHolderInterface;
  */
 public class OmlParser {
 	private double					positiveDifference, negativeDifference;
-	private AVLTree<MapNode>		parsedNodeTree;
-	private AVLTree<MapWay>			parsedWayTree;
+	private ArrayList<MapNode>		parsedNodes;
+	private ArrayList<MapWay>		parsedWays;
 	private ArrayList<MapNode>		nodesToTransfer;
 	private ArrayList<MapWay>		waysToTransfer;
 	private ContentHolderInterface	usedHolder;
@@ -48,36 +47,38 @@ public class OmlParser {
 	 */
 	public OmlParser(ContentHolderInterface givenHolder) {
 		usedHolder = givenHolder;
-		positiveDifference = 0.0000005;// magicNumber how close the Nodes must be to be considered as one
+		positiveDifference = 0.00015;// magicNumber how close the Nodes must be to be considered as one
 		negativeDifference = positiveDifference * (-1);
-		parsedNodeTree = new AVLTree<MapNode>(usedHolder);
-		parsedWayTree = new AVLTree<MapWay>(usedHolder);
+		parsedNodes = new ArrayList<MapNode>();
+		parsedWays = new ArrayList<MapWay>();
 		nodesToTransfer = new ArrayList<MapNode>();
 		waysToTransfer = new ArrayList<MapWay>();
 		changedIDS = new HashMap<String, String>();
 		includeConditions = new HashMap<String, String>();
-
-	}
-
-	private void setIncludeConditions() {
 		includeConditions.put("route", "road");
+
 	}
 
+	/**
+	 * Method to get the data of a single node by id
+	 * 
+	 */
 	private void clearEverythingUnimportant() {
 		waysToTransfer.clear();
 		nodesToTransfer.clear();
+		parsedNodes.clear();
+		parsedWays.clear();
 		changedIDS.clear();
-		includeConditions.clear();
 
 	}
 
 	public ContentHolderInterface parse() throws NullPointerException, InvalidAPIRequestException {
+		clearEverythingUnimportant();
 		OSMApi ApiCaller = new OSMApi();
 		givenDocument = ApiCaller.getBoundingBoxLatLong(usedHolder.getMinLatitude(), usedHolder.getMinLongitude(), usedHolder.getMaxLatitude(), usedHolder.getMaxLongitude());
 
 		givenDocument.getDocumentElement().normalize();
-		
-		setIncludeConditions();
+
 		NodeList relationsFromGivenDocument = givenDocument.getElementsByTagName("relation");
 
 		for (int i = 0; i < relationsFromGivenDocument.getLength(); i++) {
@@ -116,16 +117,13 @@ public class OmlParser {
 				}
 			}
 		}
-		usedHolder.setNodes(parsedNodeTree);
-		usedHolder.setWays(parsedWayTree);
-		clearEverythingUnimportant();
-		System.out.println("returning");
+		usedHolder.setNodes(parsedNodes);
+		usedHolder.setWays(parsedWays);
 		return usedHolder;
 	}
 
 	private void parseWay(Node givenWay) {
-		System.out.println("parsewy gebonnen");
-		String parsedWayID = givenWay.getAttributes().getNamedItem("id").toString();
+		String parsedWayID = givenWay.getAttributes().getNamedItem("id").getNodeValue();
 		ArrayList<String> refsFromGivenWay = new ArrayList<String>();
 		ArrayList<MapTag> tagsFromGivenWay = new ArrayList<MapTag>();
 		if (givenWay.hasChildNodes()) {
@@ -133,36 +131,44 @@ public class OmlParser {
 
 			for (int j = 0; j < childsFromGivenWays.getLength(); j++) {
 				if (childsFromGivenWays.item(j).getNodeName() == "nd") {
-					XPathFactory factory = XPathFactory.newInstance();
-					XPath xpath = factory.newXPath();
-					try {
-						String anfrageString = "/osm/node[@id='" + childsFromGivenWays.item(j).getAttributes().getNamedItem("ref").getNodeValue() + "']";
-						Node uebergabeNode = (Node) xpath.evaluate(anfrageString, givenDocument, XPathConstants.NODE);
-						if (uebergabeNode != null) {
-							parseNode(uebergabeNode);
+					boolean childExists = false;
+					for (MapNode nodeToCheck : parsedNodes) {
+						if (nodeToCheck.getId().toString().equals(childsFromGivenWays.item(j).getAttributes().getNamedItem("ref").getNodeValue())) {
+							childExists = true;
+							break;
 						}
-					} catch (XPathExpressionException e) {
-						e.printStackTrace();
 					}
+					if (!childExists) {
+						XPathFactory factory = XPathFactory.newInstance();
+						XPath xpath = factory.newXPath();
+						try {
+							String anfrageString = "/osm/node[@id='" + childsFromGivenWays.item(j).getAttributes().getNamedItem("ref").getNodeValue() + "']";
+							Node uebergabeNode = (Node) xpath.evaluate(anfrageString, givenDocument, XPathConstants.NODE);
+							if (uebergabeNode != null) {
+								parseNode(uebergabeNode);
+							}
+						} catch (XPathExpressionException e) {
+							e.printStackTrace();
+						}
 
-					if (changedIDS.containsKey(childsFromGivenWays.item(j).getAttributes().getNamedItem("ref").getNodeValue())) {
-						refsFromGivenWay.add(changedIDS.get(childsFromGivenWays.item(j).getAttributes().getNamedItem("ref").getNodeValue()));
-					} else {
-						refsFromGivenWay.add(childsFromGivenWays.item(j).getAttributes().getNamedItem("ref").getNodeValue());
+						if (changedIDS.containsKey(childsFromGivenWays.item(j).getAttributes().getNamedItem("ref").getNodeValue())) {
+							refsFromGivenWay.add(changedIDS.get(childsFromGivenWays.item(j).getAttributes().getNamedItem("ref").getNodeValue()));
+						} else {
+							refsFromGivenWay.add(childsFromGivenWays.item(j).getAttributes().getNamedItem("ref").getNodeValue());
+						}
 					}
 				}
 			}
 		}
 		MapWay parsedWay = new MapWay(parsedWayID, refsFromGivenWay, tagsFromGivenWay);
-		parsedWayTree.insert(parsedWay);
-		for (int i = 0; i < nodesToTransfer.size(); i++) {
-			parsedNodeTree.insert(nodesToTransfer.get(i));
+		parsedWays.add(parsedWay);
+		for (MapNode node : nodesToTransfer) {
+			parsedNodes.add(node);
 		}
-
 	}
 
 	private void parseNode(Node givenNode) {
-		String parsedNodeID = givenNode.getAttributes().getNamedItem("id").toString();
+		String parsedNodeID = givenNode.getAttributes().getNamedItem("id").getNodeValue();
 		Double parsedNodeLongitude = Double.parseDouble(givenNode.getAttributes().getNamedItem("lon").getNodeValue());
 		Double parsedNodeLatitude = Double.parseDouble(givenNode.getAttributes().getNamedItem("lat").getNodeValue());
 
@@ -186,8 +192,14 @@ public class OmlParser {
 		for (int z = 0; z < nodesToTransfer.size(); z++) {
 			if ((positiveDifference >= (parsedNodeLongitude - nodesToTransfer.get(z).getLongitude()) && (parsedNodeLongitude - nodesToTransfer.get(z).getLongitude() >= negativeDifference)) && (positiveDifference >= (parsedNodeLatitude - nodesToTransfer.get(z).getLatitude()) && (parsedNodeLatitude - nodesToTransfer.get(z).getLatitude()) >= negativeDifference)) {
 				changedIDS.put(parsedNodeID, nodesToTransfer.get(z).getId());
-				if (parsedNode.getTagList() != null) {
-					nodesToTransfer.get(z).getTagList().addAll(parsedNode.getTagList());
+				if ((parsedNode.getTagList() != null)) {
+					if (nodesToTransfer.get(z).getTagList() != null) {
+						ArrayList<MapTag> newList = nodesToTransfer.get(z).getTagList();
+						newList.addAll(parsedNode.getTagList());
+						nodesToTransfer.get(z).setTagList(newList);
+					} else {
+						nodesToTransfer.get(z).setTagList(parsedNode.getTagList());
+					}
 				}
 				break;
 			}

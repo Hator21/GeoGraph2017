@@ -22,38 +22,34 @@ import de.fh_bielefeld.geograph.PARSER.OmlParser;
 
 public class OSMStreetGUIController {
 
-	private OmlParser				parser;
+	private OmlParser					parser;
 
-	@FXML private Button			/* searchButton, */searchButtonArea/* , fileChooserButton */;
+	@FXML private Button				/* searchButton, */searchButtonArea/* , fileChooserButton */;
 
-	@FXML private TextField			latitudeTextField, longitudeTextField, latitudeTextFieldL, longitudeTextFieldL, latitudeTextFieldR, longitudeTextFieldR;
+	@FXML private TextField				latitudeTextField, longitudeTextField, latitudeTextFieldL, longitudeTextFieldL, latitudeTextFieldR, longitudeTextFieldR;
 
-	@FXML private Slider			zoomSlider;
-	
-	@FXML private Pane				mapPane;
+	@FXML private Slider				zoomSlider;
 
-	@FXML private Canvas			paintingCanvas;
-	
-	
+	@FXML private Pane					mapPane;
 
-	private GraphicsContext			gc;
+	@FXML private Canvas				paintingCanvas;
 
-	private final ResizeChangeListener rcl = new ResizeChangeListener();
-	private ContentHolderInterface	content		= new ContentHolder(this);
+	private GraphicsContext				gc;
 
-	private final int				NODERADIUS	= 3;
-	private final int				ARR_SIZE	= 5;
+	private final ResizeChangeListener	rcl			= new ResizeChangeListener();
+	private ContentHolderInterface		content		= new ContentHolder(this);
+
+	private final int					NODERADIUS	= 3;
+	private final int					ARR_SIZE	= 5;
 
 	@FXML
 	public void initialize() {
 		gc = paintingCanvas.getGraphicsContext2D();
-		
-		paintingCanvas.widthProperty().bind(mapPane.widthProperty());
-        paintingCanvas.heightProperty().bind(mapPane.heightProperty());
-		paintingCanvas.widthProperty().addListener(rcl);
-        paintingCanvas.heightProperty().addListener(rcl);
-        
 
+		paintingCanvas.widthProperty().bind(mapPane.widthProperty());
+		paintingCanvas.heightProperty().bind(mapPane.heightProperty());
+		paintingCanvas.widthProperty().addListener(rcl);
+		paintingCanvas.heightProperty().addListener(rcl);
 
 		/*
 		 * searchButton.setOnAction((event) -> {
@@ -141,7 +137,6 @@ public class OSMStreetGUIController {
 		zoomSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
 			System.out.println("Slider Value Changed (newValue: " + newValue.doubleValue() + ")\n");
 		});
-
 	}
 
 	private void getNodes() {
@@ -247,6 +242,9 @@ public class OSMStreetGUIController {
 	}
 
 	private void draw() {
+		gc.setStroke(Color.BLACK);
+		gc.strokeOval(paintingCanvas.getWidth() / 2 - 2, paintingCanvas.getHeight() / 2 - 2, 4, 4);
+		gc.strokeOval(10, 10, 4, 4);
 		getNodes();
 		getWays();
 	}
@@ -260,7 +258,7 @@ public class OSMStreetGUIController {
 			e.printStackTrace();
 		}
 	}
-	
+
 	private class ResizeChangeListener implements ChangeListener<Number> {
 
 		@Override
@@ -271,9 +269,7 @@ public class OSMStreetGUIController {
 			gc.clearRect(0, 0, width, height);
 			draw();
 		}
-		
-		}
-		
-		
-	
+
+	}
+
 }
