@@ -1,5 +1,7 @@
 package de.fh_bielefeld.geograph.GUI;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -8,6 +10,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.transform.Affine;
 import javafx.scene.transform.Transform;
@@ -21,16 +24,21 @@ public class OSMStreetGUIController {
 
 	private OmlParser				parser;
 
-	@FXML private Button			searchButton, searchButtonArea/* , fileChooserButton */;
+	@FXML private Button			/* searchButton, */searchButtonArea/* , fileChooserButton */;
 
 	@FXML private TextField			latitudeTextField, longitudeTextField, latitudeTextFieldL, longitudeTextFieldL, latitudeTextFieldR, longitudeTextFieldR;
 
 	@FXML private Slider			zoomSlider;
+	
+	@FXML private Pane				mapPane;
 
 	@FXML private Canvas			paintingCanvas;
+	
+	
 
 	private GraphicsContext			gc;
 
+	private final ResizeChangeListener rcl = new ResizeChangeListener();
 	private ContentHolderInterface	content		= new ContentHolder(this);
 
 	private final int				NODERADIUS	= 3;
@@ -39,27 +47,35 @@ public class OSMStreetGUIController {
 	@FXML
 	public void initialize() {
 		gc = paintingCanvas.getGraphicsContext2D();
+		
+		paintingCanvas.widthProperty().bind(mapPane.widthProperty());
+        paintingCanvas.heightProperty().bind(mapPane.heightProperty());
+		paintingCanvas.widthProperty().addListener(rcl);
+        paintingCanvas.heightProperty().addListener(rcl);
+        
 
-		searchButton.setOnAction((event) -> {
-			double latitude;
-			double longitude;
-			try {
-				latitude = Double.parseDouble(latitudeTextField.getText());
-				content.setLatitude(latitude);
-			} catch (NumberFormatException nbe) {
-				popUp("Breitengrad");
-				latitudeTextField.setText("");
-			}
-			try {
-				longitude = Double.parseDouble(longitudeTextField.getText());
-				content.setLongitude(longitude);
-			} catch (NumberFormatException nbe) {
-				popUp("Längengrad");
-				longitudeTextField.setText("");
-			}
 
-			callParser();
-		});
+		/*
+		 * searchButton.setOnAction((event) -> {
+		 * double latitude;
+		 * double longitude;
+		 * try {
+		 * latitude = Double.parseDouble(latitudeTextField.getText());
+		 * content.setLatitude(latitude);
+		 * } catch (NumberFormatException nbe) {
+		 * popUp("Breitengrad");
+		 * latitudeTextField.setText("");
+		 * }
+		 * try {
+		 * longitude = Double.parseDouble(longitudeTextField.getText());
+		 * content.setLongitude(longitude);
+		 * } catch (NumberFormatException nbe) {
+		 * popUp("Längengrad");
+		 * longitudeTextField.setText("");
+		 * }
+		 * callParser();
+		 * });
+		 */
 
 		searchButtonArea.setOnAction((event) -> {
 			boolean ok = true;
@@ -129,7 +145,10 @@ public class OSMStreetGUIController {
 	}
 
 	private void getNodes() {
-		content.getNodes().sendContent();
+		for (MapNodeInterface node : content.getNodes()) {
+			System.out.println("drawNode: " + node.getId());
+			drawNode(node);
+		}
 	}
 
 	public void drawNode(MapNodeInterface node) {
@@ -142,22 +161,35 @@ public class OSMStreetGUIController {
 	}
 
 	private void getWays() {
-		content.getWays().sendContent();
+		for (MapWayInterface way : content.getWays()) {
+			drawWay(way);
+		}
 	}
 
-	public boolean drawWay(MapWayInterface way) {
+	public void drawWay(MapWayInterface way) {
+		MapNodeInterface node1;
+		MapNodeInterface node2;
 		for (int i = 0; i < way.getRefList().size() - 1; i++) {
 			String id1 = way.getRefList().get(i);
 			String id2 = way.getRefList().get(i + 1);
-			MapNodeInterface node1 = ((MapNodeInterface) (content.getNodes().getNodeByElement(id1).element));
-			MapNodeInterface node2 = ((MapNodeInterface) (content.getNodes().getNodeByElement(id1).element));
-			int x1 = (int) (mapLatitude(node1.getLatitude()));
-			int y1 = (int) (mapLatitude(node1.getLongitude()));
-			int x2 = (int) (mapLatitude(node2.getLatitude()));
-			int y2 = (int) (mapLatitude(node2.getLongitude()));
-			drawArrow(gc, x1, y1, x2, y2);
+			node1 = null;
+			node2 = null;
+			for (MapNodeInterface node : content.getNodes()) {
+				if (node.getId().equals(id1)) {
+					node1 = node;
+				}
+				if (node.getId().equals(id2)) {
+					node2 = node;
+				}
+			}
+			if (node1 != null && node2 != null) {
+				int y1 = (int) (mapLatitude(node1.getLatitude()));
+				int x1 = (int) (mapLongitude(node1.getLongitude()));
+				int y2 = (int) (mapLatitude(node2.getLatitude()));
+				int x2 = (int) (mapLongitude(node2.getLongitude()));
+				drawArrow(gc, x1, y1, x2, y2);
+			}
 		}
-		return true;
 	}
 
 	public double mapLatitude(double latitude) {
@@ -216,7 +248,7 @@ public class OSMStreetGUIController {
 
 	private void draw() {
 		getNodes();
-		// getWays();
+		getWays();
 	}
 
 	private void callParser() {
@@ -228,4 +260,20 @@ public class OSMStreetGUIController {
 			e.printStackTrace();
 		}
 	}
+	
+	private class ResizeChangeListener implements ChangeListener<Number> {
+
+		@Override
+		public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+			final double width = mapPane.getWidth();
+			final double height = mapPane.getHeight();
+			gc.setTransform(1, 0, 0, 1, 0, 0);
+			gc.clearRect(0, 0, width, height);
+			draw();
+		}
+		
+		}
+		
+		
+	
 }
