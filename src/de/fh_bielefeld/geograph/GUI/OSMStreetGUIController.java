@@ -137,7 +137,7 @@ public class OSMStreetGUIController {
 
 		zoomSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
 			zoomFactor = zoomSlider.getValue();
-			gc.clearRect(0, 0, paintingCanvas.getWidth(), paintingCanvas.getHeight());
+			clearCanvas();
 			draw();
 		});
 
@@ -286,6 +286,7 @@ public class OSMStreetGUIController {
 		parser = new OmlParser(content);
 		try {
 			content = parser.parse();
+			clearCanvas();
 			draw();
 		} catch (NullPointerException | InvalidAPIRequestException e) {
 			e.printStackTrace();
