@@ -15,7 +15,6 @@ import org.w3c.dom.NodeList;
 
 import de.fh_bielefeld.geograph.API.OSMApi;
 import de.fh_bielefeld.geograph.API.Exception.InvalidAPIRequestException;
-import de.fh_bielefeld.geograph.GUI.AVLTree;
 import de.fh_bielefeld.geograph.GUI.MapNode;
 import de.fh_bielefeld.geograph.GUI.MapTag;
 import de.fh_bielefeld.geograph.GUI.MapWay;
@@ -41,10 +40,13 @@ public class OmlParser {
 	private Document			givenDocument;
 
 	/**
-	 * Method to get the data of a single node by id
+         * Constructor for the OMLParser
+         * It has the Magic Number by which we filter the long and lat difference between the nodes, to be considered as one.
+         * It sets the includeConditions and initiates the Arrays.
+         * 
 	 * 
 	 * @param givenHolder
-	 *            The ID of the Node you want to get additional information about
+	 *            ContentHolder from which the Parser gets Data like Longitude and Latitude
 	 */
 	public OmlParser(ContentHolderInterface givenHolder) {
 		usedHolder = givenHolder;
@@ -60,7 +62,7 @@ public class OmlParser {
 
 	}
         /**
-	 * Method to get the data of a single node by id
+	 * clears the Arrays to get a clear start.
 	 * 
 	 */
 	private void clearEverythingUnimportant() {
@@ -71,7 +73,16 @@ public class OmlParser {
 		changedIDS.clear();
 
 	}
-
+        
+        /**
+	 * parse function, filters by relations.
+         * First it calls the Api, with the minlong, minlat, maxlong, maxlat from the Document it got in the Construction
+         * Then it filters the osm and only gets Relations, which describes the roades
+         * Then it calls for every Way which is in the Relation and parses the way.
+         * Then it adds everything into the ContentHolder
+         * @return Returns the ContentHolder with new Ways and Nodes
+	 * 
+	 */
 	public ContentHolderInterface parse() throws NullPointerException, InvalidAPIRequestException {
 		clearEverythingUnimportant();
 		OSMApi ApiCaller = new OSMApi();
@@ -119,7 +130,16 @@ public class OmlParser {
 		usedHolder.setWays(parsedWays);
 		return usedHolder;
 	}
-
+        
+        /**
+	 * parses a Single Way Node
+         * Filters the nodes of the way, if it is already parsed,
+         *
+         * 
+         * @param givenWay The Way Node to parse further
+	 * 
+	 */
+        
 	private void parseWay(Node givenWay) {
             nodesToTransfer.clear();
 		String parsedWayID = givenWay.getAttributes().getNamedItem("id").getNodeValue();
@@ -154,14 +174,14 @@ public class OmlParser {
 					} catch (XPathExpressionException e) {
 						e.printStackTrace();
 					}
+                                    }
 
-					if (changedIDS.containsKey(childsFromGivenWays.item(j).getAttributes().getNamedItem("ref").getNodeValue())) {
-						refsFromGivenWay.add(changedIDS.get(childsFromGivenWays.item(j).getAttributes().getNamedItem("ref").getNodeValue()));
-					} else {
-						refsFromGivenWay.add(childsFromGivenWays.item(j).getAttributes().getNamedItem("ref").getNodeValue());
+                                    if (changedIDS.containsKey(childsFromGivenWays.item(j).getAttributes().getNamedItem("ref").getNodeValue())) {
+                                        refsFromGivenWay.add(changedIDS.get(childsFromGivenWays.item(j).getAttributes().getNamedItem("ref").getNodeValue()));
+                                    } else {
+                                        refsFromGivenWay.add(childsFromGivenWays.item(j).getAttributes().getNamedItem("ref").getNodeValue());
 					}
                                     }
-				}
 			}
 		}
 		MapWay parsedWay = new MapWay(parsedWayID, refsFromGivenWay, tagsFromGivenWay);
