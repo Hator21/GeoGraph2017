@@ -40,7 +40,7 @@ public class OSMApi {
      */
     public static Document getNodeWithID(int nodeId) throws InvalidAPIRequestException {
         
-        if(nodeId >= 0){
+        if(nodeId <= 0){
             throw new InvalidAPIRequestException("Node ID is out of range(must be greater than 0)");
         }
         
