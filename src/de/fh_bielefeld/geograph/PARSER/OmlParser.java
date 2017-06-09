@@ -68,8 +68,8 @@ public class OmlParser {
 	private void clearEverythingUnimportant() {
 		waysToTransfer.clear();
 		nodesToTransfer.clear();
-                parsedNodes.clear();
-                parsedWays.clear();
+        parsedNodes.clear();
+        parsedWays.clear();
 		changedIDS.clear();
 
 	}

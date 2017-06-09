@@ -180,6 +180,11 @@ public class OSMStreetGUIController {
 			gc.setFill(Color.RED);
 			gc.fillOval(longitude + 2, latitude + 2, NODERADIUS * 2 - 2, NODERADIUS * 2 - 2);
 		}
+		else{
+			zoomSlider.setValue(zoomSlider.getValue()-0.025);
+			clearCanvas();
+			draw();
+		}
 	}
 
 	private void getWays() {
