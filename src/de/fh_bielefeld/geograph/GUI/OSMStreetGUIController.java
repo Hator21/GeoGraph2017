@@ -45,6 +45,7 @@ public class OSMStreetGUIController {
 	private double					zoomFactor			= 0;
 
 	ChangeListener<Number>			stageSizeListener	= (observable, oldValue, newValue) -> this.resize();
+	private boolean firstcall = true;
 
 	@FXML
 	public void initialize() {
@@ -76,6 +77,7 @@ public class OSMStreetGUIController {
 
 		searchButtonArea.setOnAction((event) -> {
 			boolean ok = true;
+			firstcall = true;
 			double latitudeL = 0;
 			double longitudeL = 0;
 			double latitudeR = 0;
@@ -181,9 +183,11 @@ public class OSMStreetGUIController {
 			gc.fillOval(longitude + 2, latitude + 2, NODERADIUS * 2 - 2, NODERADIUS * 2 - 2);
 		}
 		else{
-			zoomSlider.setValue(zoomSlider.getValue()-0.025);
-			clearCanvas();
-			draw();
+			if(firstcall){
+				zoomSlider.setValue(zoomSlider.getValue()-0.025);
+				clearCanvas();
+				draw();
+			}
 		}
 	}
 
@@ -194,6 +198,7 @@ public class OSMStreetGUIController {
 	}
 
 	public void drawWay(MapWayInterface way) {
+		firstcall = false;
 		MapNodeInterface node1;
 		MapNodeInterface node2;
 		for (int i = 0; i < way.getRefList().size() - 1; i++) {
