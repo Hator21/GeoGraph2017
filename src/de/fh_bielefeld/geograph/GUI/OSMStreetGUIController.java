@@ -3,6 +3,7 @@ package de.fh_bielefeld.geograph.GUI;
 import java.awt.Point;
 
 import javafx.beans.value.ChangeListener;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -11,6 +12,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.transform.Affine;
@@ -43,6 +45,8 @@ public class OSMStreetGUIController {
 	private final int				ARR_SIZE			= 5;
 
 	private double					zoomFactor			= 0;
+	private double					pressedX			= 0;
+	private double					pressedY			= 0;
 
 	ChangeListener<Number>			stageSizeListener	= (observable, oldValue, newValue) -> this.resize();
 	private boolean firstcall = true;
@@ -142,6 +146,26 @@ public class OSMStreetGUIController {
 			clearCanvas();
 			draw();
 		});
+		
+		paintingCanvas.addEventHandler(MouseEvent.MOUSE_PRESSED,
+				new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent e) {
+				pressedX = e.getX();
+                pressedY = e.getY();
+                }	
+			});
+		
+		paintingCanvas.addEventHandler(MouseEvent.MOUSE_DRAGGED, 
+			       new EventHandler<MouseEvent>() {
+			           @Override
+			           public void handle(MouseEvent e) {
+			        	   pressedX = e.getX()- 300;
+			               pressedY = e.getY()- 300;			               
+			        	   gc.clearRect(0, 0, paintingCanvas.getWidth(), paintingCanvas.getHeight());
+			        	   draw();
+			           }
+			       });
 
 	}
 
@@ -161,8 +185,8 @@ public class OSMStreetGUIController {
 		double longitude = (mapLongitude(node.getLongitude()) - NODERADIUS);
 		double middleX = paintingCanvas.getWidth() / 2;
 		double middleY = paintingCanvas.getHeight() / 2;
-		double latitudeN = (latitude) - (middleY - latitude) * zoomFactor;
-		double longitudeN = (longitude) + (longitude - middleX) * zoomFactor;
+		double latitudeN = (latitude) - (middleY - latitude) * zoomFactor + pressedY;
+		double longitudeN = (longitude) + (longitude - middleX) * zoomFactor + pressedX;
 		return new Point((int) longitudeN, (int) latitudeN);
 	}
 
