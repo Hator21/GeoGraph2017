@@ -1,11 +1,11 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2017.2.7)  4 JUN 2017 14:13
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2016.10.14)  10 JUN 2017 14:52
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
 **Pflichtenheft_GeoGraph.tex
 (./Pflichtenheft_GeoGraph.tex
 LaTeX2e <2016/02/01>
-Babel <3.9q> and hyphenation patterns for 8 language(s) loaded.
+Babel <3.9q> and hyphenation patterns for 10 language(s) loaded.
 (/usr/share/texlive/texmf-dist/tex/latex/koma-script/scrartcl.cls
 Document Class: scrartcl 2015/10/03 v3.19a KOMA-Script document class (article)
 
@@ -2087,47 +2087,61 @@ Package babel Info: Redefining ngerman shorthand "|
 (babel)             in language  on input line 365.
 Package babel Info: Redefining ngerman shorthand "~
 (babel)             in language  on input line 365.
+
+Overfull \hbox (62.75572pt too wide) in paragraph at lines 385--386
+\T1/lmr/m/n/12 (-20) ABFRAGETYP__ABFRAGENPARAMETER__ABFRAGEZEITPUNKT.osm 
+ []
+
 Package babel Info: Redefining ngerman shorthand "|
-(babel)             in language  on input line 368.
+(babel)             in language  on input line 390.
 Package babel Info: Redefining ngerman shorthand "~
-(babel)             in language  on input line 368.
+(babel)             in language  on input line 390.
 Package babel Info: Redefining ngerman shorthand "|
-(babel)             in language  on input line 370.
+(babel)             in language  on input line 392.
 Package babel Info: Redefining ngerman shorthand "~
-(babel)             in language  on input line 370.
+(babel)             in language  on input line 392.
 Package babel Info: Redefining ngerman shorthand "|
-(babel)             in language  on input line 371.
+(babel)             in language  on input line 392.
 Package babel Info: Redefining ngerman shorthand "~
-(babel)             in language  on input line 371.
+(babel)             in language  on input line 392.
+[16]
 Package babel Info: Redefining ngerman shorthand "|
-(babel)             in language  on input line 372.
+(babel)             in language  on input line 392.
 Package babel Info: Redefining ngerman shorthand "~
-(babel)             in language  on input line 372.
+(babel)             in language  on input line 392.
 Package babel Info: Redefining ngerman shorthand "|
-(babel)             in language  on input line 373.
+(babel)             in language  on input line 393.
 Package babel Info: Redefining ngerman shorthand "~
-(babel)             in language  on input line 373.
+(babel)             in language  on input line 393.
 Package babel Info: Redefining ngerman shorthand "|
-(babel)             in language  on input line 376.
+(babel)             in language  on input line 394.
 Package babel Info: Redefining ngerman shorthand "~
-(babel)             in language  on input line 376.
+(babel)             in language  on input line 394.
 Package babel Info: Redefining ngerman shorthand "|
-(babel)             in language  on input line 379.
+(babel)             in language  on input line 395.
 Package babel Info: Redefining ngerman shorthand "~
-(babel)             in language  on input line 379.
+(babel)             in language  on input line 395.
 Package babel Info: Redefining ngerman shorthand "|
-(babel)             in language  on input line 382.
+(babel)             in language  on input line 398.
 Package babel Info: Redefining ngerman shorthand "~
-(babel)             in language  on input line 382.
+(babel)             in language  on input line 398.
 Package babel Info: Redefining ngerman shorthand "|
-(babel)             in language  on input line 382.
+(babel)             in language  on input line 401.
 Package babel Info: Redefining ngerman shorthand "~
-(babel)             in language  on input line 382.
- [16]
+(babel)             in language  on input line 401.
 Package babel Info: Redefining ngerman shorthand "|
-(babel)             in language  on input line 383.
+(babel)             in language  on input line 404.
 Package babel Info: Redefining ngerman shorthand "~
-(babel)             in language  on input line 383.
+(babel)             in language  on input line 404.
+Package babel Info: Redefining ngerman shorthand "|
+(babel)             in language  on input line 404.
+Package babel Info: Redefining ngerman shorthand "~
+(babel)             in language  on input line 404.
+ [17]
+Package babel Info: Redefining ngerman shorthand "|
+(babel)             in language  on input line 405.
+Package babel Info: Redefining ngerman shorthand "~
+(babel)             in language  on input line 405.
 )
 
 Package caption Warning: Unused \captionsetup[sub] on input line 123.
@@ -2142,7 +2156,7 @@ Package babel Info: Redefining ngerman shorthand "|
 (babel)             in language  on input line 66.
 Package babel Info: Redefining ngerman shorthand "~
 (babel)             in language  on input line 66.
-[17]
+[18]
 Package atveryend Info: Empty hook `AfterLastShipout' on input line 66.
  (./Pflichtenheft_GeoGraph.aux)
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 66.
@@ -2323,25 +2337,25 @@ Package rerunfilecheck Info: File `Pflichtenheft_GeoGraph.out' has not changed.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 66.
  ) 
 Here is how much of TeX's memory you used:
- 28801 strings out of 494901
- 508600 string characters out of 6178618
- 621650 words of memory out of 5000000
- 31537 multiletter control sequences out of 15000+600000
- 69662 words of font info for 94 fonts, out of 8000000 for 9000
- 14 hyphenation exceptions out of 8191
+ 28812 strings out of 494860
+ 508742 string characters out of 6177601
+ 621800 words of memory out of 5000000
+ 31547 multiletter control sequences out of 15000+600000
+ 74273 words of font info for 98 fonts, out of 8000000 for 9000
+ 36 hyphenation exceptions out of 8191
  48i,12n,54p,10399b,1031s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texmf/fonts/enc/dvips/lm/lm-ec.enc}{/usr/share/texmf/fonts/enc/dv
 ips/lm/lm-ts1.enc}</usr/share/texmf/fonts/type1/public/lm/lmbx10.pfb></usr/shar
 e/texmf/fonts/type1/public/lm/lmbx12.pfb></usr/share/texmf/fonts/type1/public/l
 m/lmr10.pfb></usr/share/texmf/fonts/type1/public/lm/lmr12.pfb></usr/share/texmf
-/fonts/type1/public/lm/lmr17.pfb></usr/share/texmf/fonts/type1/public/lm/lmss10
-.pfb></usr/share/texmf/fonts/type1/public/lm/lmss12.pfb></usr/share/texmf/fonts
-/type1/public/lm/lmss17.pfb></usr/share/texmf/fonts/type1/public/lm/lmssbx10.pf
-b>
-Output written on Pflichtenheft_GeoGraph.pdf (17 pages, 956414 bytes).
+/fonts/type1/public/lm/lmr17.pfb></usr/share/texmf/fonts/type1/public/lm/lmri12
+.pfb></usr/share/texmf/fonts/type1/public/lm/lmss10.pfb></usr/share/texmf/fonts
+/type1/public/lm/lmss12.pfb></usr/share/texmf/fonts/type1/public/lm/lmss17.pfb>
+</usr/share/texmf/fonts/type1/public/lm/lmssbx10.pfb>
+Output written on Pflichtenheft_GeoGraph.pdf (18 pages, 973148 bytes).
 PDF statistics:
- 346 PDF objects out of 1000 (max. 8388607)
- 300 compressed objects within 3 object streams
- 70 named destinations out of 1000 (max. 500000)
- 28486 words of extra memory for PDF output out of 29859 (max. 10000000)
+ 357 PDF objects out of 1000 (max. 8388607)
+ 308 compressed objects within 4 object streams
+ 71 named destinations out of 1000 (max. 500000)
+ 30534 words of extra memory for PDF output out of 35830 (max. 10000000)
 

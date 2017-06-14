@@ -363,7 +363,29 @@
 		\end{itemize}
 	\end{itemize}
 	\subsection{Produkt-Schnittstellen}
-	
+	\begin{itemize}
+		\item \textbf{OSM API}-Schnittstelle
+		\begin{itemize}
+			\item Anfragen in einem auf \textbf{REST} basierten Muster
+			\item Übertragen der Daten mittels des \textbf{HTTP} Protokolls
+			\item 2 Zugriffspunkte
+			\begin{itemize}
+				\item \textbf{OpenStreetMap} V06 API \href{http://wiki.openstreetmap.org/wiki/API_v0.6}{OpenStreetMap Wiki}
+				\item \textbf{Overpass} API \href{http://overpass-api.de/}{Overpass API Hauptseite}
+			\end{itemize}
+			\item 2 Operationen
+			\begin{itemize}
+				\item \textbf{GetNodeByID} Weitere Informationen zu einer bestimmten Node abfragen
+				\item \textbf{BoundingBox} Alle \textit{Relations}, \textit{Ways} und \textit{Nodes} ein einem
+					bestimmten Bereich abfragen
+			\end{itemize}
+			\item Erfolgreich ausgeführte Anfragen werden Lokal abgelegt
+			\begin{itemize}
+				\item Ablageverzeichnis relativ zum Projektpfad unter \textit{requests}
+				\item Namenskonvention:\\ ABFRAGETYP\_\_ABFRAGENPARAMETER\_\_ABFRAGEZEITPUNKT.osm
+			\end{itemize}
+		\end{itemize}
+	\end{itemize}
 	
 	\section{\Large SPEZIELLE ANFORDERUNGEN AN DIE ENTWICKLUNGS-UMGEBUNG}
 	Entwicklung- und Testumgebung des Frontends: Siehe 10 Technische Produktentwicklung 
