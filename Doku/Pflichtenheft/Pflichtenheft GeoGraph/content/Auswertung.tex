@@ -91,17 +91,18 @@
 			\textbf{ID :}\centering & GEO-02  \\ \hline 
 			\textbf{Title :}\centering & Laden der Daten aus einer OSM-Datei \\ \hline 
 			\textbf{Description :}\centering & Daten für die Karte werden aus der hinterlegten OSM-Datei geladen \\ \hline 
-			\textbf{Trigger :}\centering & User klickt auf den Button "Nach Koordinaten suchen" \\ \hline 
+			\textbf{Trigger :}\centering & User klickt auf den Button "Datei auswählen" \\ \hline 
 			\textbf{Primary Actor :} \centering & User \\ \hline 
 			\textbf{Preconditions :}\centering & 
-			1. GEO-01\\ \hline 
+			1. GEO-01\newline
+			2. User befindet sich im Reiter "Datei"\\ \hline 
 			\textbf{Postconditions :}\centering & 
 			1. User hat Kartenbereich aus OSM-Datei geladen \newline
 			2. GEO-06 \\ \hline
 			\textbf{Other Use Cases :}\centering & - \\ \hline  
 			\textbf{Main Success Scenario :}\centering & 
 			1. GEO-01 \newline
-			2. User klickt auf "Nach Kordinaten suchen" \newline
+			2. User klickt auf "Datei auswählen" \newline
 			3. GEO-06 \\ \hline  
 			\textbf{Extensions :}\centering & - \\ \hline  
 			\textbf{Priority :}\centering & High \\ \hline  
@@ -368,22 +369,26 @@
 		\begin{itemize}
 			\item Anfragen in einem auf \textbf{REST} basierten Muster
 			\item Übertragen der Daten mittels des \textbf{HTTP} Protokolls
-			\item 2 Zugriffspunkte
+			\item \textbf{2 Zugriffspunkte :}
 			\begin{itemize}
 				\item \textbf{OpenStreetMap} V06 API \href{http://wiki.openstreetmap.org/wiki/API_v0.6}{OpenStreetMap Wiki}
 				\item \textbf{Overpass} API \href{http://overpass-api.de/}{Overpass API Hauptseite}
 			\end{itemize}
-			\item 2 Operationen
+			\item \textbf{2 Operationen :}
 			\begin{itemize}
 				\item \textbf{GetNodeByID} Weitere Informationen zu einer bestimmten Node abfragen
 				\item \textbf{BoundingBox} Alle \textit{Relations}, \textit{Ways} und \textit{Nodes} ein einem
 					bestimmten Bereich abfragen
 			\end{itemize}
-			\item Erfolgreich ausgeführte Anfragen werden Lokal abgelegt
+			\item \textbf{Anfragen, Ablageverzeichnis und Namenskonvention :}			
 			\begin{itemize}
+				\item Erfolgreich ausgeführte Anfragen werden Lokal abgelegt
 				\item Ablageverzeichnis relativ zum Projektpfad unter \textit{requests}
-				\item Namenskonvention:\\ ABFRAGETYP\_\_ABFRAGENPARAMETER\_\_ABFRAGEZEITPUNKT.osm
 			\end{itemize}
+				\item \textbf{Namenskonvention im Format :}
+				\begin{itemize}
+				\item ABFRAGETYP\_\_ABFRAGENPARAMETER\_\_\\ABFRAGEZEITPUNKT.osm
+				\end{itemize}								
 		\end{itemize}
 	\end{itemize}
 	
