@@ -21,11 +21,11 @@ import de.fh_bielefeld.geograph.API.Exception.InvalidAPIRequestException;
 import de.fh_bielefeld.geograph.GUI_INTERFACE.ContentHolderInterface;
 import de.fh_bielefeld.geograph.GUI_INTERFACE.MapNodeInterface;
 import de.fh_bielefeld.geograph.GUI_INTERFACE.MapWayInterface;
-import de.fh_bielefeld.geograph.PARSER.OmlParser;
+import de.fh_bielefeld.geograph.PARSER.OSMParser;
 
 public class OSMStreetGUIController {
 
-	private OmlParser				parser;
+	private OSMParser				parser;
 
 	@FXML private Button			/* searchButton, */searchButtonArea/* , fileChooserButton */;
 
@@ -317,7 +317,7 @@ public class OSMStreetGUIController {
 	}
 
 	private void callParser() {
-		parser = new OmlParser(content);
+		parser = new OSMParser(content);
 		try {
 			content = parser.parse();
 			clearCanvas();

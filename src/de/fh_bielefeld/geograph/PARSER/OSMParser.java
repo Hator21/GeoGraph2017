@@ -28,7 +28,7 @@ import de.fh_bielefeld.geograph.GUI_INTERFACE.ContentHolderInterface;
  * @version 0.1
  * @since 2017-05-25
  */
-public class OmlParser {
+public class OSMParser {
 	private double				positiveDifference, negativeDifference;
 	private ArrayList<MapNode>		parsedNodes;
 	private ArrayList<MapWay>		parsedWays;
@@ -48,9 +48,9 @@ public class OmlParser {
 	 * @param givenHolder
 	 *            ContentHolder from which the Parser gets Data like Longitude and Latitude
 	 */
-	public OmlParser(ContentHolderInterface givenHolder) {
+	public OSMParser(ContentHolderInterface givenHolder) {
 		usedHolder = givenHolder;
-		positiveDifference = 0.00015;// magicNumber how close the Nodes must be to be considered as one
+		positiveDifference = 0.0002;// magicNumber how close the Nodes must be to be considered as one
 		negativeDifference = positiveDifference * (-1);
 		parsedNodes = new ArrayList<MapNode>();
 		parsedWays = new ArrayList<MapWay>();
