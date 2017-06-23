@@ -12,6 +12,6 @@ import org.w3c.dom.Document;
 /**
  * Tests for the OmlParser class
  */
-public class OmlParserTest{
+public class OsmParserTest{
 }
 
