@@ -307,7 +307,7 @@ public class OSMApiTest {
 	 * (Extreme Value Test)
 	 */
 	@Ignore
-	@Test
+//	@Test
 	public void getBoundingBoxOfRangeGivenMaximumRange() {
 		this.latitude = 51.9032375;
 		this.longitude = 8.3857535;
