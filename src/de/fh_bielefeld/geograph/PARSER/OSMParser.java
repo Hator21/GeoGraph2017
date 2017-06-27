@@ -44,12 +44,13 @@ public class OSMParser {
 	 * the long and lat difference between the nodes, to be considered as one.
 	 * It sets the includeConditions and initiates the Arrays.
 	 * 
-	 * 
+	 * @throws NullPointerException If the ContentHolder is Null the function throws an Exception
 	 * @param givenHolder
 	 *            ContentHolder from which the Parser gets Data like Longitude
 	 *            and Latitude
 	 */
-	public OSMParser(ContentHolderInterface givenHolder) {
+	public OSMParser(ContentHolderInterface givenHolder) throws NullPointerException {
+            if(givenHolder!=null){
 		usedHolder = givenHolder;
 		positiveDifference = 0.0002;// magicNumber how close the Nodes must be
 									// to be considered as one
@@ -61,6 +62,9 @@ public class OSMParser {
 		changedIDS = new HashMap<String, String>();
 		includeConditions = new HashMap<String, String>();
 		includeConditions.put("route", "road");
+            }else{
+                throw new NullPointerException("ContentHolder is null");
+            }
 
 	}
 
