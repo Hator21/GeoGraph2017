@@ -151,11 +151,13 @@ public class OSMParser {
 
 	/**
 	 * parses a Single Way Node Filters the nodes of the way, if it is already
-	 * parsed,
+	 * parsed.
+         * Calls the parseNode function for every Node described and needed in the way.
+         * The parsed Ways are put into the parsedWays list.
 	 *
 	 * 
 	 * @param givenWay
-	 *            The Way Node to parse further
+	 *            The Node describing the way to parse further
 	 * 
 	 */
 
@@ -218,6 +220,15 @@ public class OSMParser {
 		}
 	}
 
+        /**
+         * First it parses a Single Node,
+         * then it looks if the Node is near another Node, if so it merges the MapTags and Nodes.
+         * The difference between the Nodes is described in the positive Difference Variable.
+         * 
+         * @param givenNode
+         *          The Node to parse.
+         * 
+	 */
 	private void parseNode(Node givenNode) {
 		String parsedNodeID = givenNode.getAttributes().getNamedItem("id").getNodeValue();
 		Double parsedNodeLongitude = Double.parseDouble(givenNode.getAttributes().getNamedItem("lon").getNodeValue());
