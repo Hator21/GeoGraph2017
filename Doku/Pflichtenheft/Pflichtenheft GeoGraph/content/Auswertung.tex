@@ -74,7 +74,7 @@
 			2. GEO-06 \\ \hline
 			\textbf{Other Use Cases :}\centering & - \\ \hline  
 			\textbf{Main Success Scenario :}\centering & 
-			1. User gibt Boundingbox ((Längen-/Breitengrad min/max) ein \newline
+			1. User gibt Boundingbox (Längen-/Breitengrad min/max) ein \newline
 			2. User klickt auf "Nach Kordinaten suchen" \newline
 			3. GEO-06 \\ \hline  
 			\textbf{Extensions :}\centering & - \\ \hline  
@@ -93,16 +93,17 @@
 			\textbf{Trigger :}\centering & User klickt auf den Button "Datei auswählen" \\ \hline 
 			\textbf{Primary Actor :} \centering & User \\ \hline 
 			\textbf{Preconditions :}\centering & 
-			1. GEO-01 \newline
+			1. GEO-01 / oder OSM-Datei bereits geladen \newline
 			2. User befindet sich im Reiter "Datei"\\ \hline 
 			\textbf{Postconditions :}\centering & 
 			1. User hat Kartenbereich aus OSM-Datei geladen \newline
 			2. GEO-06 \\ \hline
 			\textbf{Other Use Cases :}\centering & - \\ \hline  
 			\textbf{Main Success Scenario :}\centering & 
-			1. GEO-01 \newline
-			2. User klickt auf "Datei auswählen" \newline
-			3. GEO-06 \\ \hline  
+			1. GEO-01 / oder OSM-Datei bereits vorhanden \newline
+			2. User ist im Reiter "Datei" \newline
+			3. User klickt auf "Datei auswählen" \newline
+			4. GEO-06 \\ \hline  
 			\textbf{Extensions :}\centering & - \\ \hline  
 			\textbf{Priority :}\centering & High \\ \hline  
 		\end{tabular}
@@ -128,9 +129,10 @@
 			\textbf{Other Use Cases :}\centering & - \\ \hline  
 			\textbf{Main Success Scenario :}\centering & 
 			1. GEO-01 oder GEO-02 \newline
-			2. User bewegt Slider in Positiven/Negativen Bereich \newline
-			3. Karte wird vergrößert/verkleinert \newline
-			4. GEO-06 \\ \hline  
+			2. User ist im Reiter "Bereich" \newline
+			3. User bewegt Slider in Positiven/Negativen Bereich \newline
+			4. Karte wird vergrößert/verkleinert \newline
+			5. GEO-06 \\ \hline  
 			\textbf{Extensions :}\centering & - \\ \hline  
 			\textbf{Priority :}\centering & High \\ \hline  
 		\end{tabular}
@@ -156,8 +158,9 @@
 			\textbf{Other Use Cases :}\centering & - \\ \hline  
 			\textbf{Main Success Scenario :}\centering & 
 			1. GEO-01 oder GEO-02 \newline
-			2. User hält Maus gedrückt und schiebt den Kartenausschnitt \newline
-			3. GEO-06 \\ \hline  
+			2. User ist im Reiter "Bereich" \newline
+			3. User hält Maus gedrückt und schiebt den Kartenausschnitt \newline
+			4. GEO-06 \\ \hline  
 			\textbf{Extensions :}\centering & 
 			1. Nur zuvor geladener Kartenausschnitt wird angezeigt \\ \hline  
 			\textbf{Priority :}\centering & High \\ \hline  
@@ -184,6 +187,7 @@
 			\textbf{Other Use Cases :}\centering & - \\ \hline  
 			\textbf{Main Success Scenario :}\centering &
 			1. GEO-01 oder GEO-02 \newline
+			2. User ist im Reiter "Bereich" \newline
 			2. Kartenausschnitt wird verschoben \newline
 			3. Karte wird auf Node zentriert \newline
 			4. GEO-06 \\ \hline  
@@ -307,13 +311,13 @@
 		\begin{itemize}
 			\item Richtigkeit der Nodes
 			\item Richtigkeit der Pfeile
-			\item Genaues Darstellen der Nodes in abhängigkeit zur OSM-Datei
+			\item Genaues Darstellen der Nodes in Abhängigkeit zur OSM-Datei
 			\item Genauigkeit der BoundingBox
 			\item Genauigkeit beim Skalieren
 		\end{itemize}  
 		\item Plattformabhängigkeiten
 		\item Performant in Abhängigkeit zur Downloadgeschwindigkeit und API
-		\item Wenn der markierte Bereich der Boundingbox zu groß ist, dann kann das laden der Nodes sehr lange dauern
+		\item Wenn der markierte Bereich der Boundingbox zu groß gewählt wurde (range > 0,25), dann kann das laden der Nodes sehr lange dauern
 		\item Aktuelle Betriebssysteme abdecken(Windows, Linux)
 		\item Abgefragte OSM-Datein werden lokal gespeichert mit den Min und Max Angaben der BoundingBox	(bsp. 51.9\_52.1\_52.1\_53.0.osm) 
 	\end{itemize} 
@@ -371,7 +375,6 @@
 			\item \textbf{2 Zugriffspunkte :}
 			\begin{itemize}
 				\item \textbf{OpenStreetMap} V06 API \href{http://wiki.openstreetmap.org/wiki/API_v0.6}{OpenStreetMap Wiki}
-				\item WARUM ZWEI?
 				\item \textbf{Overpass} API \href{http://overpass-api.de/}{Overpass API Hauptseite}
 			\end{itemize}
 			\item \textbf{API Nutzung :}
