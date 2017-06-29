@@ -168,16 +168,6 @@ public class OSMApi {
             request.setResponse(docBuilder.parse(connection.getInputStream()));
             request.setResponseType(ResponseType.SUCCESS);
             
-            //If the request was successful save the answer as file
-            Transformer transformer = TransformerFactory.newInstance().newTransformer();
-            Result output = new StreamResult(new File(request.getRequestType().toString()+
-                    "--" +
-                    System.currentTimeMillis() +
-                    "--response.osm"));
-            Source input = new DOMSource(request.getResponse());
-
-            transformer.transform(input, output);
-            
         } catch (Exception e) {
             request.setResponseType(ResponseType.ERROR);
         }
