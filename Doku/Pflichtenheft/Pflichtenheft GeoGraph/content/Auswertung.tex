@@ -227,7 +227,6 @@
 	\includegraphics[width=0.7\linewidth]{images/Squenz}
 	\caption{Sequenz Diagramm}
 	\label{fig:Sequenz Diagramm}
-	verbessern
 	\end{figure}
 	
 \newpage
@@ -244,10 +243,9 @@
 	\subsection{Analyseklassendiagramm}	
 		\begin{figure}[H]
 		\centering
-		\includegraphics[width=0.7\linewidth]{images/Klassendiagramm}
+		\includegraphics[width=0.7\linewidth]{images/Klassendiagramm_v2}
 		\caption{Klassendiagramm}
 		\label{fig:Klassendiagramm}
-		verbessern
 	\end{figure}
 	\subsection{Paketdiagramm}
 		\begin{figure}[H]
@@ -268,7 +266,6 @@
 		\item Nicht genauer spezifiziert.
 	\end{itemize} 
 		
-	
 	\section{\Large QUALITÄTSANFORDERUNGEN}
 	\begin{itemize}
 		\item Nicht genauer spezifiziert.
@@ -278,15 +275,15 @@
 	Es gibt eine Rolle und das ist die des Users der das Prgoramm ausführt (GUI).
 	\begin{figure}[H]
 	\centering
-	\includegraphics[width=0.7\linewidth]{images/OSMStreetView}
-	\caption{Benutzeroberfläche}
+	\includegraphics[width=0.7\linewidth]{images/BereichReiter}
+	\caption{Benutzeroberfläche im Reiter Bereich}
 	\label{fig:GUI}
 	\end{figure}
 	
 	\begin{figure}[H]
 	\centering
-	\includegraphics[width=0.7\linewidth]{images/OSMStreetView2}
-	\caption{Benutzeroberfläche}
+	\includegraphics[width=0.7\linewidth]{images/DateiReiter}
+	\caption{Benutzeroberfläche im Reiter Datei}
 	\label{fig:GUI2}
 	\end{figure}
 	
@@ -296,9 +293,7 @@
 	\includegraphics[width=0.7\linewidth]{images/Zustandsdiagramm}
 	\caption{Zustands Diagramm}
 	\label{fig:Zustands Diagramm}
-	verbessern
 	\end{figure}
-	
 	
 	\section{\Large NICHTFUNKTIONALE ANFORDERUNGEN}
 	Es werden alle Anforderungen aufgeführt, die sich nicht auf die Funktionalität, \textbf{ die Leistung} und \textbf{ die Benutzungsoberfläche} beziehen, z.B. :
@@ -378,6 +373,14 @@
 				\item \textbf{OpenStreetMap} V06 API \href{http://wiki.openstreetmap.org/wiki/API_v0.6}{OpenStreetMap Wiki}
 				\item WARUM ZWEI?
 				\item \textbf{Overpass} API \href{http://overpass-api.de/}{Overpass API Hauptseite}
+			\end{itemize}
+			\item \textbf{API Nutzung :}
+			\begin{itemize}
+				\item Wir benutzen zwei API's :
+				\begin{itemize}
+					\item um das System vor Ausfällen zu schützen
+					\item falls ein Dienst die Arbeit einstellt z.B.(OpenStreetMap V06 API), ist unser Programm weiterhin benutzbar, da wir auf andere API's ausweichen können
+				\end{itemize}  
 			\end{itemize}
 			\item \textbf{2 Operationen :}
 			\begin{itemize}
