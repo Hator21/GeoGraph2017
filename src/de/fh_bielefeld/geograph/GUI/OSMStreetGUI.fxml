@@ -103,11 +103,6 @@
                                           <Font size="24.0" />
                                        </font>
                                     </Label>
-                                    <Label fx:id="descriptionLabel1" alignment="TOP_LEFT" contentDisplay="TEXT_ONLY" layoutX="4.0" layoutY="316.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="310.0" prefWidth="267.0" text="Mit dieser Applikation können Sie dies und jenes tun... " textOverrun="CLIP" wrapText="true" AnchorPane.bottomAnchor="173.0" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="3.0" AnchorPane.topAnchor="316.0">
-                                       <font>
-                                          <Font size="18.0" />
-                                       </font>
-                                    </Label>
                                  </children>
                               </AnchorPane>
                            </content>
