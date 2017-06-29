@@ -14,7 +14,6 @@
 		\item Das System muss nach Eingabe einer minimalen und maximalen-Eingabe eines Punkten, den Ausschnitt der Karte darstellen.
 		\item Das System muss nachdem eine Karte dargestellt wurde, den ausgewählten Kartenbereich verschieben können.
 		\item Das System muss nach laden eines Kartenbereichs diesen Verschieben, Vergrößern, und Verkleinern können.
-		\item Das System muss erweiterbar sein. Das heißt ......
 	\end{itemize}
 	\subsection{Abgrenzungskriterien}
 	\begin{itemize}
@@ -51,41 +50,11 @@
 			\includegraphics[width=0.7\linewidth]{images/Usecases}
 			\caption{UseCase Diagramm}
 			\label{fig:Usecase Diagramm}
-			verbessern
 		\end{figure}
 		
 		
 	\section{\Large PRODUKTFUNKTIONEN}
 	\subsection{Usecase-Beschreibungen}
-
-	\begin{table}[H]
-		\begin{tabular}{|p{8cm}|p{8cm}|}
-			\hline
-			\textbf{GEO-01 } \\ 
-			\hline
-			\textbf{ID :}\centering & GEO-01  \\ \hline 
-			\textbf{Title :}\centering & Abruf der Daten über API \\ \hline 
-			\textbf{Description :}\centering & Daten für die Karte werden per API abgerufen \\ \hline 
-			\textbf{Trigger :}\centering & User klickt auf den Button "Nach Koordinaten suchen" \\ \hline 
-			\textbf{Primary Actor :} \centering & User \\ \hline 
-			\textbf{Preconditions :}\centering & 
-			1. Programm ist gestartet \newline 
-			2. User befindet sich im Reiter "Mittelpunkt" \newline
-			3. User hat Breitengrad und Längengrad eingegeben	\\ \hline 
-			\textbf{Postconditions :}\centering &  
-			1. User hat den Kartenbereich erfolgreich geladen \newline 
-			2. GEO-06 \\ \hline
-			\textbf{Other Use Cases :}\centering & - \\ \hline  
-			\textbf{Main Success Scenario :}\centering & 
-			1. User gibt Breitengrad und Längengrad ein \newline
-			2. User klickt auf "Nach Kordinaten suchen" \newline
-			3. GEO-06 \\ \hline  
-			\textbf{Extensions :}\centering & - \\ \hline  
-			\textbf{Priority :}\centering & High \\ \hline  
-			verbessern
-		\end{tabular}
-	\end{table}
-
 	\begin{table}[H]
 		\begin{tabular}{|p{8cm}|p{8cm}|}
 			\hline
@@ -105,7 +74,7 @@
 			2. GEO-06 \\ \hline
 			\textbf{Other Use Cases :}\centering & - \\ \hline  
 			\textbf{Main Success Scenario :}\centering & 
-			1. User gibt Boundingbox (Längengrad min/max und Breitengrad min/max) ein \newline
+			1. User gibt Boundingbox ((Längen-/Breitengrad min/max) ein \newline
 			2. User klickt auf "Nach Kordinaten suchen" \newline
 			3. GEO-06 \\ \hline  
 			\textbf{Extensions :}\centering & - \\ \hline  
@@ -151,8 +120,7 @@
 			\textbf{Primary Actor :} \centering & User \\ \hline 
 			\textbf{Preconditions :}\centering & 
 			1. User hat GEO-01 oder GEO-02 ausgeführt \newline
-			2. User befindet sich im Reiter "Mittelpunkt" \newline 
-			oder "Bereich"\\ \hline 
+			2. User befindet sich im Reiter "Bereich"\\ \hline 
 			\textbf{Postconditions :}\centering & 
 			1. User bewegt Slider in den positiven/negativen Bereich \newline
 			2. Kartenausschnitt vergrößert/verkleinert sich \newline
@@ -180,8 +148,7 @@
 			\textbf{Primary Actor :} \centering & User \\ \hline 
 			\textbf{Preconditions :}\centering & 
 			1. GEO-01 oder GEO-02 \newline 
-			2. User befindet sich im Reiter "Mittelpunkt" \newline 
-			oder "Bereich"\\ \hline 
+			2. User befindet sich im Reiter "Bereich"\\ \hline 
 			\textbf{Postconditions :}\centering & 
 			1. User bewegt die Maus in x/y Richtung \newline
 			2. Der Kartenausschnitt bewegt sich in x/y Richtung \newline
@@ -209,8 +176,7 @@
 			\textbf{Primary Actor :} \centering & User \\ \hline 
 			\textbf{Preconditions :}\centering & 
 			1. GEO-01 oder GEO-02 \newline 
-			2. User befindet sich im Reiter "Mittelpunkt" \newline 
-			oder "Bereich" \\ \hline 
+			2. User befindet sich im Reiter "Bereich" \\ \hline 
 			\textbf{Postconditions :}\centering &
 			1. Kartenausschnitt wird auf die nächstgelgende Node verschoben \newline
 			2. Karte wird auf die Node zentriert \newline
@@ -233,29 +199,7 @@
 			\hline
 			\textbf{ID :}\centering & GEO-06  \\ \hline 
 			\textbf{Title :}\centering & Karte zeichnen \\ \hline 
-			\textbf{Description :}\centering & Karte zeichen nach Eingabe von Längen und Breitengrad \\ \hline 
-			\textbf{Trigger :}\centering & User gibt Breiten-und Längengrad ein und die Karte wird gezeichnet \\ \hline 
-			\textbf{Primary Actor :} \centering & User \\ \hline 
-			\textbf{Preconditions :}\centering & User befindet sich im Reiter "Mittelpunkt" \\ \hline 
-			\textbf{Postconditions :}\centering	& 
-			1. GEO-01 oder GEO-02 \\ \hline		
-			\textbf{Other Use Cases :}\centering & - \\ \hline  
-			\textbf{Main Success Scenario :}\centering &
-			1. GEO-01 oder GEO-02 \newline
-			2. Karte wird gezeichnet \\ \hline  
-			\textbf{Extensions :}\centering & - \\ \hline  
-			\textbf{Priority :}\centering & High \\ \hline  
-		\end{tabular}
-	\end{table}
-	
-	\begin{table}[H]
-		\begin{tabular}{|p{8cm}|p{8cm}|}
-			\hline
-			\textbf{GEO-06 } \\ 
-			\hline
-			\textbf{ID :}\centering & GEO-06  \\ \hline 
-			\textbf{Title :}\centering & Karte zeichnen \\ \hline 
-			\textbf{Description :}\centering & Karte zeichen nach Eingabe von Boundingbox min/max \\ \hline 
+			\textbf{Description :}\centering & Karte zeichen nach Eingabe von Boundingbox (Längen-/Breitengrad min/max) \\ \hline 
 			\textbf{Trigger :}\centering & User gibt Boundingbox (Längengrad min/max und Breitengrad min/max) ein und die Karte wird gezeichnet \\ \hline 
 			\textbf{Primary Actor :} \centering & User \\ \hline 
 			\textbf{Preconditions :}\centering & User befindet sich im Reiter "Bereich" \\ \hline 
@@ -422,6 +366,7 @@
 				\item DSL Verbindung mit min. 2 Mbit/s Download-Bandbreite
 			\end{itemize}
 		\end{itemize}
+	\end{itemize}	
 	\subsection{Produkt-Schnittstellen}
 	\begin{itemize}
 		\item \textbf{OSM API}-Schnittstelle
@@ -471,10 +416,6 @@
 	\section{\Large GLOSSAR}
 	In diesem Kapitel wird die spezifische Sprache des Auftraggebers wie \textbf{ Kürzel } und \textbf{ Fachbegriffe } beschrieben, z.B. :
 	\begin{itemize}
-		\item \textbf{ System }
-		\begin{itemize}
-			\item Hiermit ist das gesamte Programm gemeint 
-		\end{itemize}
 		\item \textbf{ erweiterbarkeit }
 		\begin{itemize}
 			\item  Das System soll neue Anforderungen aufnehmen können.
@@ -511,7 +452,6 @@
 		\begin{itemize}
 			\item Eine Schnittstelle die über das HTTP-Protokoll angesprochen werden kann 
 		\end{itemize}
-		GANZE SÄTZE!
 	\end{itemize}
 
 		
