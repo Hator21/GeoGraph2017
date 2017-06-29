@@ -27,9 +27,9 @@ public class OSMStreetGUIController {
 
 	private OSMParser				parser;
 
-	@FXML private Button			/* searchButton, */searchButtonArea/* , fileChooserButton */;
+	@FXML private Button			searchButtonArea/* , fileChooserButton, fileSaveButton */;
 
-	@FXML private TextField			latitudeTextField, longitudeTextField, latitudeTextFieldL, longitudeTextFieldL, latitudeTextFieldR, longitudeTextFieldR;
+	@FXML private TextField			latitudeTextFieldL, longitudeTextFieldL, latitudeTextFieldR, longitudeTextFieldR;
 
 	@FXML private Slider			zoomSlider;
 
@@ -49,35 +49,21 @@ public class OSMStreetGUIController {
 	private double					pressedY			= 0;
 
 	ChangeListener<Number>			stageSizeListener	= (observable, oldValue, newValue) -> this.resize();
-	private boolean firstcall = true;
+	private boolean					firstcall			= true;
 
+	/**
+	 * Initializes functions of all Components, which interact with the user
+	 * Buttons
+	 * TextFields
+	 * Slider
+	 * Canvas
+	 * 
+	 */
 	@FXML
 	public void initialize() {
 		gc = paintingCanvas.getGraphicsContext2D();
 		rightAnchor.widthProperty().addListener(stageSizeListener);
 		rightAnchor.heightProperty().addListener(stageSizeListener);
-
-		/*
-		 * searchButton.setOnAction((event) -> {
-		 * double latitude;
-		 * double longitude;
-		 * try {
-		 * latitude = Double.parseDouble(latitudeTextField.getText());
-		 * content.setLatitude(latitude);
-		 * } catch (NumberFormatException nbe) {
-		 * popUp("Breitengrad");
-		 * latitudeTextField.setText("");
-		 * }
-		 * try {
-		 * longitude = Double.parseDouble(longitudeTextField.getText());
-		 * content.setLongitude(longitude);
-		 * } catch (NumberFormatException nbe) {
-		 * popUp("Laengengrad");
-		 * longitudeTextField.setText("");
-		 * }
-		 * callParser();
-		 * });
-		 */
 
 		searchButtonArea.setOnAction((event) -> {
 			boolean ok = true;
@@ -141,34 +127,43 @@ public class OSMStreetGUIController {
 		 * });
 		 */
 
+		/*
+		 * fileSaveButton.setOnAction((event) -> {
+		 * FileChooser fileChooser = new FileChooser();
+		 * fileChooser.setTitle("Save OSM File");
+		 * fileChooser.showOpenDialog(fileSaveButton.getScene().getWindow());
+		 * });
+		 */
+
 		zoomSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
 			zoomFactor = zoomSlider.getValue();
 			clearCanvas();
 			draw();
 		});
-		
-		paintingCanvas.addEventHandler(MouseEvent.MOUSE_PRESSED,
-				new EventHandler<MouseEvent>() {
+
+		paintingCanvas.addEventHandler(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent e) {
 				pressedX = e.getX();
-                pressedY = e.getY();
-                }	
-			});
-		
-		paintingCanvas.addEventHandler(MouseEvent.MOUSE_DRAGGED, 
-			       new EventHandler<MouseEvent>() {
-			           @Override
-			           public void handle(MouseEvent e) {
-			        	   pressedX = e.getX()- 300;
-			               pressedY = e.getY()- 300;			               
-			        	   gc.clearRect(0, 0, paintingCanvas.getWidth(), paintingCanvas.getHeight());
-			        	   draw();
-			           }
-			       });
+				pressedY = e.getY();
+			}
+		});
+
+		paintingCanvas.addEventHandler(MouseEvent.MOUSE_DRAGGED, new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent e) {
+				pressedX = e.getX() - 300;
+				pressedY = e.getY() - 300;
+				gc.clearRect(0, 0, paintingCanvas.getWidth(), paintingCanvas.getHeight());
+				draw();
+			}
+		});
 
 	}
 
+	/**
+	 * Resizes the Map, when changes Window-Bounds
+	 */
 	private void resize() {
 		clearCanvas();
 		paintingCanvas.setWidth(rightAnchor.getWidth() - 14.0);
@@ -176,10 +171,19 @@ public class OSMStreetGUIController {
 		draw();
 	}
 
+	/**
+	 * Clears the MapCanvas
+	 */
 	private void clearCanvas() {
 		gc.clearRect(0, 0, paintingCanvas.getWidth(), paintingCanvas.getHeight());
 	}
 
+	/**
+	 * Converts the coordinates of a node int coordinates of the Canvas
+	 * 
+	 * @param node
+	 * @return Point (longitude, latitude)
+	 */
 	private Point getNodeCoords(MapNodeInterface node) {
 		double latitude = (mapLatitude(node.getLatitude()) - NODERADIUS);
 		double longitude = (mapLongitude(node.getLongitude()) - NODERADIUS);
@@ -190,12 +194,20 @@ public class OSMStreetGUIController {
 		return new Point((int) longitudeN, (int) latitudeN);
 	}
 
+	/**
+	 * Runs over all nodes and call them to draw
+	 */
 	private void getNodes() {
 		for (MapNodeInterface node : content.getNodes()) {
 			drawNode(node);
 		}
 	}
 
+	/**
+	 * Draws a single Node on the MapCanvas
+	 * 
+	 * @param node
+	 */
 	public void drawNode(MapNodeInterface node) {
 		Point c = getNodeCoords(node);
 		double latitude = c.getY();
@@ -205,22 +217,30 @@ public class OSMStreetGUIController {
 			gc.strokeOval(longitude + 1, latitude + 1, NODERADIUS * 2, NODERADIUS * 2);
 			gc.setFill(Color.RED);
 			gc.fillOval(longitude + 2, latitude + 2, NODERADIUS * 2 - 2, NODERADIUS * 2 - 2);
-		}
-		else{
-			if(firstcall){
-				zoomSlider.setValue(zoomSlider.getValue()-0.025);
+		} else {
+			if (firstcall) {
+				zoomSlider.setMin(zoomSlider.getValue() - 0.025);
+				zoomSlider.setValue(zoomSlider.getValue() - 0.025);
 				clearCanvas();
 				draw();
 			}
 		}
 	}
 
+	/**
+	 * Runs over all ways and call them to draw
+	 */
 	private void getWays() {
 		for (MapWayInterface way : content.getWays()) {
 			drawWay(way);
 		}
 	}
 
+	/**
+	 * Draws a single Way on the MapCanvas
+	 * 
+	 * @param node
+	 */
 	public void drawWay(MapWayInterface way) {
 		firstcall = false;
 		MapNodeInterface node1;
@@ -254,17 +274,34 @@ public class OSMStreetGUIController {
 		}
 	}
 
+	/**
+	 * Converts latitude into height-coordinate
+	 * 
+	 * @param latitude
+	 * @return height-coordinate
+	 */
 	public double mapLatitude(double latitude) {
 		double y = paintingCanvas.getHeight() - (paintingCanvas.getHeight() * ((latitude - content.getMinLatitude()) / (content.getMaxLatitude() - content.getMinLatitude())));
 		return y;
 
 	}
 
+	/**
+	 * Converts longitude into width-coordinate
+	 * 
+	 * @param longitude
+	 * @return width-coordinate
+	 */
 	public double mapLongitude(double longitude) {
 		double x = paintingCanvas.getWidth() * ((longitude - content.getMinLongitude()) / (content.getMaxLongitude() - content.getMinLongitude()));
 		return x;
 	}
 
+	/**
+	 * Generates a PopUp, that pops up when an input is wrong
+	 * 
+	 * @param grad
+	 */
 	private void popUp(String grad) {
 		Alert alert = new Alert(AlertType.INFORMATION);
 		alert.setTitle("Falsche Eingabe");
@@ -273,6 +310,9 @@ public class OSMStreetGUIController {
 		alert.showAndWait();
 	}
 
+	/**
+	 * Generates a PopUp, that pops up when lower latitude is bigger higher latitude
+	 */
 	private void popUpLat() {
 		Alert alert = new Alert(AlertType.INFORMATION);
 		alert.setTitle("Falsche Eingabe");
@@ -281,6 +321,9 @@ public class OSMStreetGUIController {
 		alert.showAndWait();
 	}
 
+	/**
+	 * Generates a PopUp, that pops up when lower longitude is bigger higher longitude
+	 */
 	private void popUpLong() {
 		Alert alert = new Alert(AlertType.INFORMATION);
 		alert.setTitle("Falsche Eingabe");
@@ -289,6 +332,15 @@ public class OSMStreetGUIController {
 		alert.showAndWait();
 	}
 
+	/**
+	 * Function to draw and Array from (x1,y1) to (x2,y2) on GraphicsContent gc
+	 * 
+	 * @param gc
+	 * @param x1
+	 * @param y1
+	 * @param x2
+	 * @param y2
+	 */
 	public void drawArrow(GraphicsContext gc, int x1, int y1, int x2, int y2) {
 		gc.setFill(Color.BLACK);
 
@@ -311,11 +363,17 @@ public class OSMStreetGUIController {
 		gc.setTransform(new Affine(save));
 	}
 
+	/**
+	 * Function to draw all Nodes and Ways
+	 */
 	private void draw() {
 		getNodes();
 		getWays();
 	}
 
+	/**
+	 * Calls the Parser and gives the Parser all Information
+	 */
 	private void callParser() {
 		parser = new OSMParser(content);
 		try {

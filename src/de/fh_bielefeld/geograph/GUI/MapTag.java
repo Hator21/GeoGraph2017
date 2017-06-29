@@ -11,11 +11,16 @@ public class MapTag implements MapTagInterface {
 	String	key;
 	String	value;
 
+	/**
+	 * Contructor for generating a MapTop
+	 * 
+	 * @param key
+	 * @param value
+	 */
 	public MapTag(String key, String value) {
 		this.key = key;
 		this.value = value;
 	}
-
 
 	public String getKey() {
 		return key;
@@ -24,7 +29,6 @@ public class MapTag implements MapTagInterface {
 	public void setKey(String key) {
 		this.key = key;
 	}
-
 
 	public String getValue() {
 		return value;
