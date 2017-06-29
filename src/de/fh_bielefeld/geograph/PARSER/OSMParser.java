@@ -273,4 +273,12 @@ public class OSMParser {
 			nodesToTransfer.add(parsedNode);
 		}
 	}
+	
+	/**
+	 * Getter Method for the current Document given by the API
+	 * @return givenDocument The Document of the last request given
+	 */
+	public Document getCurrentDocument(){
+	    return this.givenDocument;
+	}
 }
