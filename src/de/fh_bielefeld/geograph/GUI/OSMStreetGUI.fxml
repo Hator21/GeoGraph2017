@@ -116,15 +116,16 @@
                           <content>
                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                  <children>
-                                    <Label fx:id="FileChooserLabel" layoutX="45.0" layoutY="14.0" prefHeight="32.0" prefWidth="185.0" text="Map-Datei Laden" AnchorPane.bottomAnchor="740.0" AnchorPane.leftAnchor="45.0" AnchorPane.rightAnchor="44.0" AnchorPane.topAnchor="14.0">
+                                    <Label fx:id="FileChooserLabel" layoutX="45.0" layoutY="14.0" prefHeight="32.0" prefWidth="185.0" text="Map-Datei Laden">
                                        <font>
                                           <Font size="24.0" />
                                        </font>
                                     </Label>
-                                    <Button fx:id="fileChooserButton" layoutX="68.0" layoutY="55.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="140.0" text="Auswählen" AnchorPane.bottomAnchor="695.0" AnchorPane.leftAnchor="68.0" AnchorPane.rightAnchor="66.0" AnchorPane.topAnchor="55.0">
+                                    <Button fx:id="fileChooserButton" layoutX="68.0" layoutY="55.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="140.0" text="Auswählen">
                                        <font>
                                           <Font size="18.0" />
-                                       </font></Button>
+                                       </font>
+                                    </Button>
                                     <Label fx:id="fileSaveLabel" layoutX="11.0" layoutY="119.0" prefHeight="39.0" prefWidth="254.0" text="Aktuelle Map speichern" textAlignment="CENTER">
                                        <font>
                                           <Font size="24.0" />
