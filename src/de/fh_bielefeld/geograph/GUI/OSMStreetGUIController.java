@@ -375,13 +375,21 @@ public class OSMStreetGUIController {
 	 * Calls the Parser and gives the Parser all Information
 	 */
 	private void callParser() {
-		parser = new OSMParser(content);
 		try {
-			content = parser.parse();
-			clearCanvas();
-			draw();
-		} catch (NullPointerException | InvalidAPIRequestException e) {
-			e.printStackTrace();
+			parser = new OSMParser(content);
+			try {
+				content = parser.parse();
+				clearCanvas();
+				draw();
+			} catch (NullPointerException | InvalidAPIRequestException e) {
+				e.printStackTrace();
+			}
+		} catch (NullPointerException e) {
+			Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setTitle("Kritischer Fehler");
+			alert.setHeaderText(null);
+			alert.setContentText("Bitte Programm neustarten");
+			alert.showAndWait();
 		}
 	}
 }
