@@ -14,7 +14,7 @@
 		\item Das System muss nach Eingabe einer minimalen und maximalen-Eingabe eines Punkten, den Ausschnitt der Karte darstellen.
 		\item Das System muss nachdem eine Karte dargestellt wurde, den ausgewählten Kartenbereich verschieben können.
 		\item Das System muss nach laden eines Kartenbereichs diesen Verschieben, Vergrößern, und Verkleinern können.
-		\item Das System muss skalierbar sein.
+		\item Das System muss erweiterbar sein. Das heißt ......
 	\end{itemize}
 	\subsection{Abgrenzungskriterien}
 	\begin{itemize}
@@ -51,6 +51,7 @@
 			\includegraphics[width=0.7\linewidth]{images/Usecases}
 			\caption{UseCase Diagramm}
 			\label{fig:Usecase Diagramm}
+			verbessern
 		\end{figure}
 		
 		
@@ -69,19 +70,48 @@
 			\textbf{Primary Actor :} \centering & User \\ \hline 
 			\textbf{Preconditions :}\centering & 
 			1. Programm ist gestartet \newline 
-			2. User hat BoundingBox min und max eingegeben	\\ \hline 
+			2. User befindet sich im Reiter "Mittelpunkt" \newline
+			3. User hat Breitengrad und Längengrad eingegeben	\\ \hline 
 			\textbf{Postconditions :}\centering &  
 			1. User hat den Kartenbereich erfolgreich geladen \newline 
 			2. GEO-06 \\ \hline
 			\textbf{Other Use Cases :}\centering & - \\ \hline  
 			\textbf{Main Success Scenario :}\centering & 
-			1. User gibt BoundingBox min und max ein \newline
+			1. User gibt Breitengrad und Längengrad ein \newline
+			2. User klickt auf "Nach Kordinaten suchen" \newline
+			3. GEO-06 \\ \hline  
+			\textbf{Extensions :}\centering & - \\ \hline  
+			\textbf{Priority :}\centering & High \\ \hline  
+			verbessern
+		\end{tabular}
+	\end{table}
+
+	\begin{table}[H]
+		\begin{tabular}{|p{8cm}|p{8cm}|}
+			\hline
+			\textbf{GEO-01 } \\ 
+			\hline
+			\textbf{ID :}\centering & GEO-01  \\ \hline 
+			\textbf{Title :}\centering & Abruf der Daten über API \\ \hline 
+			\textbf{Description :}\centering & Daten für die Karte werden per API abgerufen \\ \hline 
+			\textbf{Trigger :}\centering & User klickt auf den Button "Nach Koordinaten suchen" \\ \hline 
+			\textbf{Primary Actor :} \centering & User \\ \hline 
+			\textbf{Preconditions :}\centering & 
+			1. Programm ist gestartet \newline 
+			2. User befindet sich im Reiter "Bereich" \newline
+			3. User hat Boundingbox (Längengrad min/max und Breitengrad min/max) eingegeben	\\ \hline 
+			\textbf{Postconditions :}\centering &  
+			1. User hat den Kartenbereich erfolgreich geladen \newline 
+			2. GEO-06 \\ \hline
+			\textbf{Other Use Cases :}\centering & - \\ \hline  
+			\textbf{Main Success Scenario :}\centering & 
+			1. User gibt Boundingbox (Längengrad min/max und Breitengrad min/max) ein \newline
 			2. User klickt auf "Nach Kordinaten suchen" \newline
 			3. GEO-06 \\ \hline  
 			\textbf{Extensions :}\centering & - \\ \hline  
 			\textbf{Priority :}\centering & High \\ \hline  
 		\end{tabular}
-	\end{table}
+	\end{table}	
 	
 	\begin{table}[H]
 		\begin{tabular}{|p{8cm}|p{8cm}|}
@@ -91,17 +121,18 @@
 			\textbf{ID :}\centering & GEO-02  \\ \hline 
 			\textbf{Title :}\centering & Laden der Daten aus einer OSM-Datei \\ \hline 
 			\textbf{Description :}\centering & Daten für die Karte werden aus der hinterlegten OSM-Datei geladen \\ \hline 
-			\textbf{Trigger :}\centering & User klickt auf den Button "Nach Koordinaten suchen" \\ \hline 
+			\textbf{Trigger :}\centering & User klickt auf den Button "Datei auswählen" \\ \hline 
 			\textbf{Primary Actor :} \centering & User \\ \hline 
 			\textbf{Preconditions :}\centering & 
-			1. GEO-01\\ \hline 
+			1. GEO-01 \newline
+			2. User befindet sich im Reiter "Datei"\\ \hline 
 			\textbf{Postconditions :}\centering & 
 			1. User hat Kartenbereich aus OSM-Datei geladen \newline
 			2. GEO-06 \\ \hline
 			\textbf{Other Use Cases :}\centering & - \\ \hline  
 			\textbf{Main Success Scenario :}\centering & 
 			1. GEO-01 \newline
-			2. User klickt auf "Nach Kordinaten suchen" \newline
+			2. User klickt auf "Datei auswählen" \newline
 			3. GEO-06 \\ \hline  
 			\textbf{Extensions :}\centering & - \\ \hline  
 			\textbf{Priority :}\centering & High \\ \hline  
@@ -119,7 +150,9 @@
 			\textbf{Trigger :}\centering & User bewegt den Slider in den positiven/negativen Bereich  \\ \hline 
 			\textbf{Primary Actor :} \centering & User \\ \hline 
 			\textbf{Preconditions :}\centering & 
-			1. User hat GEO-01 oder GEO-02 ausgeführt \\ \hline 
+			1. User hat GEO-01 oder GEO-02 ausgeführt \newline
+			2. User befindet sich im Reiter "Mittelpunkt" \newline 
+			oder "Bereich"\\ \hline 
 			\textbf{Postconditions :}\centering & 
 			1. User bewegt Slider in den positiven/negativen Bereich \newline
 			2. Kartenausschnitt vergrößert/verkleinert sich \newline
@@ -146,7 +179,9 @@
 			\textbf{Trigger :}\centering & User bewegt die Maus in den Kartenausschnitt und hält die linke Maustaste gedrückt und schiebt dann in x/y Richtung  \\ \hline 
 			\textbf{Primary Actor :} \centering & User \\ \hline 
 			\textbf{Preconditions :}\centering & 
-			1. GEO-01 oder GEO-02 \\ \hline 
+			1. GEO-01 oder GEO-02 \newline 
+			2. User befindet sich im Reiter "Mittelpunkt" \newline 
+			oder "Bereich"\\ \hline 
 			\textbf{Postconditions :}\centering & 
 			1. User bewegt die Maus in x/y Richtung \newline
 			2. Der Kartenausschnitt bewegt sich in x/y Richtung \newline
@@ -169,11 +204,13 @@
 			\hline
 			\textbf{ID :}\centering & GEO-05  \\ \hline 
 			\textbf{Title :}\centering & Nächsten Punkt suchen und Ansicht auf Node zentrieren \\ \hline 
-			\textbf{Description :}\centering & Zentrierung auf einer Node nach eingabe von Langen-und Breitengrad \\ \hline 
+			\textbf{Description :}\centering & Zentrierung auf einer Node nach Eingabe von Langen-und Breitengrad \\ \hline 
 			\textbf{Trigger :}\centering & User gibt Breiten-und Längengrad ein und die nächstgelegende Node wird zentriert \\ \hline 
 			\textbf{Primary Actor :} \centering & User \\ \hline 
 			\textbf{Preconditions :}\centering & 
-			1. GEO-01 oder GEO-02 \\ \hline 
+			1. GEO-01 oder GEO-02 \newline 
+			2. User befindet sich im Reiter "Mittelpunkt" \newline 
+			oder "Bereich" \\ \hline 
 			\textbf{Postconditions :}\centering &
 			1. Kartenausschnitt wird auf die nächstgelgende Node verschoben \newline
 			2. Karte wird auf die Node zentriert \newline
@@ -199,8 +236,7 @@
 			\textbf{Description :}\centering & Karte zeichen nach Eingabe von Längen und Breitengrad \\ \hline 
 			\textbf{Trigger :}\centering & User gibt Breiten-und Längengrad ein und die Karte wird gezeichnet \\ \hline 
 			\textbf{Primary Actor :} \centering & User \\ \hline 
-			\textbf{Preconditions :}\centering & -
-			 \\ \hline 
+			\textbf{Preconditions :}\centering & User befindet sich im Reiter "Mittelpunkt" \\ \hline 
 			\textbf{Postconditions :}\centering	& 
 			1. GEO-01 oder GEO-02 \\ \hline		
 			\textbf{Other Use Cases :}\centering & - \\ \hline  
@@ -210,7 +246,29 @@
 			\textbf{Extensions :}\centering & - \\ \hline  
 			\textbf{Priority :}\centering & High \\ \hline  
 		\end{tabular}
-	\end{table}		
+	\end{table}
+	
+	\begin{table}[H]
+		\begin{tabular}{|p{8cm}|p{8cm}|}
+			\hline
+			\textbf{GEO-06 } \\ 
+			\hline
+			\textbf{ID :}\centering & GEO-06  \\ \hline 
+			\textbf{Title :}\centering & Karte zeichnen \\ \hline 
+			\textbf{Description :}\centering & Karte zeichen nach Eingabe von Boundingbox min/max \\ \hline 
+			\textbf{Trigger :}\centering & User gibt Boundingbox (Längengrad min/max und Breitengrad min/max) ein und die Karte wird gezeichnet \\ \hline 
+			\textbf{Primary Actor :} \centering & User \\ \hline 
+			\textbf{Preconditions :}\centering & User befindet sich im Reiter "Bereich" \\ \hline 
+			\textbf{Postconditions :}\centering	& 
+			1. GEO-01 oder GEO-02 \\ \hline		
+			\textbf{Other Use Cases :}\centering & - \\ \hline  
+			\textbf{Main Success Scenario :}\centering &
+			1. GEO-01 oder GEO-02 \newline
+			2. Karte wird gezeichnet \\ \hline  
+			\textbf{Extensions :}\centering & - \\ \hline  
+			\textbf{Priority :}\centering & High \\ \hline  
+		\end{tabular}
+	\end{table}			
 	
 	\subsection{Aktivitätsdiagramm}
 		\begin{figure}[H]
@@ -225,6 +283,7 @@
 	\includegraphics[width=0.7\linewidth]{images/Squenz}
 	\caption{Sequenz Diagramm}
 	\label{fig:Sequenz Diagramm}
+	verbessern
 	\end{figure}
 	
 \newpage
@@ -244,6 +303,7 @@
 		\includegraphics[width=0.7\linewidth]{images/Klassendiagramm}
 		\caption{Klassendiagramm}
 		\label{fig:Klassendiagramm}
+		verbessern
 	\end{figure}
 	\subsection{Paketdiagramm}
 		\begin{figure}[H]
@@ -255,7 +315,7 @@
 	\subsection{Domänenklassendiagramm}
 		\begin{figure}[H]
 			\centering
-			\includegraphics[width=0.7\linewidth]{images/DomaenenKlassendiagramm}
+			\includegraphics[width=0.7\linewidth]{images/DomaenenKlassendiagramm_v2}
 			\caption{Domänenklassendiagramm}
 			\label{fig:Domänenklassendiagramm}
 		\end{figure}
@@ -292,6 +352,7 @@
 	\includegraphics[width=0.7\linewidth]{images/Zustandsdiagramm}
 	\caption{Zustands Diagramm}
 	\label{fig:Zustands Diagramm}
+	verbessern
 	\end{figure}
 	
 	
@@ -361,9 +422,36 @@
 				\item DSL Verbindung mit min. 2 Mbit/s Download-Bandbreite
 			\end{itemize}
 		\end{itemize}
-	\end{itemize}
 	\subsection{Produkt-Schnittstellen}
-	
+	\begin{itemize}
+		\item \textbf{OSM API}-Schnittstelle
+		\begin{itemize}
+			\item Anfragen in einem auf \textbf{REST} basierten Muster
+			\item Übertragen der Daten mittels des \textbf{HTTP} Protokolls
+			\item \textbf{2 Zugriffspunkte :}
+			\begin{itemize}
+				\item \textbf{OpenStreetMap} V06 API \href{http://wiki.openstreetmap.org/wiki/API_v0.6}{OpenStreetMap Wiki}
+				\item WARUM ZWEI?
+				\item \textbf{Overpass} API \href{http://overpass-api.de/}{Overpass API Hauptseite}
+			\end{itemize}
+			\item \textbf{2 Operationen :}
+			\begin{itemize}
+				\item \textbf{GetNodeByID} Weitere Informationen zu einer bestimmten Node abfragen
+				\item \textbf{BoundingBox} Alle \textit{Relations}, \textit{Ways} und \textit{Nodes} ein einem
+					bestimmten Bereich abfragen
+			\end{itemize}
+			\item \textbf{Anfragen, Ablageverzeichnis und Namenskonvention :}			
+			\begin{itemize}
+				\item Erfolgreich ausgeführte Anfragen werden Lokal abgelegt
+				\item Ablageverzeichnis relativ zum Projektpfad unter \textit{requests}
+			\end{itemize}
+				\item \textbf{Namenskonvention im Format :}
+				\begin{itemize}
+				\item ABFRAGETYP\_\_ABFRAGENPARAMETER\_\_\\ABFRAGEZEITPUNKT.osm
+				\end{itemize}		
+				GENAUER					
+		\end{itemize}
+	\end{itemize}
 	
 	\section{\Large SPEZIELLE ANFORDERUNGEN AN DIE ENTWICKLUNGS-UMGEBUNG}
 	Entwicklung- und Testumgebung des Frontends: Siehe 10 Technische Produktentwicklung 
@@ -387,13 +475,13 @@
 		\begin{itemize}
 			\item Hiermit ist das gesamte Programm gemeint 
 		\end{itemize}
-		\item \textbf{ skalierbar}
+		\item \textbf{ erweiterbarkeit }
 		\begin{itemize}
-			\item in Bezug auf das System, ist hier gemeint das es erweiterbar sein soll
+			\item  Das System soll neue Anforderungen aufnehmen können.
 		\end{itemize}
 		\item \textbf{ User }
 		\begin{itemize}
-			\item Bearbeitet das Programm
+			\item Der User bedient das Programm, mit dem Ziel 
 		\end{itemize}
 		\item \textbf{ Pfeile }
 		\begin{itemize}
@@ -409,6 +497,7 @@
 		\begin{itemize}
 			\item Ein Node stellt einen Punkt auf der Karte dar
 			\item Mehrere Nodes können z.b. einer Straße zusammen gefasst werden
+			\item Verbessern
 		\end{itemize}
 		\item \textbf{ OSM-Datei }
 		\begin{itemize}
@@ -422,6 +511,7 @@
 		\begin{itemize}
 			\item Eine Schnittstelle die über das HTTP-Protokoll angesprochen werden kann 
 		\end{itemize}
+		GANZE SÄTZE!
 	\end{itemize}
 
 		

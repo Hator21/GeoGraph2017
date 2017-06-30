@@ -1,6 +1,7 @@
 # GeoGraph
 
-Rollenverteilung
+Rollenverteilung:
+
 API:
 - Philipp Clausing
 
@@ -9,7 +10,7 @@ JUnit / QS:
 - Dennis Starke
 
 GUI:
-- Eduard Ljaschenke
+- Eduard Ljaschenko
 - Jonas Lampe
 - Dennis Lüdeke
 
