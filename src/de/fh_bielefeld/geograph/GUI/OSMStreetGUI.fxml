@@ -14,7 +14,7 @@
                <children>
                   <TabPane fx:id="VBoxHighTabPane" prefHeight="1109.0" prefWidth="273.0" tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS">
                     <tabs>
-                     <!--
+                    <!--
                     	 <Tab fx:id="Tab1" text="Mittelpunkt">
                          	<content>
                               <AnchorPane fx:id="Tab1Anchor" prefHeight="900.0" prefWidth="276.0">

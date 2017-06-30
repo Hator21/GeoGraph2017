@@ -110,11 +110,21 @@ public class OSMStreetGUIController {
 			if (ok) {
 				if (latitudeL < latitudeR) {
 					if (longitudeL < longitudeR) {
-						content.setMinLatitude(latitudeL);
-						content.setMinLongitude(longitudeL);
-						content.setMaxLatitude(latitudeR);
-						content.setMaxLongitude(longitudeR);
-						callParser();
+						if(latitudeR-latitudeL <= 0.25){
+							if(longitudeR - longitudeL <= 0.25){
+								content.setMinLatitude(latitudeL);
+								content.setMinLongitude(longitudeL);
+								content.setMaxLatitude(latitudeR);
+								content.setMaxLongitude(longitudeR);
+								callParser();
+							}
+							else {
+								popUpLongToBig();
+							}
+						}
+						else {
+							popUpLatToBig();
+						}
 					} else {
 						popUpLong();
 					}
@@ -353,6 +363,28 @@ public class OSMStreetGUIController {
 		alert.setTitle("Falsche Eingabe");
 		alert.setHeaderText(null);
 		alert.setContentText("Longitude Links > Longitude Rechts");
+		alert.showAndWait();
+	}
+	
+	/**
+	 * Generates a PopUp, that pops up when lower latitude is bigger higher latitude
+	 */
+	private void popUpLatToBig() {
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("Falsche Eingabe");
+		alert.setHeaderText(null);
+		alert.setContentText("Abstand zwischen Latitude Links und Latitude Rechts ist größer als 0.25");
+		alert.showAndWait();
+	}
+
+	/**
+	 * Generates a PopUp, that pops up when lower longitude is bigger higher longitude
+	 */
+	private void popUpLongToBig() {
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("Falsche Eingabe");
+		alert.setHeaderText(null);
+		alert.setContentText("Abstand zwischen Longitude Links und Longitude Rechts ist größer als 0.25");
 		alert.showAndWait();
 	}
 
