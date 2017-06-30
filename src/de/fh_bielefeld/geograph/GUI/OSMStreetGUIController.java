@@ -427,30 +427,22 @@ public class OSMStreetGUIController {
     }
 
     private void loadFile(File file) {
+        InputStream is;
+        Document doc;
         try {
-            InputStream is;
-            Document doc;
-            try {
-                is = new FileInputStream(file);
-                doc = loadXMLFrom(is);
-                content.setDocument(doc);
-                parser = new OSMParser(content);
-                content = parser.parse();
-                clearCanvas();
-                draw();
-                fileSaveButton.setDisable(true);
-            } catch (SAXException | IOException | NullPointerException | InvalidAPIRequestException | ParserConfigurationException e) {
-                Alert alert = new Alert(AlertType.INFORMATION);
-                alert.setTitle("Kritischer Fehler");
-                alert.setHeaderText(null);
-                alert.setContentText("Die Datei konnte nicht geladen werden");
-                alert.showAndWait();
-            }
-        } catch (NullPointerException e) {
+            is = new FileInputStream(file);
+            doc = loadXMLFrom(is);
+            content.setDocument(doc);
+            parser = new OSMParser(content);
+            content = parser.parse();
+            clearCanvas();
+            draw();
+            fileSaveButton.setDisable(true);
+        } catch (SAXException | IOException | NullPointerException | InvalidAPIRequestException | ParserConfigurationException e) {
             Alert alert = new Alert(AlertType.INFORMATION);
             alert.setTitle("Kritischer Fehler");
             alert.setHeaderText(null);
-            alert.setContentText("Bitte Programm neustarten");
+            alert.setContentText("Die Datei konnte nicht geladen werden");
             alert.showAndWait();
         }
     }
