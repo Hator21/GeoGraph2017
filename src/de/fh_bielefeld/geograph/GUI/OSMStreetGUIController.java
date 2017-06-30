@@ -47,6 +47,10 @@ public class OSMStreetGUIController {
 	private double					zoomFactor			= 0;
 	private double					pressedX			= 0;
 	private double					pressedY			= 0;
+	private double					draggedX			= 0;
+	private double					draggedY			= 0;
+	private double					resultX				= 0;
+	private double					resultY				= 0;
 
 	ChangeListener<Number>			stageSizeListener	= (observable, oldValue, newValue) -> this.resize();
 	private boolean					firstcall			= true;
@@ -152,13 +156,16 @@ public class OSMStreetGUIController {
 		paintingCanvas.addEventHandler(MouseEvent.MOUSE_DRAGGED, new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent e) {
-				pressedX = e.getX() - 300;
-				pressedY = e.getY() - 300;
+				draggedX = e.getX();
+				draggedY = e.getY();
+				resultX = resultX + draggedX - pressedX;
+				resultY = resultY + draggedY - pressedY;
+				pressedX = draggedX;
+				pressedY = draggedY;
 				gc.clearRect(0, 0, paintingCanvas.getWidth(), paintingCanvas.getHeight());
 				draw();
 			}
 		});
-
 	}
 
 	/**
@@ -189,8 +196,8 @@ public class OSMStreetGUIController {
 		double longitude = (mapLongitude(node.getLongitude()) - NODERADIUS);
 		double middleX = paintingCanvas.getWidth() / 2;
 		double middleY = paintingCanvas.getHeight() / 2;
-		double latitudeN = (latitude) - (middleY - latitude) * zoomFactor + pressedY;
-		double longitudeN = (longitude) + (longitude - middleX) * zoomFactor + pressedX;
+		double latitudeN = (latitude) - (middleY - latitude) * zoomFactor + resultY;
+		double longitudeN = (longitude) + (longitude - middleX) * zoomFactor + resultX;
 		return new Point((int) longitudeN, (int) latitudeN);
 	}
 
