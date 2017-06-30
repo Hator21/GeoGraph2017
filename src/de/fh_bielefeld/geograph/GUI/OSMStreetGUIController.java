@@ -1,6 +1,7 @@
 package de.fh_bielefeld.geograph.GUI;
 
 import java.awt.Point;
+import java.util.ArrayList;
 
 import javafx.beans.value.ChangeListener;
 import javafx.event.EventHandler;
@@ -47,6 +48,10 @@ public class OSMStreetGUIController {
 	private double					zoomFactor			= 0;
 	private double					pressedX			= 0;
 	private double					pressedY			= 0;
+	private double					draggedX			= 0;
+	private double					draggedY			= 0;
+	private double					resultX				= 0;
+	private double					resultY				= 0;
 
 	ChangeListener<Number>			stageSizeListener	= (observable, oldValue, newValue) -> this.resize();
 	private boolean					firstcall			= true;
@@ -152,13 +157,16 @@ public class OSMStreetGUIController {
 		paintingCanvas.addEventHandler(MouseEvent.MOUSE_DRAGGED, new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent e) {
-				pressedX = e.getX() - 300;
-				pressedY = e.getY() - 300;
+				draggedX = e.getX();
+				draggedY = e.getY();
+				resultX = resultX + draggedX - pressedX;
+				resultY = resultY + draggedY - pressedY;
+				pressedX = draggedX;
+				pressedY = draggedY;
 				gc.clearRect(0, 0, paintingCanvas.getWidth(), paintingCanvas.getHeight());
 				draw();
 			}
 		});
-
 	}
 
 	/**
@@ -189,8 +197,8 @@ public class OSMStreetGUIController {
 		double longitude = (mapLongitude(node.getLongitude()) - NODERADIUS);
 		double middleX = paintingCanvas.getWidth() / 2;
 		double middleY = paintingCanvas.getHeight() / 2;
-		double latitudeN = (latitude) - (middleY - latitude) * zoomFactor + pressedY;
-		double longitudeN = (longitude) + (longitude - middleX) * zoomFactor + pressedX;
+		double latitudeN = (latitude) - (middleY - latitude) * zoomFactor + resultY;
+		double longitudeN = (longitude) + (longitude - middleX) * zoomFactor + resultX;
 		return new Point((int) longitudeN, (int) latitudeN);
 	}
 
@@ -245,6 +253,18 @@ public class OSMStreetGUIController {
 		firstcall = false;
 		MapNodeInterface node1;
 		MapNodeInterface node2;
+		int speed = 0;
+		ArrayList<MapTag> taglist = way.getTagList();
+		for(MapTag mt : taglist){
+			if(mt.getKey().equals("maxspeed")){
+				try{
+					speed = Integer.parseInt(mt.getValue());
+				}
+				catch(NumberFormatException e){
+					speed = 0;
+				}
+			}
+		}
 		for (int i = 0; i < way.getRefList().size() - 1; i++) {
 			String id1 = way.getRefList().get(i);
 			String id2 = way.getRefList().get(i + 1);
@@ -269,6 +289,10 @@ public class OSMStreetGUIController {
 				int x1 = (int) (longitude1 + 4);
 				int y2 = (int) (latitude2 + 4);
 				int x2 = (int) (longitude2 + 4);
+				if(speed != 0){
+					x2 = x1+(x2-x1)*(speed/130);
+					y2 = y1+(y2-y1)*(speed/130);
+				}
 				drawArrow(gc, x1, y1, x2, y2);
 			}
 		}
