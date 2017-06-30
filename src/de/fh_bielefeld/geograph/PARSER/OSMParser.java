@@ -44,12 +44,13 @@ public class OSMParser {
 	 * the long and lat difference between the nodes, to be considered as one.
 	 * It sets the includeConditions and initiates the Arrays.
 	 * 
-	 * 
+	 * @throws NullPointerException If the ContentHolder is Null the function throws an Exception
 	 * @param givenHolder
 	 *            ContentHolder from which the Parser gets Data like Longitude
 	 *            and Latitude
 	 */
-	public OSMParser(ContentHolderInterface givenHolder) {
+	public OSMParser(ContentHolderInterface givenHolder) throws NullPointerException {
+            if(givenHolder!=null){
 		usedHolder = givenHolder;
 		positiveDifference = 0.0002;// magicNumber how close the Nodes must be
 									// to be considered as one
@@ -61,6 +62,9 @@ public class OSMParser {
 		changedIDS = new HashMap<String, String>();
 		includeConditions = new HashMap<String, String>();
 		includeConditions.put("route", "road");
+            }else{
+                throw new NullPointerException("ContentHolder is null");
+            }
 
 	}
 
@@ -147,11 +151,13 @@ public class OSMParser {
 
 	/**
 	 * parses a Single Way Node Filters the nodes of the way, if it is already
-	 * parsed,
+	 * parsed.
+         * Calls the parseNode function for every Node described and needed in the way.
+         * The parsed Ways are put into the parsedWays list.
 	 *
 	 * 
 	 * @param givenWay
-	 *            The Way Node to parse further
+	 *            The Node describing the way to parse further
 	 * 
 	 */
 
@@ -214,6 +220,15 @@ public class OSMParser {
 		}
 	}
 
+        /**
+         * First it parses a Single Node,
+         * then it looks if the Node is near another Node, if so it merges the MapTags and Nodes.
+         * The difference between the Nodes is described in the positive Difference Variable.
+         * 
+         * @param givenNode
+         *          The Node to parse.
+         * 
+	 */
 	private void parseNode(Node givenNode) {
 		String parsedNodeID = givenNode.getAttributes().getNamedItem("id").getNodeValue();
 		Double parsedNodeLongitude = Double.parseDouble(givenNode.getAttributes().getNamedItem("lon").getNodeValue());
@@ -257,5 +272,13 @@ public class OSMParser {
 		if (!changedIDS.containsKey(parsedNode.getId())) {
 			nodesToTransfer.add(parsedNode);
 		}
+	}
+	
+	/**
+	 * Getter Method for the current Document given by the API
+	 * @return givenDocument The Document of the last request given
+	 */
+	public Document getCurrentDocument(){
+	    return this.givenDocument;
 	}
 }
