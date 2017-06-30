@@ -1,6 +1,7 @@
 package de.fh_bielefeld.geograph.GUI;
 
 import java.awt.Point;
+import java.util.ArrayList;
 
 import javafx.beans.value.ChangeListener;
 import javafx.event.EventHandler;
@@ -252,6 +253,18 @@ public class OSMStreetGUIController {
 		firstcall = false;
 		MapNodeInterface node1;
 		MapNodeInterface node2;
+		int speed = 0;
+		ArrayList<MapTag> taglist = way.getTagList();
+		for(MapTag mt : taglist){
+			if(mt.getKey().equals("maxspeed")){
+				try{
+					speed = Integer.parseInt(mt.getValue());
+				}
+				catch(NumberFormatException e){
+					speed = 0;
+				}
+			}
+		}
 		for (int i = 0; i < way.getRefList().size() - 1; i++) {
 			String id1 = way.getRefList().get(i);
 			String id2 = way.getRefList().get(i + 1);
@@ -276,6 +289,10 @@ public class OSMStreetGUIController {
 				int x1 = (int) (longitude1 + 4);
 				int y2 = (int) (latitude2 + 4);
 				int x2 = (int) (longitude2 + 4);
+				if(speed != 0){
+					x2 = x1+(x2-x1)*(speed/130);
+					y2 = y1+(y2-y1)*(speed/130);
+				}
 				drawArrow(gc, x1, y1, x2, y2);
 			}
 		}
