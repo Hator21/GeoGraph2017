@@ -2,6 +2,8 @@ package de.fh_bielefeld.geograph.GUI;
 
 import java.util.ArrayList;
 
+import org.w3c.dom.Document;
+
 import de.fh_bielefeld.geograph.GUI_INTERFACE.ContentHolderInterface;
 
 /**
@@ -13,6 +15,7 @@ public class ContentHolder implements ContentHolderInterface {
 	private double					latitude, minLatitude, maxLatitude;
 	private double					longitude, minLongitude, maxLongitude;
 	private OSMStreetGUIController	controller;
+	private Document                document;
 
 	public ContentHolder(OSMStreetGUIController controller) {
 		nodes = new ArrayList<MapNode>();
@@ -196,4 +199,14 @@ public class ContentHolder implements ContentHolderInterface {
 	public void setController(OSMStreetGUIController controller) {
 		this.controller = controller;
 	}
+
+    @Override
+    public void setDocument(Document doc) {
+        this.document = doc;
+    }
+
+    @Override
+    public Document getDocument() {
+        return this.document;
+    }
 }
