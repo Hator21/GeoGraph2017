@@ -110,19 +110,17 @@ public class OSMStreetGUIController {
 			if (ok) {
 				if (latitudeL < latitudeR) {
 					if (longitudeL < longitudeR) {
-						if(latitudeR-latitudeL <= 0.25){
-							if(longitudeR - longitudeL <= 0.25){
+						if (latitudeR - latitudeL <= 0.25) {
+							if (longitudeR - longitudeL <= 0.25) {
 								content.setMinLatitude(latitudeL);
 								content.setMinLongitude(longitudeL);
 								content.setMaxLatitude(latitudeR);
 								content.setMaxLongitude(longitudeR);
 								callParser();
-							}
-							else {
+							} else {
 								popUpLongToBig();
 							}
-						}
-						else {
+						} else {
 							popUpLatToBig();
 						}
 					} else {
@@ -256,6 +254,8 @@ public class OSMStreetGUIController {
 
 	/**
 	 * Draws a single Way on the MapCanvas
+	 * Length of the Arrow is the speed u can drive on the road
+	 * If speed cant be read, the arrow has 100% length
 	 * 
 	 * @param node
 	 */
@@ -265,12 +265,11 @@ public class OSMStreetGUIController {
 		MapNodeInterface node2;
 		int speed = 0;
 		ArrayList<MapTag> taglist = way.getTagList();
-		for(MapTag mt : taglist){
-			if(mt.getKey().equals("maxspeed")){
-				try{
+		for (MapTag mt : taglist) {
+			if (mt.getKey().equals("maxspeed")) {
+				try {
 					speed = Integer.parseInt(mt.getValue());
-				}
-				catch(NumberFormatException e){
+				} catch (NumberFormatException e) {
 					speed = 0;
 				}
 			}
@@ -299,11 +298,15 @@ public class OSMStreetGUIController {
 				int x1 = (int) (longitude1 + 4);
 				int y2 = (int) (latitude2 + 4);
 				int x2 = (int) (longitude2 + 4);
-				if(speed != 0){
-					x2 = x1+(x2-x1)*(speed/130);
-					y2 = y1+(y2-y1)*(speed/130);
+
+				float xn = 0, yn = 0;
+				if (speed != 0) {
+					xn = (float) (x1) + ((float) (x2) - (float) (x1)) * ((float) (speed) / 130.0f);
+					yn = (float) (y1) + ((float) (y2) - (float) (y1)) * ((float) (speed) / 130.0f);
+					drawArrow(gc, x1, y1, Math.round(xn), Math.round(yn));
+				} else {
+					drawArrow(gc, x1, y1, x2, y2);
 				}
-				drawArrow(gc, x1, y1, x2, y2);
 			}
 		}
 	}
@@ -365,7 +368,7 @@ public class OSMStreetGUIController {
 		alert.setContentText("Longitude Links > Longitude Rechts");
 		alert.showAndWait();
 	}
-	
+
 	/**
 	 * Generates a PopUp, that pops up when lower latitude is bigger higher latitude
 	 */
