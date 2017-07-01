@@ -2,9 +2,7 @@ package de.fh_bielefeld.geograph.GUI;
 
 import java.awt.Point;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -19,7 +17,6 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
 import org.w3c.dom.Document;
-import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
 import javafx.beans.value.ChangeListener;
@@ -427,22 +424,19 @@ public class OSMStreetGUIController {
     }
 
     private void loadFile(File file) {
-        InputStream is;
         Document doc;
         try {
-            is = new FileInputStream(file);
-            doc = loadXMLFrom(is);
+            DocumentBuilderFactory dbfac = DocumentBuilderFactory.newInstance();
+            DocumentBuilder docBuilder = dbfac.newDocumentBuilder();
+            doc = docBuilder.parse(file);
             content.setDocument(doc);
-            parser = new OSMParser(content);
-            content = parser.parse();
-            clearCanvas();
-            draw();
+            callParser();
             fileSaveButton.setDisable(true);
-        } catch (SAXException | IOException | NullPointerException | InvalidAPIRequestException | ParserConfigurationException e) {
+        } catch (SAXException | IOException | NullPointerException | ParserConfigurationException e) {
             Alert alert = new Alert(AlertType.INFORMATION);
             alert.setTitle("Kritischer Fehler");
-            alert.setHeaderText(null);
-            alert.setContentText("Die Datei konnte nicht geladen werden");
+            alert.setHeaderText("Die Datei konnte nicht geladen werden");
+            alert.setContentText(e.toString());
             alert.showAndWait();
         }
     }
@@ -472,16 +466,5 @@ public class OSMStreetGUIController {
             alert.setContentText("Die Datei konnte nicht gespeichert werden");
             alert.showAndWait();
         }
-    }
-
-    private static org.w3c.dom.Document loadXMLFrom(java.io.InputStream istream)
-            throws org.xml.sax.SAXException, java.io.IOException , ParserConfigurationException{
-        InputSource is= new InputSource(istream);
-        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-        factory.setNamespaceAware(true);
-        DocumentBuilder builder = factory.newDocumentBuilder();
-        Document doc = builder.parse(is);
-        istream.close();
-        return doc;
     }
 }

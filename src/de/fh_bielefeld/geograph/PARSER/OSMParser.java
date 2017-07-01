@@ -101,7 +101,6 @@ public class OSMParser {
             givenDocument = OSMApi.getBoundingBoxLatLong(usedHolder.getMinLatitude(), usedHolder.getMinLongitude(),
                     usedHolder.getMaxLatitude(), usedHolder.getMaxLongitude());
         }else{
-            System.out.println("Test");
             givenDocument = usedHolder.getDocument();
         }
         givenDocument.getDocumentElement().normalize();
