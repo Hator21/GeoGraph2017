@@ -400,7 +400,7 @@ public class OSMStreetGUIController {
 	 * @param x2
 	 * @param y2
 	 */
-	public void drawArrow(GraphicsContext gc, int x1, int y1, int x2, int y2, int speed) {
+	public void drawArrow(GraphicsContext gc, int x1, int y1, int x2, int y2) {
 		gc.setFill(Color.BLACK);
 
 		double dx = x2 - x1, dy = y2 - y1;
