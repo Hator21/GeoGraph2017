@@ -211,6 +211,10 @@ public class OSMParser {
 								.add(childsFromGivenWays.item(j).getAttributes().getNamedItem("ref").getNodeValue());
 					}
 				}
+                                if(childsFromGivenWays.item(j).getNodeName()== "ref"){
+                                    MapTag parsedTag=newMapTag(childsFromGivenWays.item(j).getAttributes().getNamedItem("k"),chidlsFromGivenWays.item(j).getAttributes().getNamedItem("v")); 
+                                    tagsFromGivenWay.add(parsedTag);
+                                }
 			}
 		}
 		MapWay parsedWay = new MapWay(parsedWayID, refsFromGivenWay, tagsFromGivenWay);
