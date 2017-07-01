@@ -62,8 +62,10 @@ public class OSMParser {
 		changedIDS = new HashMap<String, String>();
 		includeConditions = new HashMap<String, String>();
                 
-                includeConditions.put("highway","track");
-                includeConditions.put("highway","residential");
+                includeConditions.put("track","highway");
+                includeConditions.put("residential","highway");
+                includeConditions.put("teritary","highway");
+                includeConditions.put("primary","highway");
                 
 //		includeConditions.put("route", "road");
             }else{
@@ -111,13 +113,13 @@ public class OSMParser {
                     if(waysFromGivenDocument.item(x).hasChildNodes()){
                         NodeList childsOfWay=waysFromGivenDocument.item(x).getChildNodes();
                         for(int i=0;i<childsOfWay.getLength();i++){
-                            if ((childsOfWay.item(x).getNodeName().equals("tag"))
-                                && (childsOfWay.item(x).getAttributes().getNamedItem("k") != null)) {
+                            if ((childsOfWay.item(i).getNodeName()!=null)&&(childsOfWay.item(i).getNodeName()=="tag")
+                                &&(childsOfWay.item(i).getChildNodes()!=null)&& (childsOfWay.item(i).getAttributes().getNamedItem("v") != null)) {
                                 if (includeConditions.containsKey(
-                                    childsOfWay.item(x).getAttributes().getNamedItem("k").getNodeValue())) {
-                                    if ((childsOfWay.item(x).getAttributes().getNamedItem("v").getNodeValue())
-                                        .equals(includeConditions.get(childsOfWay.item(x).getAttributes()
-                                        .getNamedItem("k").getNodeValue()))) {
+                                    childsOfWay.item(i).getAttributes().getNamedItem("v").getNodeValue())) {
+                                    if ((childsOfWay.item(i).getAttributes().getNamedItem("k").getNodeValue())
+                                        .equals(includeConditions.get(childsOfWay.item(i).getAttributes()
+                                        .getNamedItem("v").getNodeValue()))) {
                                             isImportant = true;
                                     }
                                 }    
