@@ -61,7 +61,13 @@ public class OSMParser {
 		waysToTransfer = new ArrayList<MapWay>();
 		changedIDS = new HashMap<String, String>();
 		includeConditions = new HashMap<String, String>();
-		includeConditions.put("route", "road");
+                
+                includeConditions.put("track","highway");
+                includeConditions.put("residential","highway");
+                includeConditions.put("teritary","highway");
+                includeConditions.put("primary","highway");
+                
+//		includeConditions.put("route", "road");
             }else{
                 throw new NullPointerException("ContentHolder is null");
             }
@@ -100,50 +106,77 @@ public class OSMParser {
 
 		givenDocument.getDocumentElement().normalize();
 
-		NodeList relationsFromGivenDocument = givenDocument.getElementsByTagName("relation");
+                
+                NodeList waysFromGivenDocument = givenDocument.getElementsByTagName("way");
+                for (int x = 0; x < waysFromGivenDocument.getLength(); x++) {
+                    boolean isImportant=false;
+                    if(waysFromGivenDocument.item(x).hasChildNodes()){
+                        NodeList childsOfWay=waysFromGivenDocument.item(x).getChildNodes();
+                        for(int i=0;i<childsOfWay.getLength();i++){
+                            if ((childsOfWay.item(i).getNodeName()!=null)&&(childsOfWay.item(i).getNodeName()=="tag")
+                                &&(childsOfWay.item(i).getChildNodes()!=null)&& (childsOfWay.item(i).getAttributes().getNamedItem("v") != null)) {
+                                if (includeConditions.containsKey(
+                                    childsOfWay.item(i).getAttributes().getNamedItem("v").getNodeValue())) {
+                                    if ((childsOfWay.item(i).getAttributes().getNamedItem("k").getNodeValue())
+                                        .equals(includeConditions.get(childsOfWay.item(i).getAttributes()
+                                        .getNamedItem("v").getNodeValue()))) {
+                                            isImportant = true;
+                                    }
+                                }    
+                            }
+                        }
+                        if(isImportant){
+                            parseWay(waysFromGivenDocument.item(x));
+                        }
+                    }
+                }
+                
+                    
+                
+//		NodeList relationsFromGivenDocument = givenDocument.getElementsByTagName("relation");
 
-		for (int i = 0; i < relationsFromGivenDocument.getLength(); i++) {
-			boolean isImportant = false;
-			if (relationsFromGivenDocument.item(i).hasChildNodes()) {
-				NodeList childsOfRelation = relationsFromGivenDocument.item(i).getChildNodes();
-				for (int x = 0; x < childsOfRelation.getLength(); x++) {
-					if ((childsOfRelation.item(x).getAttributes() != null)
-							&& (childsOfRelation.item(x).getAttributes().getNamedItem("k") != null)) {
-						if (includeConditions.containsKey(
-								childsOfRelation.item(x).getAttributes().getNamedItem("k").getNodeValue())) {
-							if ((childsOfRelation.item(x).getAttributes().getNamedItem("v").getNodeValue())
-									.equals(includeConditions.get(childsOfRelation.item(x).getAttributes()
-											.getNamedItem("k").getNodeValue()))) {
-								isImportant = true;
-							}
-						}
-					}
-				}
-				if (isImportant) {
-					for (int x = 0; x < childsOfRelation.getLength(); x++) {
-						if ((childsOfRelation.item(x).getAttributes() != null)
-								&& (childsOfRelation.item(x).getAttributes().getNamedItem("type") != null)) {
-							if ((childsOfRelation.item(x).getAttributes().getNamedItem("type").getNodeValue())
-									.equals("way")) {
-								XPathFactory factory = XPathFactory.newInstance();
-								XPath xpath = factory.newXPath();
-								try {
-									String anfrageString = "/osm/way[@id='" + childsOfRelation.item(x).getAttributes()
-											.getNamedItem("ref").getNodeValue() + "']";
-									Node uebergabeNode = (Node) xpath.evaluate(anfrageString, givenDocument,
-											XPathConstants.NODE);
-									if (uebergabeNode != null) {
-										parseWay(uebergabeNode);
-									}
-								} catch (XPathExpressionException e) {
-									e.printStackTrace();
-								}
-							}
-						}
-					}
-				}
-			}
-		}
+//		for (int i = 0; i < relationsFromGivenDocument.getLength(); i++) {
+//			boolean isImportant = false;
+//			if (relationsFromGivenDocument.item(i).hasChildNodes()) {
+//				NodeList childsOfRelation = relationsFromGivenDocument.item(i).getChildNodes();
+//				for (int x = 0; x < childsOfRelation.getLength(); x++) {
+//					if ((childsOfRelation.item(x).getAttributes() != null)
+//							&& (childsOfRelation.item(x).getAttributes().getNamedItem("k") != null)) {
+//						if (includeConditions.containsKey(
+//								childsOfRelation.item(x).getAttributes().getNamedItem("k").getNodeValue())) {
+//							if ((childsOfRelation.item(x).getAttributes().getNamedItem("v").getNodeValue())
+//									.equals(includeConditions.get(childsOfRelation.item(x).getAttributes()
+//											.getNamedItem("k").getNodeValue()))) {
+//								isImportant = true;
+//							}
+//						}
+//					}
+//				}
+//				if (isImportant) {
+//					for (int x = 0; x < childsOfRelation.getLength(); x++) {
+//						if ((childsOfRelation.item(x).getAttributes() != null)
+//								&& (childsOfRelation.item(x).getAttributes().getNamedItem("type") != null)) {
+//							if ((childsOfRelation.item(x).getAttributes().getNamedItem("type").getNodeValue())
+//									.equals("way")) {
+//								XPathFactory factory = XPathFactory.newInstance();
+//								XPath xpath = factory.newXPath();
+//								try {
+//									String anfrageString = "/osm/way[@id='" + childsOfRelation.item(x).getAttributes()
+//											.getNamedItem("ref").getNodeValue() + "']";
+//									Node uebergabeNode = (Node) xpath.evaluate(anfrageString, givenDocument,
+//											XPathConstants.NODE);
+//									if (uebergabeNode != null) {
+//										parseWay(uebergabeNode);
+//									}
+//								} catch (XPathExpressionException e) {
+//									e.printStackTrace();
+//								}
+//							}
+//						}
+//					}
+//				}
+//			}
+//		}
 		usedHolder.setNodes(parsedNodes);
 		usedHolder.setWays(parsedWays);
 		return usedHolder;
@@ -211,6 +244,10 @@ public class OSMParser {
 								.add(childsFromGivenWays.item(j).getAttributes().getNamedItem("ref").getNodeValue());
 					}
 				}
+                                if(childsFromGivenWays.item(j).getNodeName()== "ref"){
+                                    MapTag parsedTag=new MapTag(childsFromGivenWays.item(j).getAttributes().getNamedItem("k").getNodeValue(),childsFromGivenWays.item(j).getAttributes().getNamedItem("v").getNodeValue()); 
+                                    tagsFromGivenWay.add(parsedTag);
+                                }
 			}
 		}
 		MapWay parsedWay = new MapWay(parsedWayID, refsFromGivenWay, tagsFromGivenWay);
