@@ -113,7 +113,7 @@ public class OSMParser {
                     if(waysFromGivenDocument.item(x).hasChildNodes()){
                         NodeList childsOfWay=waysFromGivenDocument.item(x).getChildNodes();
                         for(int i=0;i<childsOfWay.getLength();i++){
-                            if ((childsOfWay.item(i).getNodeName()!=null)&&(childsOfWay.item(i).getNodeName()=="tag")
+                            if ((childsOfWay.item(i).getNodeName()!=null)&&(childsOfWay.item(i).getNodeName().equals("tag"))
                                 &&(childsOfWay.item(i).getChildNodes()!=null)&& (childsOfWay.item(i).getAttributes().getNamedItem("v") != null)) {
                                 if (includeConditions.containsKey(
                                     childsOfWay.item(i).getAttributes().getNamedItem("v").getNodeValue())) {
@@ -244,7 +244,7 @@ public class OSMParser {
 								.add(childsFromGivenWays.item(j).getAttributes().getNamedItem("ref").getNodeValue());
 					}
 				}
-                                if(childsFromGivenWays.item(j).getNodeName()== "ref"){
+                                if(childsFromGivenWays.item(j).getNodeName().equals("tag")){
                                     MapTag parsedTag=new MapTag(childsFromGivenWays.item(j).getAttributes().getNamedItem("k").getNodeValue(),childsFromGivenWays.item(j).getAttributes().getNamedItem("v").getNodeValue()); 
                                     tagsFromGivenWay.add(parsedTag);
                                 }
