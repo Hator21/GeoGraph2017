@@ -2,7 +2,6 @@ package de.fh_bielefeld.geograph.GUI;
 
 import java.awt.Point;
 import java.util.ArrayList;
-
 import javafx.beans.value.ChangeListener;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -11,6 +10,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
@@ -32,6 +32,8 @@ public class OSMStreetGUIController {
 
 	@FXML private TextField			latitudeTextFieldL, longitudeTextFieldL, latitudeTextFieldR, longitudeTextFieldR;
 
+	@FXML private Label				requestTimeLabel;
+	
 	@FXML private Slider			zoomSlider;
 
 	@FXML private Canvas			paintingCanvas;
@@ -48,10 +50,11 @@ public class OSMStreetGUIController {
 	private double					zoomFactor			= 0;
 	private double					pressedX			= 0;
 	private double					pressedY			= 0;
-	private double					draggedX			= 0;
-	private double					draggedY			= 0;
 	private double					resultX				= 0;
 	private double					resultY				= 0;
+	private double					draggedX			= 0;
+	private double					draggedY			= 0;
+	
 
 	ChangeListener<Number>			stageSizeListener	= (observable, oldValue, newValue) -> this.resize();
 	private boolean					firstcall			= true;
@@ -69,6 +72,8 @@ public class OSMStreetGUIController {
 		gc = paintingCanvas.getGraphicsContext2D();
 		rightAnchor.widthProperty().addListener(stageSizeListener);
 		rightAnchor.heightProperty().addListener(stageSizeListener);
+		
+		requestTimeLabel.setText("");
 
 		searchButtonArea.setOnAction((event) -> {
 			boolean ok = true;
@@ -116,13 +121,23 @@ public class OSMStreetGUIController {
 								content.setMinLongitude(longitudeL);
 								content.setMaxLatitude(latitudeR);
 								content.setMaxLongitude(longitudeR);
+								
+								long time = System.currentTimeMillis();
 								callParser();
+								time = System.currentTimeMillis() - time;
+								
+								if(time > 1000.0){
+									requestTimeLabel.setText("Abfragezeit: " + time/1000.0 + " s");
+								}else{
+									requestTimeLabel.setText("Abfragezeit: " + time + " ms");
+								}
 							} else {
 								popUpLongToBig();
 							}
 						} else {
 							popUpLatToBig();
 						}
+						
 					} else {
 						popUpLong();
 					}
@@ -376,7 +391,7 @@ public class OSMStreetGUIController {
 		Alert alert = new Alert(AlertType.INFORMATION);
 		alert.setTitle("Falsche Eingabe");
 		alert.setHeaderText(null);
-		alert.setContentText("Abstand zwischen Latitude Links und Latitude Rechts ist größer als 0.25");
+		alert.setContentText("Abstand zwischen Latitude Links und Latitude Rechts ist grï¿½ï¿½er als 0.25");
 		alert.showAndWait();
 	}
 
@@ -387,7 +402,7 @@ public class OSMStreetGUIController {
 		Alert alert = new Alert(AlertType.INFORMATION);
 		alert.setTitle("Falsche Eingabe");
 		alert.setHeaderText(null);
-		alert.setContentText("Abstand zwischen Longitude Links und Longitude Rechts ist größer als 0.25");
+		alert.setContentText("Abstand zwischen Longitude Links und Longitude Rechts ist grï¿½ï¿½er als 0.25");
 		alert.showAndWait();
 	}
 

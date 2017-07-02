@@ -14,7 +14,7 @@
                <children>
                   <TabPane fx:id="VBoxHighTabPane" prefHeight="1109.0" prefWidth="273.0" tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS">
                     <tabs>
-                    <!--
+                     <!--
                     	 <Tab fx:id="Tab1" text="Mittelpunkt">
                          	<content>
                               <AnchorPane fx:id="Tab1Anchor" prefHeight="900.0" prefWidth="276.0">
@@ -57,50 +57,55 @@
                            <content>
                               <AnchorPane fx:id="Tab2Anchor" prefHeight="318.0" prefWidth="276.0">
                                  <children>
-                                    <TextField fx:id="longitudeTextFieldL" layoutX="110.0" layoutY="103.0" prefHeight="27.0" prefWidth="149.0" text="8.9" AnchorPane.bottomAnchor="669.0" AnchorPane.leftAnchor="110.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="103.0" />
-                                    <TextField fx:id="latitudeTextFieldL" layoutX="110.0" layoutY="76.0" prefHeight="27.0" prefWidth="149.0" text="52.294" AnchorPane.bottomAnchor="696.0" AnchorPane.leftAnchor="110.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="76.0" />
-                                    <Button fx:id="searchButtonArea" alignment="CENTER" layoutX="5.0" layoutY="247.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="254.0" text="Nach Koordinaten suchen" AnchorPane.bottomAnchor="512.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="247.0">
+                                    <TextField fx:id="longitudeTextFieldL" layoutX="120.0" layoutY="110.0" prefHeight="27.0" prefWidth="149.0" text="8.9" AnchorPane.leftAnchor="120.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="110.0" />
+                                    <TextField fx:id="latitudeTextFieldL" layoutX="120.0" layoutY="80.0" prefHeight="27.0" prefWidth="149.0" text="52.294" AnchorPane.leftAnchor="120.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="80.0" />
+                                    <Button fx:id="searchButtonArea" alignment="CENTER" layoutX="5.0" layoutY="247.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="254.0" text="Nach Koordinaten suchen" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="280.0">
                                        <font>
                                           <Font size="14.0" />
                                        </font>
                                     </Button>
-                                    <Separator layoutX="9.0" layoutY="295.0" prefHeight="14.0" prefWidth="247.0" AnchorPane.bottomAnchor="490.0" AnchorPane.leftAnchor="9.0" AnchorPane.rightAnchor="18.0" AnchorPane.topAnchor="295.0" />
-                                    <Label fx:id="wgs84Label1" layoutX="6.0" layoutY="221.0" text="*Kartenbezugssystem WGS 84" AnchorPane.bottomAnchor="551.0" AnchorPane.leftAnchor="6.0" AnchorPane.rightAnchor="6.0" AnchorPane.topAnchor="221.0" />
-                                    <Label fx:id="longitudeLabelR" layoutX="6.0" layoutY="103.0" prefHeight="27.0" prefWidth="98.0" text="Längengrad" AnchorPane.bottomAnchor="669.0" AnchorPane.leftAnchor="6.0" AnchorPane.rightAnchor="170.0" AnchorPane.topAnchor="103.0">
+                                    <Separator layoutX="9.0" layoutY="295.0" prefHeight="14.0" prefWidth="247.0" AnchorPane.bottomAnchor="490.0" AnchorPane.leftAnchor="9.0" AnchorPane.rightAnchor="18.0" AnchorPane.topAnchor="330.0" />
+                                    <Label fx:id="wgs84Label1" layoutX="6.0" layoutY="221.0" prefHeight="25.0" text="*Kartenbezugssystem WGS 84" AnchorPane.leftAnchor="6.0" AnchorPane.rightAnchor="6.0" AnchorPane.topAnchor="250.0" />
+                                    <Label fx:id="longitudeLabelR" layoutX="6.0" layoutY="110.0" prefHeight="27.0" prefWidth="98.0" text="Längengrad" AnchorPane.leftAnchor="6.0" AnchorPane.rightAnchor="160.0" AnchorPane.topAnchor="110.0">
                                        <font>
                                           <Font size="18.0" />
                                        </font>
                                     </Label>
-                                    <Label fx:id="latitudeLabelR" layoutX="6.0" layoutY="76.0" prefHeight="27.0" prefWidth="94.0" text="Breitengrad" AnchorPane.bottomAnchor="696.0" AnchorPane.leftAnchor="6.0" AnchorPane.rightAnchor="174.0" AnchorPane.topAnchor="76.0">
+                                    <Label fx:id="latitudeLabelR" layoutX="6.0" layoutY="80.0" prefHeight="27.0" prefWidth="94.0" text="Breitengrad" AnchorPane.leftAnchor="6.0" AnchorPane.rightAnchor="160.0" AnchorPane.topAnchor="80.0">
                                        <font>
                                           <Font size="18.0" />
                                        </font>
                                     </Label>
-                                    <Label fx:id="latitudeLabelR" layoutX="6.0" layoutY="160.0" prefHeight="27.0" prefWidth="95.0" text="Breitengrad" AnchorPane.bottomAnchor="612.0" AnchorPane.leftAnchor="6.0" AnchorPane.rightAnchor="173.0" AnchorPane.topAnchor="160.0">
+                                    <Label fx:id="latitudeLabelR" layoutX="6.0" layoutY="180.0" prefHeight="27.0" prefWidth="95.0" text="Breitengrad" AnchorPane.leftAnchor="6.0" AnchorPane.rightAnchor="160.0">
                                        <font>
                                           <Font size="18.0" />
                                        </font>
                                     </Label>
-                                    <Label fx:id="longitudeLabelR" layoutX="6.0" layoutY="187.0" prefHeight="27.0" prefWidth="99.0" text="Längengrad" AnchorPane.bottomAnchor="585.0" AnchorPane.leftAnchor="6.0" AnchorPane.rightAnchor="169.0" AnchorPane.topAnchor="187.0">
+                                    <Label fx:id="longitudeLabelR" layoutX="6.0" layoutY="210.0" prefHeight="27.0" prefWidth="99.0" text="Längengrad" AnchorPane.leftAnchor="6.0" AnchorPane.rightAnchor="160.0">
                                        <font>
                                           <Font size="18.0" />
                                        </font>
                                     </Label>
-                                    <Label fx:id="llLabel" layoutX="6.0" layoutY="47.0" prefHeight="27.0" prefWidth="97.0" text="Links Unten:" AnchorPane.bottomAnchor="725.0" AnchorPane.leftAnchor="6.0" AnchorPane.rightAnchor="108.0" AnchorPane.topAnchor="47.0">
+                                    <Label fx:id="llLabel" layoutX="6.0" layoutY="50.0" prefHeight="27.0" prefWidth="97.0" text="Links Unten:" AnchorPane.leftAnchor="6.0" AnchorPane.rightAnchor="108.0" AnchorPane.topAnchor="50.0">
                                        <font>
                                           <Font size="18.0" />
                                        </font>
                                     </Label>
-                                    <Label fx:id="roLabel" layoutX="6.0" layoutY="134.0" prefHeight="27.0" prefWidth="107.0" text="Rechts Oben:" AnchorPane.bottomAnchor="638.0" AnchorPane.leftAnchor="6.0" AnchorPane.rightAnchor="161.0" AnchorPane.topAnchor="134.0">
+                                    <Label fx:id="roLabel" layoutX="6.0" layoutY="150.0" prefHeight="27.0" prefWidth="107.0" text="Rechts Oben:" AnchorPane.leftAnchor="6.0" AnchorPane.rightAnchor="150.0" AnchorPane.topAnchor="150.0">
                                        <font>
                                           <Font size="18.0" />
                                        </font>
                                     </Label>
-                                    <TextField fx:id="latitudeTextFieldR" layoutX="110.0" layoutY="161.0" text="52.296" AnchorPane.bottomAnchor="613.0" AnchorPane.leftAnchor="110.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="161.0" />
-                                    <TextField fx:id="longitudeTextFieldR" layoutX="110.0" layoutY="188.0" text="8.91" AnchorPane.bottomAnchor="586.0" AnchorPane.leftAnchor="110.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="188.0" />
-                                    <Label fx:id="dgLabel1" layoutX="4.0" layoutY="8.0" prefHeight="39.0" prefWidth="267.0" text="Bereichskoordinaten*" AnchorPane.bottomAnchor="752.0" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="3.0" AnchorPane.topAnchor="8.0">
+                                    <TextField fx:id="latitudeTextFieldR" layoutX="120.0" layoutY="181.0" text="52.296" AnchorPane.leftAnchor="120.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="181.0" />
+                                    <TextField fx:id="longitudeTextFieldR" layoutX="120.0" layoutY="211.0" text="8.91" AnchorPane.leftAnchor="120.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="211.0" />
+                                    <Label fx:id="dgLabel1" layoutX="4.0" layoutY="8.0" prefHeight="39.0" prefWidth="267.0" text="Bereichskoordinaten*" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="3.0" AnchorPane.topAnchor="8.0">
                                        <font>
                                           <Font size="24.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="descriptionLabel1" alignment="TOP_LEFT" contentDisplay="TEXT_ONLY" layoutX="4.0" layoutY="316.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="310.0" prefWidth="267.0" text="Mit dieser Applikation können Sie dies und jenes tun... " textOverrun="CLIP" wrapText="true" AnchorPane.bottomAnchor="200.0" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="3.0" AnchorPane.topAnchor="350.0">
+                                       <font>
+                                          <Font size="18.0" />
                                        </font>
                                     </Label>
                                  </children>
@@ -108,8 +113,8 @@
                            </content>
                         </Tab>
                         <Tab text="Datei">
-                          <content>
-                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <content>
+                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                  <children>
                                     <Label fx:id="FileChooserLabel" layoutX="45.0" layoutY="14.0" prefHeight="32.0" prefWidth="185.0" text="Map-Datei Laden">
                                        <font>
@@ -133,8 +138,24 @@
                                     </Button>
                                  </children>
                               </AnchorPane>
+                           </content>
+                        </Tab>
+                        <!--
+                        <Tab text="Datei">
+                          <content>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                 <children>
+                                    <Label fx:id="FileChooserLabel" layoutX="65.0" layoutY="14.0" prefHeight="35.0" prefWidth="128.0" text="Datei Laden" AnchorPane.bottomAnchor="740.0" AnchorPane.leftAnchor="65.0" AnchorPane.rightAnchor="81.0" AnchorPane.topAnchor="14.0">
+                                       <font>
+                                          <Font size="24.0" />
+                                       </font>
+                                    </Label>
+                                    <Button fx:id="fileChooserButton" layoutX="89.0" layoutY="64.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="81.0" text="Auswählen" AnchorPane.bottomAnchor="700.0" AnchorPane.leftAnchor="89.0" AnchorPane.rightAnchor="104.0" AnchorPane.topAnchor="64.0" />
+                                 </children>
+                              </AnchorPane>
                           </content>
                         </Tab>
+                        -->
                     </tabs>
                   </TabPane>
                   <AnchorPane fx:id="VBoxLowAnchor" prefHeight="374.0" prefWidth="273.0" VBox.vgrow="ALWAYS">
@@ -146,6 +167,11 @@
                            </font>
                         </Label>
                         <Label fx:id="bigZoomLabel" alignment="CENTER_RIGHT" layoutX="225.0" layoutY="28.0" minHeight="29.0" minWidth="49.0" text="Groß" AnchorPane.bottomAnchor="28.0" AnchorPane.leftAnchor="215.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="28.0">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="requestTimeLabel" minHeight="29.0" minWidth="49.0" text="RequestTime" textFill="#949292d6" AnchorPane.bottomAnchor="56.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="0.0">
                            <font>
                               <Font size="18.0" />
                            </font>
