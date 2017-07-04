@@ -101,8 +101,13 @@ public class OSMParser {
 	 */
 	public ContentHolderInterface parse() throws InvalidAPIRequestException {
 		clearEverythingUnimportant();
-		givenDocument = OSMApi.getBoundingBoxLatLong(usedHolder.getMinLatitude(), usedHolder.getMinLongitude(),
-				usedHolder.getMaxLatitude(), usedHolder.getMaxLongitude());
+		
+		if (usedHolder.getDocument() == null) {
+            givenDocument = OSMApi.getBoundingBoxLatLong(usedHolder.getMinLatitude(), usedHolder.getMinLongitude(),
+                    usedHolder.getMaxLatitude(), usedHolder.getMaxLongitude());
+        }else{
+            givenDocument = usedHolder.getDocument();
+        }
 
 		givenDocument.getDocumentElement().normalize();
 
@@ -244,10 +249,10 @@ public class OSMParser {
 								.add(childsFromGivenWays.item(j).getAttributes().getNamedItem("ref").getNodeValue());
 					}
 				}
-                                if(childsFromGivenWays.item(j).getNodeName().equals("tag")){
-                                    MapTag parsedTag=new MapTag(childsFromGivenWays.item(j).getAttributes().getNamedItem("k").getNodeValue(),childsFromGivenWays.item(j).getAttributes().getNamedItem("v").getNodeValue()); 
-                                    tagsFromGivenWay.add(parsedTag);
-                                }
+                                //if(childsFromGivenWays.item(j).getNodeName().equals("tag")){
+                                    //MapTag parsedTag=new MapTag(childsFromGivenWays.item(j).getAttributes().getNamedItem("k").getNodeValue(),childsFromGivenWays.item(j).getAttributes().getNamedItem("v").getNodeValue()); 
+                                    //tagsFromGivenWay.add(parsedTag);
+                                //}
 			}
 		}
 		MapWay parsedWay = new MapWay(parsedWayID, refsFromGivenWay, tagsFromGivenWay);
