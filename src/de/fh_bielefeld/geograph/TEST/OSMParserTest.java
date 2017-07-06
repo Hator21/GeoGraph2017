@@ -17,23 +17,24 @@ import org.w3c.dom.Document;
 public class OSMParserTest{
 	private ContentHolderInterface testHolder;
 	private OSMParser testParser;
+	private double minLatitude = 50.804776;
+	private double minLongitude = 6.171098;
+	private double maxLatitude = 50.804781;
+	private double maxLongitude = 6.171103;
 	
 	/**
 	 * This test invokes the parser method given an uninitialized ContentHolder.
 	 * 
 	 * (Error Test)
 	 */
-	@Test
+	@Test(expected = NullPointerException.class)
 	public void parseGivenUninitializedContentHolder(){
-		this.testParser = new OSMParser(testHolder);
+		this.testParser = new OSMParser(this.testHolder);
 		try{
-		ContentHolderInterface tempHolder = this.testParser.parse();
+			ContentHolderInterface tempHolder = this.testParser.parse();
 		}
 		catch(InvalidAPIRequestException ex){
 			fail("There shouldn't be an InvalidAPIRequestException.");
-		}
-		catch(NullPointerException ex){
-			fail("Unexpected NullPointerException");
 		}
 	}
 	
@@ -42,17 +43,14 @@ public class OSMParserTest{
 	 * 
 	 * (Error Test)
 	 */
-	@Test
+	@Test(expected = NullPointerException.class)
 	public void parseGivenContentHolderNull(){
 		this.testParser = new OSMParser(null);
 		try{
-		this.testHolder = testParser.parse();
+			this.testHolder = testParser.parse();
 		}
 		catch(InvalidAPIRequestException ex){
 			fail("There shouldn't be an InvalidAPIRequestException.");
-		}
-		catch(NullPointerException ex){
-			fail("Unexpected NullPointerException");
 		}
 	}
 	
@@ -80,17 +78,13 @@ public class OSMParserTest{
 	@Test
 	public void parseGivenValidContentHolder(){
 		testHolder = new ContentHolder(null);
-		double minLatitude = 52.510;
-		double minLongitude = 13.20;
-		double maxLatitude = 52.510005;
-		double maxLongitude = 13.20005;
 		
-		this.testHolder.setMinLatitude(minLatitude);
-		this.testHolder.setMinLongitude(minLongitude);
-		this.testHolder.setMaxLatitude(maxLatitude);
-		this.testHolder.setMaxLongitude(maxLongitude);
+		this.testHolder.setMinLatitude(this.minLatitude);
+		this.testHolder.setMinLongitude(this.minLongitude);
+		this.testHolder.setMaxLatitude(this.maxLatitude);
+		this.testHolder.setMaxLongitude(this.maxLongitude);
 		
-		this.testParser = new OSMParser(testHolder);
+		this.testParser = new OSMParser(this.testHolder);
 		
 		ContentHolderInterface tempHolder = new ContentHolder(null);
 		try{
@@ -111,17 +105,14 @@ public class OSMParserTest{
 	@Test
 	public void parseTestReturnedContentHolderWays(){
 		this.testHolder = new ContentHolder(null);
-		double minLatitude = 52.510;
-		double minLongitude = 13.20;
-		double maxLatitude = 52.510005;
-		double maxLongitude = 13.20005;
 		
-		this.testHolder.setMinLatitude(minLatitude);
-		this.testHolder.setMinLongitude(minLongitude);
-		this.testHolder.setMaxLatitude(maxLatitude);
-		this.testHolder.setMaxLongitude(maxLongitude);
 		
-		this.testParser = new OSMParser(testHolder);
+		this.testHolder.setMinLatitude(this.minLatitude);
+		this.testHolder.setMinLongitude(this.minLongitude);
+		this.testHolder.setMaxLatitude(this.maxLatitude);
+		this.testHolder.setMaxLongitude(this.maxLongitude);
+		
+		this.testParser = new OSMParser(this.testHolder);
 		
 		ContentHolderInterface tempHolder = new ContentHolder(null);
 		try{
@@ -135,24 +126,20 @@ public class OSMParserTest{
 	
 	/**
 	 * This test invokes the parser method given a valid ContentHolder.
-	 * Tests whether the parse method sets the ways of the returned ContentHolder.
+	 * Tests whether the parse method sets the nodes of the returned ContentHolder.
 	 * 
 	 * (Acceptance Test)
 	 */
 	@Test
 	public void parseTestReturnedContentHolderNodes(){
-		testHolder = new ContentHolder(null);
-		double minLatitude = 52.510;
-		double minLongitude = 13.20;
-		double maxLatitude = 52.510005;
-		double maxLongitude = 13.20005;
+		this.testHolder = new ContentHolder(null);
 		
-		this.testHolder.setMinLatitude(minLatitude);
-		this.testHolder.setMinLongitude(minLongitude);
-		this.testHolder.setMaxLatitude(maxLatitude);
-		this.testHolder.setMaxLongitude(maxLongitude);
+		this.testHolder.setMinLatitude(this.minLatitude);
+		this.testHolder.setMinLongitude(this.minLongitude);
+		this.testHolder.setMaxLatitude(this.maxLatitude);
+		this.testHolder.setMaxLongitude(this.maxLongitude);
 		
-		this.testParser = new OSMParser(testHolder);
+		this.testParser = new OSMParser(this.testHolder);
 		
 		ContentHolderInterface tempHolder = new ContentHolder(null);
 		try{
