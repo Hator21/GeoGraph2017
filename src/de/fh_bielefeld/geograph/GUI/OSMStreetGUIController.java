@@ -12,6 +12,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
+import javafx.scene.control.Tab;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -28,9 +29,9 @@ public class OSMStreetGUIController {
 
 	private OSMParser				parser;
 
-	@FXML private Button			searchButtonArea/* , fileChooserButton, fileSaveButton */;
+	@FXML private Button			searchButtonArea, searchButtonRadius/* , fileChooserButton, fileSaveButton */;
 
-	@FXML private TextField			latitudeTextFieldL, longitudeTextFieldL, latitudeTextFieldR, longitudeTextFieldR;
+	@FXML private TextField			latitudeTextFieldL, longitudeTextFieldL, latitudeTextFieldR, longitudeTextFieldR, radiusLatitude, radiusLongitude;
 
 	@FXML private Label				requestTimeLabel;
 	
@@ -39,6 +40,8 @@ public class OSMStreetGUIController {
 	@FXML private Canvas			paintingCanvas;
 
 	@FXML private AnchorPane		rightAnchor;
+	
+	@FXML private Tab				TabRadius;
 
 	private GraphicsContext			gc;
 
@@ -74,7 +77,7 @@ public class OSMStreetGUIController {
 		rightAnchor.heightProperty().addListener(stageSizeListener);
 		
 		requestTimeLabel.setText("");
-
+		
 		searchButtonArea.setOnAction((event) -> {
 			boolean ok = true;
 			firstcall = true;
@@ -131,6 +134,7 @@ public class OSMStreetGUIController {
 								}else{
 									requestTimeLabel.setText("Abfragezeit: " + time + " ms");
 								}
+								TabRadius.setDisable(false);
 							} else {
 								popUpLongToBig();
 							}
