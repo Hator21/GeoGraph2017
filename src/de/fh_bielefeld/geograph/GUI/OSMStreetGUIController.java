@@ -150,6 +150,45 @@ public class OSMStreetGUIController {
 				}
 			}
 		});
+		
+		searchButtonRadius.setOnAction((event) -> {
+			boolean ok = true;
+			double latitude = 0;
+			double longitude = 0;
+			try {
+				latitude = Double.parseDouble(radiusLatitude.getText());
+
+			} catch (NumberFormatException nbe) {
+				popUp("Breitengrad Rechts");
+				latitudeTextFieldR.setText("");
+				ok = false;
+			}
+			try {
+				longitude = Double.parseDouble(radiusLongitude.getText());
+			} catch (NumberFormatException nbe) {
+				popUp("Laengengrad Rechts");
+				longitudeTextFieldR.setText("");
+				ok = false;
+			}
+			if (ok) {
+				if (latitude >= Double.parseDouble(latitudeTextFieldL.getText()) && latitude <= Double.parseDouble(latitudeTextFieldR.getText())) {
+					if (longitude >= Double.parseDouble(longitudeTextFieldL.getText()) && longitude <= Double.parseDouble(longitudeTextFieldR.getText())) {
+						
+						//content.setMinLatitude(latitude);
+						//content.setMinLongitude(longitude);
+								
+						//Suche nächsten Punkt
+						//Verschiebe Punkt in die Mitte
+						//Färbe Punkt rot
+						
+					} else {
+						popUpNotInRange();
+					}
+				} else {
+					popUpNotInRange();
+				}
+			}
+		});
 
 		/*
 		 * fileChooserButton.setOnAction((event) -> {
@@ -395,7 +434,7 @@ public class OSMStreetGUIController {
 		Alert alert = new Alert(AlertType.INFORMATION);
 		alert.setTitle("Falsche Eingabe");
 		alert.setHeaderText(null);
-		alert.setContentText("Abstand zwischen Latitude Links und Latitude Rechts ist gr��er als 0.25");
+		alert.setContentText("Abstand zwischen Latitude Links und Latitude Rechts ist groesser als 0.25");
 		alert.showAndWait();
 	}
 
@@ -406,7 +445,18 @@ public class OSMStreetGUIController {
 		Alert alert = new Alert(AlertType.INFORMATION);
 		alert.setTitle("Falsche Eingabe");
 		alert.setHeaderText(null);
-		alert.setContentText("Abstand zwischen Longitude Links und Longitude Rechts ist gr��er als 0.25");
+		alert.setContentText("Abstand zwischen Longitude Links und Longitude Rechts ist groesser als 0.25");
+		alert.showAndWait();
+	}
+	
+	/**
+	 * Generates a PopUp, that pops up when user input is not in range of search values
+	 */
+	private void popUpNotInRange() {
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("Falsche Eingabe");
+		alert.setHeaderText(null);
+		alert.setContentText("Ihre Eingabe befindet sich ausserhalb des Suchbereiches.");
 		alert.showAndWait();
 	}
 
