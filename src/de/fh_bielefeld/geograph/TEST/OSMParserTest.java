@@ -17,10 +17,10 @@ import org.w3c.dom.Document;
 public class OSMParserTest{
 	private ContentHolderInterface testHolder;
 	private OSMParser testParser;
-	private double minLatitude = 50.804776;
-	private double minLongitude = 6.171098;
-	private double maxLatitude = 50.804781;
-	private double maxLongitude = 6.171103;
+	private double minLatitude = 50.8029;
+	private double minLongitude = 6.16679;
+	private double maxLatitude = 50.8064;
+	private double maxLongitude = 6.17537;
 	
 	/**
 	 * This test invokes the parser method given an uninitialized ContentHolder.
@@ -149,5 +149,69 @@ public class OSMParserTest{
 			fail("There shouldn't be an InvalidAPIRequestException.");
 		}
 		assertFalse(tempHolder.getNodes().isEmpty());
+	}
+	
+	/**
+	 * This test invokes the parse method with coordinates where no streets are.
+	 * In this case the ContentHolder nodes should be empty.
+	 * 
+	 * (Error Test)
+	 */
+	@Test
+	public void parseGivenCoordinatesWithNoStreetsTestNodes(){
+		this.testHolder = new ContentHolder(null);
+		
+		this.minLatitude = 50.804776;
+		this.minLongitude = 6.171098;
+		this.maxLatitude = 50.804781;
+		this.maxLongitude = 6.171103;
+		
+		this.testHolder.setMinLatitude(this.minLatitude);
+		this.testHolder.setMinLongitude(this.minLongitude);
+		this.testHolder.setMaxLatitude(this.maxLatitude);
+		this.testHolder.setMaxLongitude(this.maxLongitude);
+		
+		this.testParser = new OSMParser(this.testHolder);
+		
+		ContentHolderInterface tempHolder = new ContentHolder(null);
+		try{
+			tempHolder = this.testParser.parse();
+		}
+		catch(InvalidAPIRequestException ex){
+			fail("There shouldn't be an InvalidAPIRequestException.");
+		}
+		assertTrue(tempHolder.getNodes().isEmpty());
+	}
+	
+	/**
+	 * This test invokes the parse method with coordinates where no streets are.
+	 * In this case the ContentHolder ways should be empty.
+	 * 
+	 * (Error Test)
+	 */
+	@Test
+	public void parseGivenCoordinatesWithNoStreetsTestWays(){
+		this.testHolder = new ContentHolder(null);
+		
+		this.minLatitude = 50.804776;
+		this.minLongitude = 6.171098;
+		this.maxLatitude = 50.804781;
+		this.maxLongitude = 6.171103;
+		
+		this.testHolder.setMinLatitude(this.minLatitude);
+		this.testHolder.setMinLongitude(this.minLongitude);
+		this.testHolder.setMaxLatitude(this.maxLatitude);
+		this.testHolder.setMaxLongitude(this.maxLongitude);
+		
+		this.testParser = new OSMParser(this.testHolder);
+		
+		ContentHolderInterface tempHolder = new ContentHolder(null);
+		try{
+			tempHolder = this.testParser.parse();
+		}
+		catch(InvalidAPIRequestException ex){
+			fail("There shouldn't be an InvalidAPIRequestException.");
+		}
+		assertTrue(tempHolder.getWays().isEmpty());
 	}
 }
