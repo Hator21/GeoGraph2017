@@ -173,13 +173,10 @@ public class OSMStreetGUIController {
 			if (ok) {
 				if (latitude >= Double.parseDouble(latitudeTextFieldL.getText()) && latitude <= Double.parseDouble(latitudeTextFieldR.getText())) {
 					if (longitude >= Double.parseDouble(longitudeTextFieldL.getText()) && longitude <= Double.parseDouble(longitudeTextFieldR.getText())) {
+
+						content.setNextNode(latitude, longitude);
+						draw();
 						
-						//content.setMinLatitude(latitude);
-						//content.setMinLongitude(longitude);
-								
-						//Suche nächsten Punkt
-						//Verschiebe Punkt in die Mitte
-						//Färbe Punkt rot
 						
 					} else {
 						popUpNotInRange();
@@ -298,6 +295,23 @@ public class OSMStreetGUIController {
 				clearCanvas();
 				draw();
 			}
+		}
+	}
+	
+	/**
+	 * Draws the next Node on the MapCanvas
+	 * 
+	 * @param node
+	 */
+	public void drawNextNode(MapNodeInterface node) {
+		Point c = getNodeCoords(node);
+		double latitude = c.getY();
+		double longitude = c.getX();
+		if (0 <= latitude && latitude <= paintingCanvas.getHeight() && 0 <= longitude && longitude <= paintingCanvas.getWidth()) {
+			gc.setStroke(Color.BLACK);
+			gc.strokeOval(longitude + 1 -NODERADIUS, latitude + 1 -NODERADIUS, NODERADIUS * 4, NODERADIUS * 4);
+			gc.setFill(Color.GREEN);
+			gc.fillOval(longitude + 2 -NODERADIUS, latitude + 2 -NODERADIUS, NODERADIUS * 4 - 2, NODERADIUS * 4 - 2);
 		}
 	}
 
@@ -497,6 +511,10 @@ public class OSMStreetGUIController {
 	private void draw() {
 		getNodes();
 		getWays();
+		MapNodeInterface node = content.getNextNode();
+		if(node != null){
+			drawNextNode(node);
+		}
 	}
 
 	/**

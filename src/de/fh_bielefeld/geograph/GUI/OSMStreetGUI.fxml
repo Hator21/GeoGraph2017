@@ -14,45 +14,6 @@
                <children>
                   <TabPane fx:id="VBoxHighTabPane" prefHeight="1109.0" prefWidth="273.0" tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS">
                     <tabs>
-                     <!--
-                    	 <Tab fx:id="Tab1" text="Mittelpunkt">
-                         	<content>
-                              <AnchorPane fx:id="Tab1Anchor" prefHeight="900.0" prefWidth="276.0">
-                                 <children>
-                                    <Label fx:id="CenterLabel" layoutX="14.0" layoutY="14.0" prefHeight="41.0" prefWidth="262.0" text="Mittelpunktkoordinate*" AnchorPane.bottomAnchor="734.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="8.0" AnchorPane.topAnchor="14.0">
-                                       <font>
-                                          <Font size="24.0" />
-                                       </font>
-                                    </Label>
-                                    <Label fx:id="latitudeLabel" layoutX="15.0" layoutY="48.0" text="Breitengrad" AnchorPane.bottomAnchor="700.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="7.0" AnchorPane.topAnchor="48.0">
-                                       <font>
-                                          <Font size="18.0" />
-                                       </font>
-                                    </Label>
-                                    <Label fx:id="longitudeLabel" layoutX="15.0" layoutY="84.0" text="Längengrad" AnchorPane.bottomAnchor="664.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="7.0" AnchorPane.topAnchor="84.0">
-                                       <font>
-                                          <Font size="18.0" />
-                                       </font>
-                                    </Label>
-                                    <Label fx:id="wgs84Label" layoutX="13.0" layoutY="172.0" text="*Kartenbezugssystem WGS 84" AnchorPane.bottomAnchor="600.0" AnchorPane.leftAnchor="13.0" AnchorPane.rightAnchor="111.0" AnchorPane.topAnchor="172.0" />
-                                    <Button fx:id="searchButton" alignment="CENTER" layoutX="14.0" layoutY="130.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="254.0" text="Nach Koordinaten suchen" AnchorPane.bottomAnchor="629.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="16.0" AnchorPane.topAnchor="130.0">
-                                       <font>
-                                          <Font size="14.0" />
-                                       </font>
-                                    </Button>
-                                    <TextField fx:id="latitudeTextField" layoutX="119.0" layoutY="56.0" AnchorPane.bottomAnchor="708.0" AnchorPane.leftAnchor="119.0" AnchorPane.rightAnchor="16.0" AnchorPane.topAnchor="56.0" />
-                                    <TextField fx:id="longitudeTextField" layoutX="119.0" layoutY="92.0" AnchorPane.bottomAnchor="672.0" AnchorPane.leftAnchor="119.0" AnchorPane.rightAnchor="16.0" AnchorPane.topAnchor="92.0" />
-                                    <Separator fx:id="upperSeparator" layoutX="19.0" layoutY="206.0" prefHeight="0.0" prefWidth="244.0" AnchorPane.bottomAnchor="580.0" AnchorPane.leftAnchor="19.0" AnchorPane.rightAnchor="21.0" AnchorPane.topAnchor="206.0" />
-                                    <Label fx:id="descriptionLabel" alignment="TOP_LEFT" contentDisplay="TEXT_ONLY" layoutX="7.0" layoutY="219.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="293.0" prefWidth="262.0" text="Mit dieser Applikation können Sie dies und jenes tun... " textOverrun="CLIP" wrapText="true" AnchorPane.bottomAnchor="277.0" AnchorPane.leftAnchor="7.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="219.0">
-                                       <font>
-                                          <Font size="18.0" />
-                                       </font>
-                                    </Label>
-                                 </children>
-                              </AnchorPane>
-                           </content>
-                        </Tab>
-                        -->
                       	<Tab fx:id="Tab2" text="Bereich">
                            <content>
                               <AnchorPane fx:id="Tab2Anchor" prefHeight="318.0" prefWidth="276.0">
@@ -172,22 +133,6 @@
                               </AnchorPane>
                            </content>
                         </Tab>
-                        <!--
-                        <Tab text="Datei">
-                          <content>
-                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                                 <children>
-                                    <Label fx:id="FileChooserLabel" layoutX="65.0" layoutY="14.0" prefHeight="35.0" prefWidth="128.0" text="Datei Laden" AnchorPane.bottomAnchor="740.0" AnchorPane.leftAnchor="65.0" AnchorPane.rightAnchor="81.0" AnchorPane.topAnchor="14.0">
-                                       <font>
-                                          <Font size="24.0" />
-                                       </font>
-                                    </Label>
-                                    <Button fx:id="fileChooserButton" layoutX="89.0" layoutY="64.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="81.0" text="Auswählen" AnchorPane.bottomAnchor="700.0" AnchorPane.leftAnchor="89.0" AnchorPane.rightAnchor="104.0" AnchorPane.topAnchor="64.0" />
-                                 </children>
-                              </AnchorPane>
-                          </content>
-                        </Tab>
-                        -->
                     </tabs>
                   </TabPane>
                   <AnchorPane fx:id="VBoxLowAnchor" prefHeight="374.0" prefWidth="273.0" VBox.vgrow="ALWAYS">

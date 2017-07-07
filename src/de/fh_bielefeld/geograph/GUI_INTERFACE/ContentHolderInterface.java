@@ -103,4 +103,18 @@ public interface ContentHolderInterface {
 	 * @param controller
 	 */
 	void setController(OSMStreetGUIController controller);
+	
+	/**
+	 * Sets the next node to the give node.
+	 * 
+	 * @param searchLat Latitude value from point to search from.
+	 * @param searchLon Longitude value from point to search from.
+	 */
+	void setNextNode(double searchLat, double searchLon);
+	
+	/**
+	 * Returns the next node to the give node.
+	 * @return node Next node to the given node.
+	 */
+	MapNode getNextNode();
 }

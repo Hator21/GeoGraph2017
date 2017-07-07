@@ -10,6 +10,7 @@ import de.fh_bielefeld.geograph.GUI_INTERFACE.ContentHolderInterface;
 public class ContentHolder implements ContentHolderInterface {
 	private ArrayList<MapNode>		nodes;
 	private ArrayList<MapWay>		ways;
+	private MapNode					nextNode;
 	private double					latitude, minLatitude, maxLatitude;
 	private double					longitude, minLongitude, maxLongitude;
 	private OSMStreetGUIController	controller;
@@ -17,6 +18,7 @@ public class ContentHolder implements ContentHolderInterface {
 	public ContentHolder(OSMStreetGUIController controller) {
 		nodes = new ArrayList<MapNode>();
 		ways = new ArrayList<MapWay>();
+		nextNode = null;
 		latitude = 0;
 		longitude = 0;
 		minLatitude = 0;
@@ -190,10 +192,48 @@ public class ContentHolder implements ContentHolderInterface {
 	/**
 	 * Setter for the OSMStreetGUI-Controller.
 	 * 
-	 * @param Controller
-	 *            from the OSMStreetGUI.
+	 * @param Controller from the OSMStreetGUI.
 	 */
 	public void setController(OSMStreetGUIController controller) {
 		this.controller = controller;
 	}
+	
+	/**
+	 * Sets the next node to the give node.
+	 * 
+	 * @param searchLat Latitude value from point to search from.
+	 * @param searchLon Longitude value from point to search from.
+	 */
+	public void setNextNode(double searchLat, double searchLon) {
+		if(nodes.isEmpty()){
+			nextNode = null;
+		}
+		
+		nextNode = nodes.get(0);
+		double lat = Math.abs(searchLat - nodes.get(0).getLatitude());
+		double lon = Math.abs(searchLon - nodes.get(0).getLongitude());
+		double radius = Math.hypot(lat, lon);
+		
+		int i = 1;
+		for(i=1;i<nodes.size();i++){
+			lat = Math.abs(searchLat - nodes.get(i).getLatitude());
+			lon = Math.abs(searchLon - nodes.get(i).getLongitude());
+			if(radius > Math.hypot(lat, lon)){
+				nextNode = nodes.get(i);
+				radius = Math.hypot(lat, lon);
+				//System.out.println(radius);
+			}
+			
+		}
+	}
+	
+	/**
+	 * Returns the next node to the give node.
+	 * 
+	 * @return node Next node to the given node.
+	 */
+	public MapNode getNextNode() {
+		return nextNode;
+	}
+	
 }
