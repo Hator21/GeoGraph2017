@@ -207,23 +207,22 @@ public class ContentHolder implements ContentHolderInterface {
 	public void setNextNode(double searchLat, double searchLon) {
 		if(nodes.isEmpty()){
 			nextNode = null;
-		}
-		
-		nextNode = nodes.get(0);
-		double lat = Math.abs(searchLat - nodes.get(0).getLatitude());
-		double lon = Math.abs(searchLon - nodes.get(0).getLongitude());
-		double radius = Math.hypot(lat, lon);
-		
-		int i = 1;
-		for(i=1;i<nodes.size();i++){
-			lat = Math.abs(searchLat - nodes.get(i).getLatitude());
-			lon = Math.abs(searchLon - nodes.get(i).getLongitude());
-			if(radius > Math.hypot(lat, lon)){
-				nextNode = nodes.get(i);
-				radius = Math.hypot(lat, lon);
-				//System.out.println(radius);
-			}
+		} else{
+			nextNode = nodes.get(0);
+			double lat = Math.abs(searchLat - nodes.get(0).getLatitude());
+			double lon = Math.abs(searchLon - nodes.get(0).getLongitude());
+			double radius = Math.hypot(lat, lon);
 			
+			int i = 1;
+			for(i=1;i<nodes.size();i++){
+				lat = Math.abs(searchLat - nodes.get(i).getLatitude());
+				lon = Math.abs(searchLon - nodes.get(i).getLongitude());
+				if(radius > Math.hypot(lat, lon)){
+					nextNode = nodes.get(i);
+					radius = Math.hypot(lat, lon);
+				}
+				
+			}
 		}
 	}
 	
@@ -234,6 +233,14 @@ public class ContentHolder implements ContentHolderInterface {
 	 */
 	public MapNode getNextNode() {
 		return nextNode;
+	}
+	
+	/**
+	 * Clears the next node.
+	 * 
+	 */
+	public void clearNextNode() {
+		nextNode = null;
 	}
 	
 }

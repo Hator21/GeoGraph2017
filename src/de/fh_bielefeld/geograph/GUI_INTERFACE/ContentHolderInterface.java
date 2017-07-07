@@ -117,4 +117,10 @@ public interface ContentHolderInterface {
 	 * @return node Next node to the given node.
 	 */
 	MapNode getNextNode();
+	
+	/**
+	 * Clears the next node.
+	 * 
+	 */
+	void clearNextNode();
 }

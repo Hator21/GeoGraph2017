@@ -49,6 +49,8 @@ public class OSMStreetGUIController {
 
 	private final int				NODERADIUS			= 3;
 	private final int				ARR_SIZE			= 5;
+	private static final double		MAXRANGELAT			= 0.25;
+	private static final double		MAXRANGELON			= 0.25;
 
 	private double					zoomFactor			= 0;
 	private double					pressedX			= 0;
@@ -59,7 +61,6 @@ public class OSMStreetGUIController {
 	private double					draggedY			= 0;
 	private double					offsetY				= 0;
 	private double					offsetX				= 0;
-	
 
 	ChangeListener<Number>			stageSizeListener	= (observable, oldValue, newValue) -> this.resize();
 	private boolean					firstcall			= true;
@@ -83,7 +84,6 @@ public class OSMStreetGUIController {
 		
 		searchButtonArea.setOnAction((event) -> {
 			boolean ok = true;
-			firstcall = true;
 			double latitudeL = 0;
 			double longitudeL = 0;
 			double latitudeR = 0;
@@ -121,12 +121,27 @@ public class OSMStreetGUIController {
 			if (ok) {
 				if (latitudeL < latitudeR) {
 					if (longitudeL < longitudeR) {
-						if (latitudeR - latitudeL <= 0.25) {
-							if (longitudeR - longitudeL <= 0.25) {
+						if (latitudeR - latitudeL <= MAXRANGELAT) {
+							if (longitudeR - longitudeL <= MAXRANGELON) {
 								content.setMinLatitude(latitudeL);
 								content.setMinLongitude(longitudeL);
 								content.setMaxLatitude(latitudeR);
 								content.setMaxLongitude(longitudeR);
+								
+								if(!firstcall){ //Clear everything
+									offsetX = 0;
+									offsetY = 0;
+									draggedX = 0;
+									draggedY = 0;
+									resultX = 0;
+									resultY = 0;
+									pressedX = 0;
+									pressedY = 0;
+									zoomSlider.setValue(zoomSlider.getMin());
+									zoomFactor = zoomSlider.getMin();
+									content.clearNextNode();
+								}
+								
 								
 								long time = System.currentTimeMillis();
 								callParser();
@@ -181,7 +196,6 @@ public class OSMStreetGUIController {
 						centerNextNode = true;
 						draw();
 						
-						
 					} else {
 						popUpNotInRange();
 					}
@@ -209,7 +223,6 @@ public class OSMStreetGUIController {
 
 		zoomSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
 			zoomFactor = zoomSlider.getValue();
-			clearCanvas();
 			draw();
 		});
 
@@ -239,7 +252,6 @@ public class OSMStreetGUIController {
 	 * Resizes the Map, when changes Window-Bounds
 	 */
 	private void resize() {
-		clearCanvas();
 		paintingCanvas.setWidth(rightAnchor.getWidth() - 14.0);
 		paintingCanvas.setHeight(rightAnchor.getHeight() - 14.0);
 		draw();
@@ -265,22 +277,6 @@ public class OSMStreetGUIController {
 		double middleY = paintingCanvas.getHeight() / 2;	
 		double latitudeN = (latitude) - (middleY - latitude) * zoomFactor + resultY + offsetY;
 		double longitudeN = (longitude) + (longitude - middleX) * zoomFactor + resultX + offsetX;
-		return new Point((int) longitudeN, (int) latitudeN);
-	}
-	
-	/**
-	 * Converts the coordinates of a node int coordinates of the Canvas
-	 * 
-	 * @param node
-	 * @return Point (longitude, latitude)
-	 */
-	private Point getNodeCoordss(MapNodeInterface node) {
-		double latitude = (mapLatitude(node.getLatitude()) - NODERADIUS);
-		double longitude = (mapLongitude(node.getLongitude()) - NODERADIUS);
-		double middleX = paintingCanvas.getWidth() / 2;
-		double middleY = paintingCanvas.getHeight() / 2;
-		double latitudeN = (latitude) - (middleY - latitude) * zoomFactor + resultY;
-		double longitudeN = (longitude) + (longitude - middleX) * zoomFactor + resultX;
 		return new Point((int) longitudeN, (int) latitudeN);
 	}
 
@@ -311,7 +307,6 @@ public class OSMStreetGUIController {
 			if (firstcall) {
 				zoomSlider.setMin(zoomSlider.getValue() - 0.025);
 				zoomSlider.setValue(zoomSlider.getValue() - 0.025);
-				clearCanvas();
 				draw();
 			}
 		}
@@ -554,7 +549,6 @@ public class OSMStreetGUIController {
 			parser = new OSMParser(content);
 			try {
 				content = parser.parse();
-				clearCanvas();
 				draw();
 			} catch (NullPointerException | InvalidAPIRequestException e) {
 				e.printStackTrace();
