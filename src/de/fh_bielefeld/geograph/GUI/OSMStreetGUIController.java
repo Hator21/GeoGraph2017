@@ -57,10 +57,13 @@ public class OSMStreetGUIController {
 	private double					resultY				= 0;
 	private double					draggedX			= 0;
 	private double					draggedY			= 0;
+	private double					offsetY				= 0;
+	private double					offsetX				= 0;
 	
 
 	ChangeListener<Number>			stageSizeListener	= (observable, oldValue, newValue) -> this.resize();
 	private boolean					firstcall			= true;
+	private boolean					centerNextNode		= false;
 
 	/**
 	 * Initializes functions of all Components, which interact with the user
@@ -175,6 +178,7 @@ public class OSMStreetGUIController {
 					if (longitude >= Double.parseDouble(longitudeTextFieldL.getText()) && longitude <= Double.parseDouble(longitudeTextFieldR.getText())) {
 
 						content.setNextNode(latitude, longitude);
+						centerNextNode = true;
 						draw();
 						
 						
@@ -226,7 +230,6 @@ public class OSMStreetGUIController {
 				resultY = resultY + draggedY - pressedY;
 				pressedX = draggedX;
 				pressedY = draggedY;
-				gc.clearRect(0, 0, paintingCanvas.getWidth(), paintingCanvas.getHeight());
 				draw();
 			}
 		});
@@ -256,6 +259,22 @@ public class OSMStreetGUIController {
 	 * @return Point (longitude, latitude)
 	 */
 	private Point getNodeCoords(MapNodeInterface node) {
+		double latitude = (mapLatitude(node.getLatitude()) - NODERADIUS);
+		double longitude = (mapLongitude(node.getLongitude()) - NODERADIUS);
+		double middleX = paintingCanvas.getWidth() / 2;
+		double middleY = paintingCanvas.getHeight() / 2;	
+		double latitudeN = (latitude) - (middleY - latitude) * zoomFactor + resultY + offsetY;
+		double longitudeN = (longitude) + (longitude - middleX) * zoomFactor + resultX + offsetX;
+		return new Point((int) longitudeN, (int) latitudeN);
+	}
+	
+	/**
+	 * Converts the coordinates of a node int coordinates of the Canvas
+	 * 
+	 * @param node
+	 * @return Point (longitude, latitude)
+	 */
+	private Point getNodeCoordss(MapNodeInterface node) {
 		double latitude = (mapLatitude(node.getLatitude()) - NODERADIUS);
 		double longitude = (mapLongitude(node.getLongitude()) - NODERADIUS);
 		double middleX = paintingCanvas.getWidth() / 2;
@@ -509,12 +528,22 @@ public class OSMStreetGUIController {
 	 * Function to draw all Nodes and Ways
 	 */
 	private void draw() {
-		getNodes();
-		getWays();
+		clearCanvas();
+		
 		MapNodeInterface node = content.getNextNode();
 		if(node != null){
+			if(centerNextNode == true){
+				offsetX = 0;
+				offsetY = 0;
+				Point p = getNodeCoords(content.getNextNode());
+				offsetX = (paintingCanvas.getWidth()/2 - p.getX());
+				offsetY = (paintingCanvas.getHeight()/2 - p.getY());
+			}
 			drawNextNode(node);
 		}
+		getNodes();
+		getWays();
+		centerNextNode = false;
 	}
 
 	/**
