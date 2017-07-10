@@ -30,6 +30,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
+import javafx.scene.control.Tab;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -47,9 +48,9 @@ public class OSMStreetGUIController {
 
 	private OSMParser				parser;
 
-	@FXML private Button			searchButtonArea , fileChooserButton, fileSaveButton;
+	@FXML private Button			searchButtonArea, searchButtonRadius, fileChooserButton, fileSaveButton;
 
-	@FXML private TextField			latitudeTextFieldL, longitudeTextFieldL, latitudeTextFieldR, longitudeTextFieldR;
+	@FXML private TextField			latitudeTextFieldL, longitudeTextFieldL, latitudeTextFieldR, longitudeTextFieldR, radiusLatitude, radiusLongitude;
 
 	@FXML private Label				requestTimeLabel;
 	
@@ -58,6 +59,8 @@ public class OSMStreetGUIController {
 	@FXML private Canvas			paintingCanvas;
 
 	@FXML private AnchorPane		rightAnchor;
+	
+	@FXML private Tab				TabRadius;
 
 	private GraphicsContext			gc;
 
@@ -65,6 +68,8 @@ public class OSMStreetGUIController {
 
 	private final int				NODERADIUS			= 3;
 	private final int				ARR_SIZE			= 5;
+	private static final double		MAXRANGELAT			= 0.25;
+	private static final double		MAXRANGELON			= 0.25;
 
 	private double					zoomFactor			= 0;
 	private double					pressedX			= 0;
@@ -73,10 +78,12 @@ public class OSMStreetGUIController {
 	private double					resultY				= 0;
 	private double					draggedX			= 0;
 	private double					draggedY			= 0;
-	
+	private double					offsetY				= 0;
+	private double					offsetX				= 0;
 
 	ChangeListener<Number>			stageSizeListener	= (observable, oldValue, newValue) -> this.resize();
 	private boolean					firstcall			= true;
+	private boolean					centerNextNode		= false;
 
 	/**
 	 * Initializes functions of all Components, which interact with the user
@@ -93,10 +100,9 @@ public class OSMStreetGUIController {
 		rightAnchor.heightProperty().addListener(stageSizeListener);
 		
 		requestTimeLabel.setText("");
-
+		
 		searchButtonArea.setOnAction((event) -> {
 			boolean ok = true;
-			firstcall = true;
 			double latitudeL = 0;
 			double longitudeL = 0;
 			double latitudeR = 0;
@@ -134,12 +140,27 @@ public class OSMStreetGUIController {
 			if (ok) {
 				if (latitudeL < latitudeR) {
 					if (longitudeL < longitudeR) {
-						if (latitudeR - latitudeL <= 0.25) {
-							if (longitudeR - longitudeL <= 0.25) {
+						if (latitudeR - latitudeL <= MAXRANGELAT) {
+							if (longitudeR - longitudeL <= MAXRANGELON) {
 								content.setMinLatitude(latitudeL);
 								content.setMinLongitude(longitudeL);
 								content.setMaxLatitude(latitudeR);
 								content.setMaxLongitude(longitudeR);
+								
+								if(!firstcall){ //Clear everything
+									offsetX = 0;
+									offsetY = 0;
+									draggedX = 0;
+									draggedY = 0;
+									resultX = 0;
+									resultY = 0;
+									pressedX = 0;
+									pressedY = 0;
+									zoomSlider.setValue(zoomSlider.getMin());
+									zoomFactor = zoomSlider.getMin();
+									content.clearNextNode();
+								}
+								
 								
 								long time = System.currentTimeMillis();
 								callParser();
@@ -150,6 +171,7 @@ public class OSMStreetGUIController {
 								}else{
 									requestTimeLabel.setText("Abfragezeit: " + time + " ms");
 								}
+								TabRadius.setDisable(false);
 							} else {
 								popUpLongToBig();
 							}
@@ -165,6 +187,42 @@ public class OSMStreetGUIController {
 				}
 			}
 			fileSaveButton.setDisable(false);
+		});
+		
+		searchButtonRadius.setOnAction((event) -> {
+			boolean ok = true;
+			double latitude = 0;
+			double longitude = 0;
+			try {
+				latitude = Double.parseDouble(radiusLatitude.getText());
+
+			} catch (NumberFormatException nbe) {
+				popUp("Breitengrad Rechts");
+				latitudeTextFieldR.setText("");
+				ok = false;
+			}
+			try {
+				longitude = Double.parseDouble(radiusLongitude.getText());
+			} catch (NumberFormatException nbe) {
+				popUp("Laengengrad Rechts");
+				longitudeTextFieldR.setText("");
+				ok = false;
+			}
+			if (ok) {
+				if (latitude >= Double.parseDouble(latitudeTextFieldL.getText()) && latitude <= Double.parseDouble(latitudeTextFieldR.getText())) {
+					if (longitude >= Double.parseDouble(longitudeTextFieldL.getText()) && longitude <= Double.parseDouble(longitudeTextFieldR.getText())) {
+
+						content.setNextNode(latitude, longitude);
+						centerNextNode = true;
+						draw();
+						
+					} else {
+						popUpNotInRange();
+					}
+				} else {
+					popUpNotInRange();
+				}
+			}
 		});
 
 		fileChooserButton.setOnAction((event) -> {
@@ -189,7 +247,6 @@ public class OSMStreetGUIController {
 
 		zoomSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
 			zoomFactor = zoomSlider.getValue();
-			clearCanvas();
 			draw();
 		});
 
@@ -210,7 +267,6 @@ public class OSMStreetGUIController {
 				resultY = resultY + draggedY - pressedY;
 				pressedX = draggedX;
 				pressedY = draggedY;
-				gc.clearRect(0, 0, paintingCanvas.getWidth(), paintingCanvas.getHeight());
 				draw();
 			}
 		});
@@ -220,7 +276,6 @@ public class OSMStreetGUIController {
 	 * Resizes the Map, when changes Window-Bounds
 	 */
 	private void resize() {
-		clearCanvas();
 		paintingCanvas.setWidth(rightAnchor.getWidth() - 14.0);
 		paintingCanvas.setHeight(rightAnchor.getHeight() - 14.0);
 		draw();
@@ -243,9 +298,9 @@ public class OSMStreetGUIController {
 		double latitude = (mapLatitude(node.getLatitude()) - NODERADIUS);
 		double longitude = (mapLongitude(node.getLongitude()) - NODERADIUS);
 		double middleX = paintingCanvas.getWidth() / 2;
-		double middleY = paintingCanvas.getHeight() / 2;
-		double latitudeN = (latitude) - (middleY - latitude) * zoomFactor + resultY;
-		double longitudeN = (longitude) + (longitude - middleX) * zoomFactor + resultX;
+		double middleY = paintingCanvas.getHeight() / 2;	
+		double latitudeN = (latitude) - (middleY - latitude) * zoomFactor + resultY + offsetY;
+		double longitudeN = (longitude) + (longitude - middleX) * zoomFactor + resultX + offsetX;
 		return new Point((int) longitudeN, (int) latitudeN);
 	}
 
@@ -276,9 +331,25 @@ public class OSMStreetGUIController {
 			if (firstcall) {
 				zoomSlider.setMin(zoomSlider.getValue() - 0.025);
 				zoomSlider.setValue(zoomSlider.getValue() - 0.025);
-				clearCanvas();
 				draw();
 			}
+		}
+	}
+	
+	/**
+	 * Draws the next Node on the MapCanvas
+	 * 
+	 * @param node
+	 */
+	public void drawNextNode(MapNodeInterface node) {
+		Point c = getNodeCoords(node);
+		double latitude = c.getY();
+		double longitude = c.getX();
+		if (0 <= latitude && latitude <= paintingCanvas.getHeight() && 0 <= longitude && longitude <= paintingCanvas.getWidth()) {
+			gc.setStroke(Color.BLACK);
+			gc.strokeOval(longitude + 1 -NODERADIUS, latitude + 1 -NODERADIUS, NODERADIUS * 4, NODERADIUS * 4);
+			gc.setFill(Color.GREEN);
+			gc.fillOval(longitude + 2 -NODERADIUS, latitude + 2 -NODERADIUS, NODERADIUS * 4 - 2, NODERADIUS * 4 - 2);
 		}
 	}
 
@@ -415,7 +486,7 @@ public class OSMStreetGUIController {
 		Alert alert = new Alert(AlertType.INFORMATION);
 		alert.setTitle("Falsche Eingabe");
 		alert.setHeaderText(null);
-		alert.setContentText("Abstand zwischen Latitude Links und Latitude Rechts ist gr��er als 0.25");
+		alert.setContentText("Abstand zwischen Latitude Links und Latitude Rechts ist groesser als 0.25");
 		alert.showAndWait();
 	}
 
@@ -426,7 +497,18 @@ public class OSMStreetGUIController {
 		Alert alert = new Alert(AlertType.INFORMATION);
 		alert.setTitle("Falsche Eingabe");
 		alert.setHeaderText(null);
-		alert.setContentText("Abstand zwischen Longitude Links und Longitude Rechts ist gr��er als 0.25");
+		alert.setContentText("Abstand zwischen Longitude Links und Longitude Rechts ist groesser als 0.25");
+		alert.showAndWait();
+	}
+	
+	/**
+	 * Generates a PopUp, that pops up when user input is not in range of search values
+	 */
+	private void popUpNotInRange() {
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("Falsche Eingabe");
+		alert.setHeaderText(null);
+		alert.setContentText("Ihre Eingabe befindet sich ausserhalb des Suchbereiches.");
 		alert.showAndWait();
 	}
 
@@ -465,8 +547,22 @@ public class OSMStreetGUIController {
 	 * Function to draw all Nodes and Ways
 	 */
 	private void draw() {
+		clearCanvas();
+		
+		MapNodeInterface node = content.getNextNode();
+		if(node != null){
+			if(centerNextNode == true){
+				offsetX = 0;
+				offsetY = 0;
+				Point p = getNodeCoords(content.getNextNode());
+				offsetX = (paintingCanvas.getWidth()/2 - p.getX());
+				offsetY = (paintingCanvas.getHeight()/2 - p.getY());
+			}
+			drawNextNode(node);
+		}
 		getNodes();
 		getWays();
+		centerNextNode = false;
 	}
 
 	/**
@@ -477,7 +573,6 @@ public class OSMStreetGUIController {
 			parser = new OSMParser(content);
 			try {
 				content = parser.parse();
-				clearCanvas();
 				draw();
 			} catch (NullPointerException | InvalidAPIRequestException e) {
 				e.printStackTrace();
