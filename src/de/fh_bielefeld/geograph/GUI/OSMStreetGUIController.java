@@ -1,7 +1,25 @@
 package de.fh_bielefeld.geograph.GUI;
 
 import java.awt.Point;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.Result;
+import javax.xml.transform.Source;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.TransformerFactoryConfigurationError;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+
+import org.w3c.dom.Document;
+import org.xml.sax.SAXException;
+
 import javafx.beans.value.ChangeListener;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -19,6 +37,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.transform.Affine;
 import javafx.scene.transform.Transform;
+import javafx.stage.FileChooser;
 import de.fh_bielefeld.geograph.API.Exception.InvalidAPIRequestException;
 import de.fh_bielefeld.geograph.GUI_INTERFACE.ContentHolderInterface;
 import de.fh_bielefeld.geograph.GUI_INTERFACE.MapNodeInterface;
@@ -29,7 +48,7 @@ public class OSMStreetGUIController {
 
 	private OSMParser				parser;
 
-	@FXML private Button			searchButtonArea, searchButtonRadius/* , fileChooserButton, fileSaveButton */;
+	@FXML private Button			searchButtonArea, searchButtonRadius, fileChooserButton, fileSaveButton;
 
 	@FXML private TextField			latitudeTextFieldL, longitudeTextFieldL, latitudeTextFieldR, longitudeTextFieldR, radiusLatitude, radiusLongitude;
 
@@ -167,6 +186,7 @@ public class OSMStreetGUIController {
 					popUpLat();
 				}
 			}
+			fileSaveButton.setDisable(false);
 		});
 		
 		searchButtonRadius.setOnAction((event) -> {
@@ -205,21 +225,25 @@ public class OSMStreetGUIController {
 			}
 		});
 
-		/*
-		 * fileChooserButton.setOnAction((event) -> {
-		 * FileChooser fileChooser = new FileChooser();
-		 * fileChooser.setTitle("Open OSM File");
-		 * fileChooser.showOpenDialog(fileChooserButton.getScene().getWindow());
-		 * });
-		 */
+		fileChooserButton.setOnAction((event) -> {
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.setTitle("Datei laden");
+            File chooserFile = fileChooser.showOpenDialog(fileChooserButton.getScene().getWindow());
 
-		/*
-		 * fileSaveButton.setOnAction((event) -> {
-		 * FileChooser fileChooser = new FileChooser();
-		 * fileChooser.setTitle("Save OSM File");
-		 * fileChooser.showOpenDialog(fileSaveButton.getScene().getWindow());
-		 * });
-		 */
+            if (chooserFile != null) {
+                loadFile(chooserFile);
+            }
+        });
+
+        fileSaveButton.setOnAction((event) -> {
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.setTitle("Datei speichern");
+            File chooserFile = fileChooser.showSaveDialog(fileSaveButton.getScene().getWindow());
+
+            if (chooserFile != null) {
+                saveToFile(chooserFile);
+            }
+        });
 
 		zoomSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
 			zoomFactor = zoomSlider.getValue();
@@ -561,4 +585,60 @@ public class OSMStreetGUIController {
 			alert.showAndWait();
 		}
 	}
+	
+    private void loadFile(File file) {
+        Document doc;
+        try {
+            DocumentBuilderFactory dbfac = DocumentBuilderFactory.newInstance();
+            DocumentBuilder docBuilder = dbfac.newDocumentBuilder();
+            doc = docBuilder.parse(file);
+            
+            double maxLong = Double.parseDouble(doc.getElementsByTagName("bounds").item(0).getAttributes().getNamedItem("maxlon").getNodeValue());
+            double maxLat = Double.parseDouble(doc.getElementsByTagName("bounds").item(0).getAttributes().getNamedItem("maxlat").getNodeValue());
+            double minLong = Double.parseDouble(doc.getElementsByTagName("bounds").item(0).getAttributes().getNamedItem("minlon").getNodeValue());
+            double minLat = Double.parseDouble(doc.getElementsByTagName("bounds").item(0).getAttributes().getNamedItem("minlat").getNodeValue());
+            
+            content.setMinLatitude(minLat);
+            content.setMaxLatitude(maxLat);
+            content.setMinLongitude(minLong);
+            content.setMaxLongitude(maxLong);
+            
+            content.setDocument(doc);
+            callParser();
+            fileSaveButton.setDisable(true);
+        } catch (SAXException | IOException | NullPointerException | ParserConfigurationException e) {
+            Alert alert = new Alert(AlertType.INFORMATION);
+            alert.setTitle("Kritischer Fehler");
+            alert.setHeaderText("Die Datei konnte nicht geladen werden");
+            //alert.setContentText(e.toString());
+            alert.showAndWait();
+        }
+    }
+
+    private void saveToFile(File file) {
+        if (parser != null && file != null) {
+            Document currentD = parser.getCurrentDocument();
+
+            Transformer transformer;
+            try {
+                transformer = TransformerFactory.newInstance().newTransformer();
+                Result output = new StreamResult(file);
+                Source input = new DOMSource(currentD);
+                transformer.transform(input, output);
+            } catch (TransformerException | TransformerFactoryConfigurationError e) {
+                Alert alert = new Alert(AlertType.INFORMATION);
+                alert.setTitle("Kritischer Fehler");
+                alert.setHeaderText(null);
+                alert.setContentText("Die Datei konnte nicht gespeichert werden");
+                alert.showAndWait();
+            }
+
+        } else {
+            Alert alert = new Alert(AlertType.INFORMATION);
+            alert.setTitle("Kritischer Fehler");
+            alert.setHeaderText(null);
+            alert.setContentText("Die Datei konnte nicht gespeichert werden");
+            alert.showAndWait();
+        }
+    }
 }

@@ -2,6 +2,8 @@ package de.fh_bielefeld.geograph.GUI_INTERFACE;
 
 import java.util.ArrayList;
 
+import org.w3c.dom.Document;
+
 import de.fh_bielefeld.geograph.GUI.MapNode;
 import de.fh_bielefeld.geograph.GUI.MapWay;
 import de.fh_bielefeld.geograph.GUI.OSMStreetGUIController;
@@ -123,4 +125,14 @@ public interface ContentHolderInterface {
 	 * 
 	 */
 	void clearNextNode();
+  
+  /**
+   * @param doc
+   */
+  void setDocument(Document doc);
+    
+  /**
+   * @return Document
+   */
+  Document getDocument();
 }
