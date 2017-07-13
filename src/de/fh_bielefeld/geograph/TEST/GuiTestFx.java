@@ -1,10 +1,9 @@
 package de.fh_bielefeld.geograph.TEST;
 
 import static org.junit.Assert.*;
-import org.junit.Test;
-import static org.junit.Assert.assertTrue;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
+import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.loadui.testfx.GuiTest;
 import org.loadui.testfx.categories.TestFX;
@@ -15,9 +14,15 @@ import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseButton;
 
+/**
+ * Tests for the GUI
+ */
 @Category(TestFX.class)
 public class GuiTestFx extends GuiTest {
 
+	/**
+	 * This method will open the GUI for every test.
+	 */
 	@Override
 	protected Parent getRootNode() {
 		Parent parent = null;
@@ -31,20 +36,29 @@ public class GuiTestFx extends GuiTest {
 		return parent;
 	}
 	
-	public void sleep(int time){
+	/**
+	 * A method to delay the tests for the given amount of milliseconds.
+	 * 
+	 * @param time milliseconds that the test will be delayed
+	 */
+	private void sleep(int time){
 		try {
 			TimeUnit.MILLISECONDS.sleep(time);	
 		} catch (Exception e) {
-			// TODO: handle exception
 		}
 	}
 	
-	public void clickSearchButton(){
+	/**
+	 * A method to click the search button which starts the OSM-Request. 
+	 */
+	private void clickSearchButton(){
 		Button btn = find("#searchButtonArea");
 		click(btn);
 	}
 	
-	
+	/**
+	 * This test will check for the correct text on the search button.
+	 */
 	@Test
 	public void checkSearchButton() {
 		Button btn = find("#searchButtonArea");
@@ -52,6 +66,9 @@ public class GuiTestFx extends GuiTest {
 		sleep(2000);
 	}
 	
+	/**
+	 * This test will try to make an OSM-Request with a wrong left latitude.
+	 */
 	@Test
 	public void checkLeftLatitudeValueNegativ() {
 		TextField tField =find("#latitudeTextFieldL");
@@ -79,10 +96,41 @@ public class GuiTestFx extends GuiTest {
 		click(buttonlbl);
 		sleep(500);
 		type(KeyCode.ENTER);
-		sleep(2000);
-		
+		sleep(2000);		
 	}
 	
+	/**
+	 * This test will try to make an OSM-Request with a wrong left longitude.
+	 */
+	@Test
+	public void checkLeftLongitudeValueNegativ() {
+		TextField tField =find("#longitudeTextFieldL");
+		sleep(500);
+		click(tField);
+		tField.setText("8.");
+		sleep(500);
+		tField.setText("8");
+		sleep(500);
+		tField.setText("");
+		sleep(500);
+		tField.setText("9");
+		sleep(500);
+		tField.setText("9.");
+		sleep(500);
+		tField.setText("9.1");
+		sleep(500);
+		tField.setText("9.12");
+		sleep(500);
+		Button buttonlbl = find("#searchButtonArea");
+		click(buttonlbl);
+		sleep(1000);
+		type(KeyCode.ENTER);
+		sleep(2000);
+	}
+	
+	/**
+	 * This test will try to make an OSM-Request with a wrong right longitude.
+	 */
 	@Test
 	public void checkRightLongitudeValueNegativ() {
 		TextField tField =find("#longitudeTextFieldR");
@@ -109,6 +157,9 @@ public class GuiTestFx extends GuiTest {
 		sleep(2000);
 	}
 	
+	/**
+	 * This test will try to make an OSM-Request with a wrong right latitude.
+	 */
 	@Test
 	public void checkRightLatitudeValueNegativ() {
 		TextField tField =find("#latitudeTextFieldR");
@@ -139,36 +190,12 @@ public class GuiTestFx extends GuiTest {
 		sleep(2000);
 	}
 	
-	@Test
-	public void checkLeftLongitudeValueNegativ() {
-		TextField tField =find("#longitudeTextFieldL");
-		sleep(500);
-		click(tField);
-		tField.setText("8.");
-		sleep(500);
-		tField.setText("8");
-		sleep(500);
-		tField.setText("");
-		sleep(500);
-		tField.setText("9");
-		sleep(500);
-		tField.setText("9.");
-		sleep(500);
-		tField.setText("9.1");
-		sleep(500);
-		tField.setText("9.12");
-		sleep(500);
-		Button buttonlbl = find("#searchButtonArea");
-		click(buttonlbl);
-		sleep(1000);
-		type(KeyCode.ENTER);
-		sleep(2000);
-	}
-	
+	/**
+	 * This test will try to move the map after the map is loaded.
+	 */
 	@Test
 	public void checkMapMove() {
-		Button btn = find("#searchButtonArea");
-		click(btn);
+		clickSearchButton();
 		moveBy( 500, 0 );
 		press(MouseButton.PRIMARY);
 		moveBy( 0, 200 );
@@ -180,6 +207,10 @@ public class GuiTestFx extends GuiTest {
 		sleep(2000);
 	}
 
+	/**
+	 * This test will move the slider to zoom in on the map.
+	 * It will also check if the map is still moveable after zooming in.
+	 */
 	@Test 
 	public void checkSlideControl() {
 		Button btn = find("#searchButtonArea");
@@ -194,7 +225,7 @@ public class GuiTestFx extends GuiTest {
 			sleep(50);
 		}
 		
-		sleep(1000);
+		sleep(500);
 		moveBy( 500, 0 );
 		press(MouseButton.PRIMARY);
 		moveBy( 0, 200 );
@@ -219,12 +250,13 @@ public class GuiTestFx extends GuiTest {
 		moveBy(0, 200);
 		release(MouseButton.PRIMARY);
 		sleep(2000);
-
 	}
 
+	/**
+	 * This test will open the file tab and then load a saved map.
+	 */
 	@Test
-	public void checkFileTabMapLoad(){
-		
+	public void checkFileTabMapLoad(){	
 		clickSearchButton();
 		
 		click("#FileTab");
@@ -234,15 +266,16 @@ public class GuiTestFx extends GuiTest {
 		sleep(1000);
 		type("Dateiname.osm");
 		sleep(500);
-//		type(KeyCode.ENTER);
+		//type(KeyCode.ENTER);
 		type(KeyCode.CANCEL);
 		sleep(2000);
-		
-		}			
+	}			
 
+	/**
+	 * This test will save the currently loaded map.
+	 */
 	@Test
 	public void checkFileTabMapSave(){
-		
 		clickSearchButton();
 		
 		click("#FileTab");
@@ -252,27 +285,30 @@ public class GuiTestFx extends GuiTest {
 		sleep(1000);
 		type("Dateiname.osm");
 		sleep(500);
-//		type(KeyCode.ENTER);
+		//type(KeyCode.ENTER);
 		type(KeyCode.CANCEL);
 		sleep(2000);	
 	}
 
+	/**
+	 * This test will go to the middlepoint tab and click the center node button.
+	 */
 	@Test
-	public void checkMiddlePointTabCenterNode(){
-		
+	public void checkMiddlePointTabCenterNode(){	
 		clickSearchButton();
 		
 		click("#TabRadius");
 		Button btn = find("#searchButtonRadius");
 		sleep(1000);
 		click(btn);
-		sleep(2000);
-		
+		sleep(2000);	
 	}
 
+	/**
+	 * This test will try to center on a node with a wrong latitude.
+	 */
 	@Test
-	public void checkMiddlePointTabCenterNodeLatitudeNegativ(){
-		
+	public void checkMiddlePointTabCenterNodeLatitudeNegativ(){	
 		clickSearchButton();
 		
 		click("#TabRadius");
@@ -291,9 +327,11 @@ public class GuiTestFx extends GuiTest {
 		
 	}
 
+	/**
+	 * This test will try to center on a node with a wrong longitude.
+	 */
 	@Test
 	public void checkMiddlePointTabCenterNodeLongitudeNegativ(){
-
 		clickSearchButton();
 		
 		click("#TabRadius");
@@ -308,7 +346,6 @@ public class GuiTestFx extends GuiTest {
 		click(btn);
 		sleep(1000);
 		type(KeyCode.ENTER);
-		sleep(2000);
-			
+		sleep(2000);	
 	}
 }
