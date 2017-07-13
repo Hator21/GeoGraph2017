@@ -50,21 +50,21 @@ public class GuiTestFx extends GuiTest {
 //	@Test
 	@Ignore
 	public void checkSearchButton() {
-		Button buttonlbl = find("#searchButtonArea");
-		assertTrue(buttonlbl.getText().equals("Nach Koordinaten suchen"));
+		Button btn = find("#searchButtonArea");
+		assertTrue(btn.getText().equals("Nach Koordinaten suchen"));
 		sleep(1000);
 	}
 	
 //	@Test
 	@Ignore
 	public void checkSearchButtonFunction() {
-		Button buttonlbl = find("#searchButtonArea");
-		click(buttonlbl);
+		Button btn = find("#searchButtonArea");
+		click(btn);
 		sleep(1000);
 	}
 	
-	@Test
-//	@Ignore
+//	@Test
+	@Ignore
 	//negativ Test
 	public void checkLeftLatitudeValue() {
 		TextField tField =find("#latitudeTextFieldL");
@@ -94,8 +94,8 @@ public class GuiTestFx extends GuiTest {
 		
 	}
 	
-	@Test
-//	@Ignore
+//	@Test
+	@Ignore
 	public void checkLeftLongitudeValue() {
 		TextField tField =find("#longitudeTextFieldL");
 		sleep(500);
@@ -152,20 +152,39 @@ public class GuiTestFx extends GuiTest {
 //	@Test 
 	public void checkSlideControl() {
 		Button btn = find("#searchButtonArea");
+		Slider sliderX = find("#zoomSlider");
 		click(btn);
-		
 		sleep(1000);
-		//todo Slider wird nicht getroffen
-		// nicht ausgelöst
-		moveBy( 0, 682);
-
+		double max = sliderX.getMax();
+		double min = sliderX.getMin();
+		for(double i = min; i < max - 1; i += 0.1){
+			sliderX.setValue(i);
+			sleep(500);
+		}
+		sleep(1000);
+		moveBy( 500, 0 );
+		press(MouseButton.PRIMARY);
+		moveBy( 0, 200 );
+		moveBy( 200, 0);
+		moveBy( 0, -200);
+		moveBy(-200, 0);
+		moveBy(0, 200);
+		release(MouseButton.PRIMARY);
+		sleep(1000);
+		for(double i = min + 1; i < max; i += 0.1){
+			sliderX.setValue(i);
+			sleep(500);
+		}
 		sleep(1000);
 		press(MouseButton.PRIMARY);
-		moveBy( 100, 0);
-		moveBy( -100, 0);
+		moveBy( 0, 200 );
+		moveBy( 200, 0);
+		moveBy( 0, -200);
+		moveBy(-200, 0);
+		moveBy(0, 200);
+		release(MouseButton.PRIMARY);
 		sleep(1000);
-//		press(MouseButton.PRIMARY);
-//		moveBy(400,0);
+
 	}
 	
 	@Ignore
