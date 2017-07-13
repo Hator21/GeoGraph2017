@@ -2,6 +2,7 @@ package de.fh_bielefeld.geograph.TEST;
 
 import static org.junit.Assert.*;
 import java.io.IOException;
+import java.util.Random;
 import java.util.concurrent.TimeUnit;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -13,6 +14,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseButton;
+
 
 /**
  * Tests for the GUI
@@ -54,6 +56,28 @@ public class GuiTestFx extends GuiTest {
 	private void clickSearchButton(){
 		Button btn = find("#searchButtonArea");
 		click(btn);
+	}
+	
+	/**
+	 * Returns a psuedo-random number between min and max, inclusive.
+	 * The difference between min and max can be at most
+	 * <code>Integer.MAX_VALUE - 1</code>.
+	 *
+	 * @param min Minimim value
+	 * @param max Maximim value.  Must be greater than min.
+	 * @return Integer between min and max, inclusive.
+	 * @see java.util.Random#nextInt(int)
+	 */
+	public static int randInt(int min, int max) {
+
+	    // Usually this can be a field rather than a method variable
+	    Random rand = new Random();
+
+	    // nextInt is normally exclusive of the top value,
+	    // so add 1 to make it inclusive
+	    int randomNum = rand.nextInt((max - min) + 1) + min;
+
+	    return randomNum;
 	}
 	
 	/**
@@ -257,17 +281,15 @@ public class GuiTestFx extends GuiTest {
 	 */
 	@Test
 	public void checkFileTabMapLoad(){	
-		clickSearchButton();
 		
 		click("#FileTab");
 		Button btn = find("#fileChooserButton");
 		sleep(1000);
 		click(btn);
 		sleep(1000);
-		type("Dateiname.osm");
+		type("Beispiel.osm");
 		sleep(500);
-		//type(KeyCode.ENTER);
-		type(KeyCode.CANCEL);
+		type(KeyCode.ENTER);
 		sleep(2000);
 	}			
 
@@ -276,6 +298,8 @@ public class GuiTestFx extends GuiTest {
 	 */
 	@Test
 	public void checkFileTabMapSave(){
+		int min = 0;
+		int max = 99;
 		clickSearchButton();
 		
 		click("#FileTab");
@@ -283,10 +307,9 @@ public class GuiTestFx extends GuiTest {
 		sleep(1000);
 		click(btn);
 		sleep(1000);
-		type("Dateiname.osm");
+		type("newOsm" + randInt(min, max) + ".osm");
 		sleep(500);
-		//type(KeyCode.ENTER);
-		type(KeyCode.CANCEL);
+		type(KeyCode.ENTER);
 		sleep(2000);	
 	}
 
