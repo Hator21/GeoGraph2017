@@ -227,7 +227,7 @@ public class OSMStreetGUIController {
 
 		fileChooserButton.setOnAction((event) -> {
             FileChooser fileChooser = new FileChooser();
-            fileChooser.setInitialDirectory(new File("./Maps"));
+            fileChooser.setInitialDirectory(new File("."));
             fileChooser.setTitle("Datei laden");
             File chooserFile = fileChooser.showOpenDialog(fileChooserButton.getScene().getWindow());
 
@@ -238,7 +238,7 @@ public class OSMStreetGUIController {
 
         fileSaveButton.setOnAction((event) -> {
             FileChooser fileChooser = new FileChooser();
-            fileChooser.setInitialDirectory(new File("./Maps"));
+            fileChooser.setInitialDirectory(new File("."));
             fileChooser.setTitle("Datei speichern");
             File chooserFile = fileChooser.showSaveDialog(fileSaveButton.getScene().getWindow());
 
