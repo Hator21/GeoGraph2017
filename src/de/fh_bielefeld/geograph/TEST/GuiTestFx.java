@@ -16,6 +16,7 @@ import org.loadui.testfx.categories.TestFX;
 import com.sun.webkit.dom.KeyboardEventImpl;
 
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -148,19 +149,23 @@ public class GuiTestFx extends GuiTest {
 		sleep(1000);
 	}
 	
-	@Ignore
-//	@Test 
+//	@Ignore
+	@Test 
 	public void checkSlideControl() {
 		Button btn = find("#searchButtonArea");
 		Slider sliderX = find("#zoomSlider");
-		click(btn);
-		sleep(1000);
+
 		double max = sliderX.getMax();
 		double min = sliderX.getMin();
-		for(double i = min; i < max - 1; i += 0.1){
+		
+		click(btn);
+		sleep(1000);
+		
+		for(double i = min; i <= max - 1; i += 0.01){
 			sliderX.setValue(i);
-			sleep(500);
+			sleep(100);
 		}
+		
 		sleep(1000);
 		moveBy( 500, 0 );
 		press(MouseButton.PRIMARY);
@@ -171,10 +176,12 @@ public class GuiTestFx extends GuiTest {
 		moveBy(0, 200);
 		release(MouseButton.PRIMARY);
 		sleep(1000);
-		for(double i = min + 1; i < max; i += 0.1){
+		
+		for(double i = max - 1; i <= max; i += 0.01){
 			sliderX.setValue(i);
-			sleep(500);
+			sleep(100);
 		}
+		
 		sleep(1000);
 		press(MouseButton.PRIMARY);
 		moveBy( 0, 200 );
@@ -185,6 +192,21 @@ public class GuiTestFx extends GuiTest {
 		release(MouseButton.PRIMARY);
 		sleep(1000);
 
+	}
+	
+	@Test
+	public void checkFileTab(){
+		checkSearchButtonFunction();
+		Node tab = find("#FileTab");
+		click(tab);
+		
+	}
+	
+	@Test
+	public void checkMiddlePointTab(){
+		checkSearchButtonFunction();
+		Node tab = find("#TabRadius");
+		click(tab);
 	}
 	
 	@Ignore
