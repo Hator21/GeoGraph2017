@@ -6,6 +6,6 @@ import org.junit.runners.Suite.SuiteClasses;
 
 @RunWith(Suite.class)
 // more classes to add to Testsuite
-@SuiteClasses({OSMApiTest.class, GuiTestFx.class, OSMParserTest.class})
+@SuiteClasses({OSMApiTest.class, OSMParserTest.class, GuiTestFx.class})
 public class TestAll {
 }
