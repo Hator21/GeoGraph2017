@@ -1,5 +1,0 @@
-GUI 
-Es fehlt der Bontybox Anteil
-Es soll möglich sein sich den nächsten Node zu den eingegebenen Daten genauer anzeigen zu lassen
-	->Node wird zum neuen Mittelpunkt!
-Karte Soll bewegbar sein wenn reingeholt wurde
