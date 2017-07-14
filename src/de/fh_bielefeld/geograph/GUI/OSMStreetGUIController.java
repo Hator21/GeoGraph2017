@@ -608,6 +608,7 @@ public class OSMStreetGUIController {
             content.setDocument(doc);
             callParser();
             fileSaveButton.setDisable(true);
+            TabRadius.setDisable(false);
         } catch (SAXException | IOException | NullPointerException | ParserConfigurationException e) {
             Alert alert = new Alert(AlertType.INFORMATION);
             alert.setTitle("Kritischer Fehler");
